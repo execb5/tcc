@@ -1,4 +1,4 @@
-# tcc
+# tcc :mortar_board:
 
 ---
 
