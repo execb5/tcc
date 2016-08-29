@@ -1,0 +1,90 @@
+\documentclass[11pt,twoside,brazil]{pep}
+\usepackage{a4wide}
+\usepackage{geometry}
+\geometry{verbose,a4paper}
+\pagestyle{headings}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc} 
+\usepackage{graphicx}
+%\usepackage[breaklinks=true]{hyperref}
+%\usepackage{cite}
+\usepackage{breakcites}
+% \usepackage[latin1]{inputenc}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+%\makesavenoteenv{tabular}
+%\makesavenoteenv{table}
+\usepackage{tablefootnote}
+\usepackage{scrextend}
+\usepackage{hyperref}
+\usepackage{multirow}
+
+\makeatletter
+
+\providecommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+\floatstyle{ruled}
+
+\usepackage{verbatim}
+
+\usepackage{babel}
+\makeatother
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\begin{document}
+
+\title{Titulo}
+
+\author{Daniel Antoniazzi Amarante \and Matthias Oliveira de Nunes}
+
+\Advisor{Profº. Drº. Roland Teodorowitsch}
+
+\maketitle
+
+\maketitlerosto
+
+
+%\listof{algorithm}{List of Algorithms}
+
+\begin{agradecimentos}
+
+\input{./misc/agradecimentos}
+
+\end{agradecimentos}
+
+\begin{resumo}
+\input{./misc/resumo}
+\end{resumo}
+
+\begin{abstract}
+
+\end{abstract}
+
+\listoffigures
+
+\listoftables
+
+\tableofcontents{}
+
+%\listofabbreviations
+\begin{comment}
+Notem que a lista de abreviaturas precisa ser declarada. As abreviaturas do
+texto podem estar colocadas em qualquer lugar. A lista final contem a abreviatura,
+a explicacao e o numero da pagina onde o simbolo e' usado pela primeira vez
+(na verdade, a pagina onde o comando \textbackslash{}abbrev e' declarado\ldots{})
+\end{comment}
+
+
+
+\input{./chapters/introducao/introducao}
+\input{./chapters/relacionados/relacionados}
+
+\bibliographystyle{abnt}
+
+\bibliography{references}
+
+\end{document}
