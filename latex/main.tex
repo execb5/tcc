@@ -1,67 +1,66 @@
-\documentclass[11pt,twoside,brazil]{pep}
-\usepackage{a4wide}
-\usepackage{geometry}
-\geometry{verbose,a4paper}
-\pagestyle{headings}
-\usepackage{float}
-\usepackage{multirow}
+\documentclass[a4paper,ordem=alf]{abntex2}
+
+%\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[utf8x]{inputenc} 
+\usepackage{float}
 \usepackage{graphicx}
-%\usepackage[breaklinks=true]{hyperref}
-%\usepackage{cite}
-\usepackage{breakcites}
-% \usepackage[latin1]{inputenc}
-\usepackage{array}
-\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
-%\makesavenoteenv{tabular}
-%\makesavenoteenv{table}
-\usepackage{tablefootnote}
-\usepackage{scrextend}
-\usepackage{hyperref}
-\usepackage{multirow}
 
-\makeatletter
+%\documentclass[11pt,twoside,brazil]{pep}
+%\usepackage{a4wide}
+%\usepackage{geometry}
+%\geometry{verbose,a4paper}
+%\pagestyle{headings}
+%\usepackage{float}
+%\usepackage{multirow}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8x]{inputenc} 
+%\usepackage{graphicx}
+%%\usepackage[breaklinks=true]{hyperref}
+%%\usepackage{cite}
+%\usepackage{breakcites}
+%% \usepackage[latin1]{inputenc}
+%\usepackage{array}
+%\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+%%\makesavenoteenv{tabular}
+%%\makesavenoteenv{table}
+%\usepackage{tablefootnote}
+%\usepackage{scrextend}
+%\usepackage{hyperref}
+%\usepackage{multirow}
 
-\providecommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+%\makeatletter
 
-\floatstyle{ruled}
+%\providecommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
 
-\usepackage{verbatim}
+%\floatstyle{ruled}
 
-\usepackage{babel}
-\makeatother
+%\usepackage{verbatim}
 
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+%\usepackage{babel}
+%\makeatother
+
+%\setcounter{secnumdepth}{3}
+%\setcounter{tocdepth}{3}
 
 \begin{document}
 
-\title{Titulo}
+\title{Título}
 
 \author{Daniel Antoniazzi Amarante \and Matthias Oliveira de Nunes}
 
-\Advisor{Drº. Roland Teodorowitsch}
+%\professor{Drº. Roland Teodorowitsch}
 
 \maketitle
 
-\maketitlerosto
+%\maketitlerosto
 
 
 %\listof{algorithm}{List of Algorithms}
 
-\begin{agradecimentos}
-
-\input{./misc/agradecimentos}
-
-\end{agradecimentos}
-
-\begin{resumo}
-\input{./misc/resumo}
-\end{resumo}
 
 \begin{abstract}
-
+ aeuiF6hiaehfuiaehf
 \end{abstract}
 
 \listoffigures
@@ -70,18 +69,17 @@
 
 \tableofcontents{}
 
-%\listofabbreviations
-\begin{comment}
-Notem que a lista de abreviaturas precisa ser declarada. As abreviaturas do
-texto podem estar colocadas em qualquer lugar. A lista final contem a abreviatura,
-a explicacao e o numero da pagina onde o simbolo e' usado pela primeira vez
-(na verdade, a pagina onde o comando \textbackslash{}abbrev e' declarado\ldots{})
-\end{comment}
+\chapter{Introdução}
 
-
-
-\input{./chapters/introducao/introducao}
-\input{./chapters/relacionados/relacionados}
+Os sistemas de auxílio aos motoristas para encontrar vagas em estacionamentos
+são algo que vem crescendo no mercado. Utilizando-se de sensores posicionados em
+cada vaga, já vemos na maioria dos estacionamentos de shopping esse auxílio para
+os motoristas. Porém a compra e instalação de tais sistema é bem custosa, tanto
+na compra do hardware quanto na instalação(citation needed), o que nos leva a
+pensar que podem haver maneiras diferentes de fazer este serviço com eficiência
+e menos custo. Neste trabalho propomos a detecção de vagas e informações sobre
+lotamento e identificação dos carros baseado em cameras posicionadas em pontos
+de gargalo das vias do estacionamento. 
 
 \bibliographystyle{abnt}
 
