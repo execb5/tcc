@@ -1,0 +1,36 @@
+
+Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
+proposta por~\cite{serro2012deteccao} na PUCRS, utilizando técnicas de
+segmentação de imagens, histograma, cisalhamento de imagens e reconhecimento
+ótico de caracteres. Sua implementação dem uma série de restrições, são apenas
+considerados um subconjunto de placas, excluindo placas de representação e de
+deficientes auditivos, não sao reconhecidos estado e cidade da placa, e o
+ambiente onde seria feita a foto para reconhecimento seria em situações onde o
+veículo se encontra parado, com a camera posicionada a frente do veículo.
+
+A metodologia utilizada consistiu das seguintes etapas, calibração do sistema
+para deifnir a região de interesse e o ângulo de cisalhamento, detecção da
+placa, segmentação dos caracteres e aplicação do reconhecedor ótico de
+caracteres.
+
+Com a solução proposta foi obtida uma taxa de acerto de aproximadamente 54\%,
+com tempo médio de execução de 0.062 segundos por imagem. A baixa taxa de acerto
+pode ter se dada por problemas de foco e nitidez, o tamanho da placa em pixels
+nas imagens e a existência de outros objetos em cena, que foram problemas
+citados no desenvolvimento do projeto.
+
+Em \cite{ahmad2015automatic} foi feito um estudo comparativo dos sistemas de
+reconhecimento de placas automotivas automaticos, segundo eles, o processo de
+ler o conteúdo de uma placa passa por três estágios. O primeiro é a localização
+ou extração da placa, que consiste no processo de localizar a placa do carro na
+imagem. O segundo estágio é a separação dos caracteres, onde cada caracter
+individual é separado dos outros para reconhecimento. E o terceiro e último
+estágio é o reconhecimento do caracter em si, onde os caracteres extraídos da
+imagem são identificados.
+
+Foram implementados três diferentes métodos de localização de placa e dois
+diferentes métodos de reconhecimento de caracteres, resultando em 6 diferentes
+abordagens para o reconhecimento de placas.
+
+
+
