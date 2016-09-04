@@ -9,7 +9,7 @@ Complete:
 - [ ] *Introduction*
 - [ ] *Related works/articles*
 - [ ] *Objectives*
-- [ ] *Resources*
+- [x] *Resources*
 - [ ] *Schedule*
 
 ---
