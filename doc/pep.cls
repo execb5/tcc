@@ -229,13 +229,13 @@ Novo comando: \ listofabbreviations^^J
 				}
 			
     {\LARGE \@title\\[2em]}
-    		{\large CANDICE TOSI MICHELON E GABRIEL KRYVORUCHCA DE MATTOS \\[2em]}
+    		{\large DANIEL ANTONIAZZI AMARANTE E MATTHIAS OLIVEIRA DE NUNES \\[2em]}
  			       	\vspace*{\stretch{1}}
- 			       {\LARGE Visualizacao Dinamica de \emph{Tweets} }
+ 			       {\LARGE Título }
  			       
  			        \vspace*{\stretch{0.3}} 
  			        
- 			        {Orientadora: \advisor
+ 			        {Orientador: \advisor
 				          \vspace*{\stretch{1}}\par
 				        \textbf{\pep}
             \vskip 1.5em%

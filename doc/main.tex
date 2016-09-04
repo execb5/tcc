@@ -60,7 +60,7 @@
 
 \maketitle
 
-%\maketitlerosto
+\maketitlerosto
 
 %\begin{resumo}
 %\input{resumo}
@@ -70,17 +70,31 @@
 %\input{abstract}
 %\end{abstract}
 
-%\tableofcontents{}
+\tableofcontents{}
 
-%\listoffigures
+\listoffigures
 
-%\listoftables
+\listoftables
 
-%\chapter{Introdução}
-%\input{introducao}
+\chapter{Introdução}
+\label{cha:intro}
+\input{./chapters/introducao.tex}
 
-%\chapter{Trabalhos Relacionados}
-%\input{trabalhos_relacionados}
+\chapter{Trabalhos Relacionados}
+\label{cha:trab}
+\input{./chapters/trabalhos_relacionados.tex}
+
+\chapter{Modelo}
+\label{cha:modelo}
+\input{./chapters/modelo.tex}
+
+\chapter{Cronograma}
+\label{cha:crono}
+\input{./chapters/cronograma.tex}
+
+\chapter{Recursos Necessários}
+\label{cha:recursos}
+\input{./chapters/recursos_necessarios.tex}
 
 %\chapter{Levantamento de Requisitos}
 %\input{levantamento_de_requisitos}
@@ -94,8 +108,8 @@
 %\chapter{Comentários Finais}
 %\input{comentarios_finais}
 
-%\bibliographystyle{abnt}
-%\bibliography{references}
+\bibliographystyle{abnt}
+\bibliography{references}
 
 %\begin{appendices}
 %\input{apendices}
