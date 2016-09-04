@@ -10,6 +10,6 @@ Complete:
 - [ ] *Related works/articles*
 - [ ] *Objectives*
 - [x] *Resources*
-- [ ] *Schedule*
+- [x] *Schedule*
 
 ---
