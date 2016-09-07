@@ -2,11 +2,11 @@
 Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
 proposta por~\cite{serro2012deteccao} na PUCRS, utilizando técnicas de
 segmentação de imagens, histograma, cisalhamento de imagens e reconhecimento
-ótico de caracteres. Sua implementação dem uma série de restrições, são apenas
+ótico de caracteres. Sua implementação tem uma série de restrições, são apenas
 considerados um subconjunto de placas, excluindo placas de representação e de
-deficientes auditivos, não sao reconhecidos estado e cidade da placa, e o
+deficientes auditivos, não são reconhecidos estado e cidade da placa, e o
 ambiente onde seria feita a foto para reconhecimento seria em situações onde o
-veículo se encontra parado, com a camera posicionada a frente do veículo.
+veículo se encontra parado, com a câmera posicionada a frente do veículo.
 
 A metodologia utilizada consistiu das seguintes etapas, calibração do sistema
 para deifnir a região de interesse e o ângulo de cisalhamento, detecção da
@@ -23,9 +23,9 @@ Em \cite{ahmad2015automatic} foi feito um estudo comparativo dos sistemas de
 reconhecimento de placas automotivas automaticos, segundo eles, o processo de
 ler o conteúdo de uma placa passa por três estágios. O primeiro é a localização
 ou extração da placa, que consiste no processo de localizar a placa do carro na
-imagem. O segundo estágio é a separação dos caracteres, onde cada caracter
+imagem. O segundo estágio é a separação dos caracteres, onde cada caractere
 individual é separado dos outros para reconhecimento. E o terceiro e último
-estágio é o reconhecimento do caracter em si, onde os caracteres extraídos da
+estágio é o reconhecimento do caractere em si, onde os caracteres extraídos da
 imagem são identificados.
 
 Foram implementados três diferentes métodos de localização de placa e dois
@@ -35,8 +35,8 @@ testadas contra diferentes conjuntos de dados.
 
 Os resultados obtidos na experimentação não foram muito animadores, variando
 entre 20 e 40 por cento. Um dos motivos para os maus resultados foi a variedade
-de parametros nas imagens do conjunto de dados de teste, variações na distancia,
-angulo, iluminação e ambiente. Estes erros poderiam ser mitigados em sistemas
+de parametros nas imagens do conjunto de dados de teste, variações na distância,
+ângulo, iluminação e ambiente. Estes erros poderiam ser mitigados em sistemas
 reais com uma câmera com resolução fixa e de boa qualidade. A variação do
 tamanho da placa afetou o desempenho de alguns algoritmos, mas em uma câmera
 fixa é possível obter uma consistência e conseguir resultados mais aceitáveis.
@@ -46,10 +46,10 @@ das imagens, que a análise não considerou e a utilização de mais dados de
 aprendizado para o reconhecimento ótico de caracteres.
 
 Em~\cite{abtahi2015deep} foi feito um nova abordagem para a segmentação de
-caractéres em imagens, de acordo com eles, o método padrão de segmentação
+caracteres em imagens, de acordo com eles, o método padrão de segmentação
 baseado em projeção sofre com variações consideráveis na região da placa envolto
 aos caracteres. Eles propoem uma nova abordagem adaptando um método de
 aprendizado por reforço, criando um agente que consiga achar os melhores
 caminhos para a segmentação, e depois uma outra abordagem fazendo um método
-hibrido que utiliza a simplicidade e velocidade do método de projeção, mas com o
+híbrido que utiliza a simplicidade e velocidade do método de projeção, mas com o
 poder do aprendizado por reforço.
