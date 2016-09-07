@@ -6,6 +6,13 @@ tempo real com base nas imagens da câmera captadas no momento e a informação
 coletada e processada deve ser enviada para um servidor que possa utilizar estes
 dados.
 
+O fluxo esperado do software é o seguinte. O computador Raspberry pi ficará postado
+em uma rota de fluxo frequente de carros, posicionado de maneira que consiga capturar
+imagens das placas em boa qualidade com sua camera. Será nescessário o módulo de câmera
+e de bateria, ou haver uma fonte de energia por perto. Ao capturar as imagens, o computador
+irá processá-las localmente, seguindo os passos do reconhecimento de placas e contagem de carros.
+Após obtida, a informação será enviada para um servidor simples que irá armazená-la.
+
 Segundo~\cite{ahmad2015automatic}, o reconhecimento de placas automotivas requer
 três passos, a localização da placa, a separação dos caracteres e o
 reconhecimento dos caracteres. Para a localização da placa e separação dos
