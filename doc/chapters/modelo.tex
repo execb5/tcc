@@ -2,13 +2,13 @@
 O objetivo deste trabalho é desenvolver um software embarcado em um Raspberry Pi
 equipado com módulo de câmera que seja capaz de reconhecer veículos, contá-los e
 identificá-los baseado-se em sua placa. Todo o processamento deve acontecer em
-tempo real com base nas imagens da câmera captadas no momento e a informação
+tempo real com base nas imagens da câmera captadas no momento. A informação
 coletada e processada deve ser enviada para um servidor que possa utilizar estes
-dados.
+dados em tempo real.
 
 O fluxo esperado do software é o seguinte. O computador Raspberry pi ficará postado
-em uma rota de fluxo frequente de carros, posicionado de maneira que consiga capturar
-imagens das placas em boa qualidade com sua camera. Será nescessário o módulo de câmera
+em uma rota de fluxo frequente de carros. Ele ficará posicionado de maneira que consiga capturar
+imagens das placas em boa qualidade com sua câmera. Será nescessário o módulo de câmera
 e de bateria, ou haver uma fonte de energia por perto. Ao capturar as imagens, o computador
 irá processá-las localmente, seguindo os passos do reconhecimento de placas e contagem de carros.
 Após obtida, a informação será enviada para um servidor simples que irá armazená-la. Para o envio
@@ -17,9 +17,9 @@ das informações, o computador também precisará estar equipado com algum mód
 Segundo Ahmad et al.~\cite{ahmad2015automatic}, o reconhecimento de placas automotivas requer
 três passos, a localização da placa, a separação dos caracteres e o
 reconhecimento dos caracteres. Para a localização da placa e separação dos
-caracteres será utilizada a biblioteca OpenCV e a linguagem de programação C,
-C++ ou Python, pois são as linguagens mais usadas para OpenCV, a melhor
-abordagem ainda será analisada. Para o reconhecimento dos caracteres será
+caracteres serão utilizados a biblioteca OpenCV e a linguagem de programação C,
+C++ ou Python. O motivo da escolha dessas linguagens se dá porque são as linguagens mais usadas 
+para OpenCV, a melhor abordagem ainda será analisada. Para o reconhecimento dos caracteres será
 estudada a possibilidade de utilizar o software Tesseract ou criar uma solução
 própria. As escolhas a serem feitas tem como objetivo maximizar os resultados ao
 final do trabalho, tentando criar um balanço entre facilidade de implementação e
@@ -39,7 +39,7 @@ Foundation\footnote{https://www.raspberrypi.org/}.
 \section{OpenCV}
 \label{sec:opencv}
 
-OpenCV (Open Source Computer Vision Library) é uma biblioteca open source de
+OpenCV (\emph{Open Source Computer Vision Library}) é uma biblioteca open source de
 visão computacional e aprendizado de máquina. Contém mais de 2500 algoritmos
 otimizados nessas áreas, incluindo algoritmos clássicos e recentes. A biblioteca
 é escrita nativamente em C++, e dispõe de interfaces para C, C++, Python, Java e
@@ -49,31 +49,56 @@ OS.\footnote{http://opencv.org/}
 \section{OCR}
 \label{sec:ocr}
 
-Reconhecimento Ótico de Caracteres(OCR) consiste da conversão de textos em
-formato de imagem para o formato reconhecido por maquina. É o método mais
+Reconhecimento Ótico de Caracteres(\emph{Optical character recognition}, OCR) consiste da conversão de textos em
+formato de imagem para o formato reconhecido por máquina. É o método mais
 eficiente para fazer o processamento de imagem para
 texto.~\cite{mohit2015designing}
 
 Uma ferramenta conhecida de OCR é o
 Tesseract\footnote{https://github.com/tesseract-ocr/tesseract}. É uma ferramenta
-open source de reconhecimento ótico de caracteres que suporta múltiplas linguas.
+\emph{open source} de reconhecimento ótico de caracteres que suporta múltiplas linguas.
 É essencialmente um algoritmo de comparação de templates, e as amostras de
 caracteres podem ser auto-treinados.~\cite{ho2016intelligent}
 
 \section{Placa de Transito Brasileira}
 
 Segundo o código de transito brasileiro~\cite{brasil1997lei}, todos os veículos
-são identificados por meio de placas dianteira e traseira.  Elas são
+são identificados por meio de placas dianteira e traseira. Elas são
 identificadas por uma tarja na parte superior contendo a sigla do estado e o
 nome do município, e pelo código de identificação unico, composto por três
-letras, seguidas por quatro digitos, separados por um hífen. Veículos
-particulares, de aluguel, oficial, de experiência, de aprendizagem e de
-fabricante tem suas dimensões de 130mmx400mm e altura dos caracteres de 63mm,
-caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
+letras, seguidas por quatro digitos, separados por um hífen. 
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=88mm]{placa_carro.png}
+		\caption{Placa de um carro}
+		\label{fig:placa_carro}
+\end{figure}
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=88mm]{placa_moto.png}
+		\caption{Placa de uma moto}
+		\label{fig:placa_moto}
+\end{figure}
+
+Veículos particulares, de aluguel, oficial, de experiência, de aprendizagem e de
+fabricante tem suas dimensões de 130mmx400mm e altura dos caracteres de 63mm.
+Caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
 placas de motocicleta, motoneta, ciclomotor e triciclos autorizados tem
 dimensões de 136mmx187mm e altura de caracteres de 42mm. Imagem das placas com
 suas dimensões podem ser vistos nas figuras~\ref{fig:placa_carro}
-e~\ref{fig:placa_moto}. A tipologia dos caracteres das placas utiliza a fonte
+e~\ref{fig:placa_moto}. 
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=88mm]{fonte.png}
+		\caption{Tipografia das placas}
+		\label{fig:tipografia}
+\end{figure}
+
+
+A tipologia dos caracteres das placas utiliza a fonte
 Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de
 veículos são diferenciadas pelas suas cores na tabela~\ref{tab:placa_cores}.
 
@@ -99,25 +124,3 @@ Representação                                                               & 
 \end{tabular}
 \caption{Cores das placas automotivas}
 \end{table}
-
-\begin{figure}[H]
-		\centering
-		\includegraphics[width=88mm]{fonte.png}
-		\caption{Tipografia das placas}
-		\label{fig:tipografia}
-\end{figure}
-
-\begin{figure}[H]
-		\centering
-		\includegraphics[width=88mm]{placa_carro.png}
-		\caption{Placa de um carro}
-		\label{fig:placa_carro}
-\end{figure}
-
-\begin{figure}[H]
-		\centering
-		\includegraphics[width=88mm]{placa_moto.png}
-		\caption{Placa de uma moto}
-		\label{fig:placa_moto}
-\end{figure}
-
