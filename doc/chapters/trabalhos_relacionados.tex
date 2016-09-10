@@ -1,26 +1,26 @@
 
 Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
-proposta por Serro~\cite{serro2012deteccao} na PUCRS, utilizando técnicas de
-segmentação de imagens, histograma, cisalhamento de imagens e reconhecimento
-ótico de caracteres. Sua implementação tem uma série de restrições, são apenas
-considerados um subconjunto de placas, excluindo placas de representação e de
-deficientes auditivos, não são reconhecidos estado e cidade da placa, e o
+proposta por Serro~\cite{serro2012deteccao} na PUCRS. Neste trabalho foram utilizadas
+técnicas de segmentação de imagens, histograma, cisalhamento de imagens e reconhecimento
+ótico de caracteres. Sua implementação tem uma série de restrições. É apenas considerado
+um subconjunto de placas, excluindo placas de representação e de
+deficientes auditivos. Não são reconhecidos estado e cidade da placa. E o
 ambiente onde seria feita a foto para reconhecimento seria em situações onde o
-veículo se encontra parado, com a câmera posicionada a frente do veículo.
+veículo se encontra parado, com a câmera posicionada à frente do veículo.
 
 A metodologia utilizada consistiu das seguintes etapas, calibração do sistema
-para deifnir a região de interesse e o ângulo de cisalhamento, detecção da
+para definir a região de interesse e o ângulo de cisalhamento, detecção da
 placa, segmentação dos caracteres e aplicação do reconhecedor ótico de
 caracteres.
 
 Com a solução proposta foi obtida uma taxa de acerto de aproximadamente 54\%,
 com tempo médio de execução de 0.062 segundos por imagem. A baixa taxa de acerto
 pode ter se dada por problemas de foco e nitidez, o tamanho da placa em pixels
-nas imagens e a existência de outros objetos em cena, que foram problemas
+nas imagens e a existência de outros objetos em cena. Todos esses problemas
 citados no desenvolvimento do projeto.
 
 Em Ahmad et al.\cite{ahmad2015automatic} foi feito um estudo comparativo dos sistemas de
-reconhecimento de placas automotivas automaticos, segundo eles, o processo de
+reconhecimento de placas automotivas automaticos. Segundo eles, o processo de
 ler o conteúdo de uma placa passa por três estágios. O primeiro é a localização
 ou extração da placa, que consiste no processo de localizar a placa do carro na
 imagem. O segundo estágio é a separação dos caracteres, onde cada caractere
@@ -28,31 +28,30 @@ individual é separado dos outros para reconhecimento. E o terceiro e último
 estágio é o reconhecimento do caractere em si, onde os caracteres extraídos da
 imagem são identificados.
 
-Foram implementados três diferentes métodos de localização de placa e dois
+Neste trabalho implementados três diferentes métodos de localização de placa e dois
 diferentes métodos de reconhecimento de caracteres, resultando em 6 diferentes
 abordagens para o reconhecimento de placas. Todas essas combinações foram então
 testadas contra diferentes conjuntos de dados.
 
 Os resultados obtidos na experimentação não foram muito animadores, variando
 entre 20 e 40 por cento. Um dos motivos para os maus resultados foi a variedade
-de parametros nas imagens do conjunto de dados de teste, variações na distância,
-ângulo, iluminação e ambiente. Estes erros poderiam ser mitigados em sistemas
-reais com uma câmera com resolução fixa e de boa qualidade. A variação do
+de parametros nas imagens do conjunto de dados de teste. Tais parametros incluem
+variações na distância, ângulo, iluminação e ambiente. Estes erros poderiam ser mitigados 
+em sistemas reais com uma câmera com resolução fixa e de boa qualidade. A variação do
 tamanho da placa afetou o desempenho de alguns algoritmos, mas em uma câmera
 fixa é possível obter uma consistência e conseguir resultados mais aceitáveis.
 
 Outros motivos para a baixa taxa de acerto foram a falta de pré-processamento
-das imagens, que a análise não considerou e a utilização de mais dados de
+das imagens, que a análise não considerou, e a utilização de mais dados de
 aprendizado para o reconhecimento ótico de caracteres.
 
 Em Abtahi et al.~\cite{abtahi2015deep} foi feito um nova abordagem para a segmentação de
-caracteres em imagens, de acordo com eles, o método padrão de segmentação
+caracteres em imagens. De acordo com eles, o método padrão de segmentação
 baseado em projeção sofre com variações consideráveis na região da placa envolto
-aos caracteres. Eles propoem uma nova abordagem adaptando um método de
-aprendizado por reforço, criando um agente que consiga achar os melhores
-caminhos para a segmentação, e depois uma outra abordagem fazendo um método
-híbrido que utiliza a simplicidade e velocidade do método de projeção, mas com o
-poder do aprendizado por reforço.
+aos caracteres. Estes autores propoem duas abordagens. A primeira é feita adaptando um método de
+aprendizado por reforço, criando um agente que consiga achar os melhores caminhos para a segmentação. 
+A segunda abordagem usa um método híbrido que utiliza a simplicidade e velocidade do método de projeção, 
+mas com o poder do aprendizado por reforço.
 
 De acordo com Wafy e Madbouly~\cite{wafy2016efficient}, o reconhecimento de uma placa consiste
 em dois mecanismos principais: detecção de uma placa e em seguida a
@@ -61,4 +60,4 @@ se baseia na distribuição semi-simétrica dos pontos de canto nas imagens de
 carros e placas, e nas características morfológicas da região da placa. Essa
 solução teve uma taxa de acerto de 97.5\% no processo de detecção e 92.8\% na
 identificação, com o maior tempo de execução para um dos processos sendo de
-0.3s, sendo possível de usar em aplicações de tempo real.
+0.3s. Com estes resultados seria possível utilizar este método em aplicações de tempo real.
