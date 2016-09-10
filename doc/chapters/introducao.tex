@@ -4,35 +4,39 @@ desde serviços de pagamentos automatizados, como pedágios, até aplicações m
 críticas, como segurança de fronteiras e sistemas de vigilância de
 tráfego~\cite{ahmad2015automatic}. E com o crescimento constante da frota de
 carros no Brasil, aplicações para auxiliar neste trabalho tornam-se cada vez
-mais nescessárias.  Com isso em mente, propomos neste trabalho uma solução de
+mais nescessárias. Com isso em mente, será proposto neste trabalho uma solução de
 aplicação embarcada de contagem de carros e reconhecimento de placas, visando a
 crescente nescessidade de controle na área e as peculiaridades das placas
-automotivas brasileiras, que nos impossibilitam de utilizar softwares
-estrangeiros, nescessitando pesquisas locais neste tema.
+automotivas brasileiras, que nos impossibilitam de utilizar ferramentas
+estrangeiras, nescessitando pesquisas locais neste tema.
 
 O reconhecimento automático de placas de carros (ALPR) é a extração das
 informações das placas de veículos a partir de uma imagem ou uma sequência de
-imagens, e a sua utilização na vida real precisa de um processamento rápido e
-bem sucedido de placas sob diferentes condições ambientais, deve considerar as
-diferenças entre as placas de diferentes nações, que terão cores, fontes, e
-linguas diferentes e se superar casos onde as placas possam estar parcialmente
-cobertas com sujeira, luzes e acessórios dos carros.~\cite{s2013automatic}
+imagens. Sua utilização na vida real precisa de um processamento rápido e
+bem sucedido de placas sob diferentes condições ambientais. Deve-se considerar as
+diferenças entre as placas de diferentes nações, que terão cores, fontes, símbolos e
+linguas diferentes. Também é preciso superar casos onde as placas possam estar 
+parcialmente cobertas com sujeira, luzes e acessórios dos carros.~\cite{s2013automatic}
 
 A solução proposta neste trabalho tem como diferencial o fato de permitir uma
 análise e processamento das imagens em tempo real. Isso será realizado
 utilizando um software embarcado, que estará coletando as imagens ao mesmo tempo
-que as analisa e as envia para um servidor, permitindo que esses dados sejam
-úteis para uma tomada de decisão imediata do usuário, por exemplo em uma
+que as analisa e as envia para um servidor. Com essa abordagem, será possível 
+que esses dados sejam úteis para uma tomada de decisão imediata do usuário. Por exemplo em uma
 aplicação de controle da lotação de um estacionamento, onde ter as informações
 sobre os dados em tempo real é crucial para a viabilidade do produto. Uma
-alternativa seria fazer a gravação das imagens em um momento, e o processamento
-em outro, entretanto, essa abordagem limitaria a utilidade do software.
+abordagem alternativa seria fazer a gravação das imagens em um momento, e o 
+processamento em outro. Entretanto, desta maneira, a utilidade do \emph{software} seria limitada,
+pois na maioria das aplicações reais estes dados precisam estar disponíveis imediatamente.
 
-Com o software será feita uma prova de conceito utilizando o estacionamento da
-PUCRS, se for possível adquirir permissão, posicionando a camera em um ponto de
-gargalo do estacionamento, que sirva de única entrada para uma determinada área,
-com a qual será feita a contagem e identificação dos veículos, permitindo saber
-qual a lotação daquele setor, e também identificar os veículos presentes.
+Com o resultado da implementação proposta será feita uma prova de conceito utilizando o estacionamento da
+PUCRS, se for possível adquirir permissão. Posicionando o computador com a câmera em um ponto estratégico 
+do estacionamento, serão analisados os carros que passarem. Esta localização deverá ser um ponto de gargalo
+do estacionamento, que sirva de única entrada para uma determinada área. Fazendo a contagem dos carros que
+passarem por este caminho, será possível obter informações sobre a quantidade de carros que se encontram
+naquela área e identificar os veículos presentes. Com essas informações à disposição, seria possível alimentar
+uma aplicação móvel que informe o usuário quais os melhores lugares para encontrar vagas para estacionar, por 
+exemplo.
 
 Este trabalho está organizado da seguinte maneira: No capítulo~\ref{cha:trab}
 serão apresentados trabalhos relacionados aos temas de reconhecimento de placas
