@@ -4,17 +4,17 @@ desde serviços de pagamentos automatizados, como pedágios, até aplicações m
 críticas, como segurança de fronteiras e sistemas de vigilância de
 tráfego~\cite{ahmad2015automatic}. E com o crescimento constante da frota de
 carros no Brasil, aplicações para auxiliar neste trabalho tornam-se cada vez
-mais nescessárias. Com isso em mente, será proposto neste trabalho uma solução de
+mais nescessárias. Com isso em mente, propõe-se neste trabalho uma solução de
 aplicação embarcada de contagem de carros e reconhecimento de placas, visando a
 crescente nescessidade de controle na área e as peculiaridades das placas
 automotivas brasileiras, que nos impossibilitam de utilizar ferramentas
-estrangeiras, nescessitando pesquisas locais neste tema.
+configuradas para placas estrangeiras, nescessitando pesquisas locais neste tema.
 
 O reconhecimento automático de placas de carros (\emph{Automatic license-plate recognition}, ALPR) 
-é a extração das informações das placas de veículos a partir de uma imagem ou uma sequência de
-imagens. Sua utilização na vida real precisa de um processamento rápido e
+é a extração das informações das placas de veículos a partir de uma imagem ou de uma 
+sequência de imagens. A sua utilização na vida real precisa de um processamento rápido e
 bem sucedido de placas sob diferentes condições ambientais. Deve-se considerar as
-diferenças entre as placas de diferentes nações, que terão cores, fontes, símbolos e
+diferenças entre as placas de diferentes nações, que terão cores, fontes, símbolos, padrões e
 linguas diferentes. Também é preciso superar casos onde as placas possam estar 
 parcialmente cobertas com sujeira, luzes e acessórios dos carros.~\cite{s2013automatic}
 
@@ -22,10 +22,14 @@ A solução proposta neste trabalho tem como diferencial o fato de permitir uma
 análise e processamento das imagens em tempo real. Isso será realizado
 utilizando um software embarcado, que estará coletando as imagens ao mesmo tempo
 que as analisa e as envia para um servidor. Com essa abordagem, será possível 
-que esses dados sejam úteis para uma tomada de decisão imediata do usuário. Por exemplo em uma
-aplicação de controle da lotação de um estacionamento, onde ter as informações
-sobre os dados em tempo real é crucial para a viabilidade do produto. Uma
-abordagem alternativa seria fazer a gravação das imagens em um momento, e o 
+que esses dados sejam úteis para uma tomada de decisão imediata do usuário. Um exemplo de
+uma aplicação onde a velocidade e a imediatidade das informações é crucial para a viabilidade
+do produto seria em um \emph{software} de controle de lotação de estacionamento. O usuário que
+utilizaria uma ferramenta para descobrir onde se encontram as vagas para estacionar precisa
+que estes dados sejam atualizados em tempo real, correndo o risco de a vaga denunciada pela
+aplicação não estar mais disponivel de fato, se o processamento não for ao vivo.
+
+Uma abordagem alternativa seria fazer a gravação das imagens em um momento, e o 
 processamento em outro. Entretanto, desta maneira, a utilidade do \emph{software} seria limitada,
 pois na maioria das aplicações reais estes dados precisam estar disponíveis imediatamente.
 
@@ -38,10 +42,10 @@ naquela área e identificar os veículos presentes. Com essas informações à d
 uma aplicação móvel que informe o usuário quais os melhores lugares para encontrar vagas para estacionar, por 
 exemplo.
 
-Este trabalho está organizado da seguinte maneira: No capítulo~\ref{cha:trab}
+Este trabalho está organizado da seguinte maneira: No capítulo~\ref{cha:trab},
 serão apresentados trabalhos relacionados aos temas de reconhecimento de placas
-e contagem de carros, no capítulo~\ref{cha:modelo} será apresentado o modelo
-proposto, e nos capítulos~\ref{cha:crono}  e~\ref{cha:recursos} serão mostrados
+e contagem de carros. No capítulo~\ref{cha:modelo}, será apresentado o modelo
+proposto. E nos capítulos~\ref{cha:crono}  e~\ref{cha:recursos}, serão mostrados
 o cronograma planejado e os recursos nescessários para a conclusão deste
 trabalho respectivamente.
 
