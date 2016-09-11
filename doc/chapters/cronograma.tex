@@ -2,20 +2,6 @@ O desenvolvimento deste trabalho prevê as seguintes atividades.
 Estas atividades tem como objetivo definir o modelo que será implementado
 e iniciar a implementação.
 
-\begin{table}[H]
-\centering
-\label{tab:crono}
-\begin{tabular}{c|c|c|c}
-	& Setembro & Outubro & Novembro \\ \hline
-I   & X        &         &          \\
-II  &          & X       &          \\
-III &          & X       &          \\
-IV  &          & X       &          \\
-V   &          &         & X       
-\end{tabular}
-\caption{Cronograma proposto}
-\end{table}
-
 \begin{ganttchart}[
     y unit title=0.5cm,
     y unit chart=0.6cm,
@@ -35,34 +21,37 @@ V   &          &         & X
   \gantttitlecalendar{month} \\
   \ganttset{progress label text={}}
   \ganttgroup{TCI: Projeto}{2016-08}{2016-11} \\
-    \ganttbar[progress=00, name=i]{I}{2016-08}{2016-08} \\
+    \ganttbar[progress=00, name=i]{I}{2016-08}{2016-09} \\
     \ganttbar[progress=00, name=ii]{II}{2016-09}{2016-10} \\
-    \ganttbar[progress=00, name=iii]{III}{2016-09}{2016-10} \\
-    \ganttbar[progress=00, name=iv]{IV}{2016-09}{2016-10} \\
-    \ganttbar[progress=00, name=v]{V}{2016-09}{2016-10} \\
-    \ganttbar[progress=00, name=vi]{VI}{2016-09}{2016-10} \\
-    \ganttbar[progress=00, name=vii]{VII}{2016-09}{2016-10} \\
-    \ganttbar[progress=00, name=viii]{VIII}{2016-10}{2016-11} \\
-  \ganttgroup{TCII: Implementação}{2017-03}{2017-06} \\
+    \ganttbar[progress=00, name=iii]{V}{2016-09}{2016-11} \\
+    \ganttbar[progress=00, name=iv]{VI}{2016-10}{2016-11} \\
+    \ganttbar[progress=00, name=v]{V}{2016-10}{2016-11} \\
+  	\ganttbar[progress=00, name=vi]{VI}{2016-9}{2016-11} \\
+  \ganttgroup{TCII: Implementação}{2016-12}{2017-06} \\
+    \ganttbar[progress=00, name=vii]{VII}{2016-12}{2017-1} \\
+    \ganttbar[progress=00, name=viii]{VIII}{2017-1}{2017-3} \\
+    \ganttbar[progress=00, name=ix]{IX}{2017-3}{2017-4} \\
+    \ganttbar[progress=00, name=x]{X}{2017-4}{2017-6} \\
   % misc links
   \ganttset{progress label text={}}
-  \ganttlink[link mid=0.25]{i}{viii}
-  \ganttlink[link mid=0.25]{ii}{viii}
-  \ganttlink[link mid=0.25]{iii}{viii}
-  \ganttlink[link mid=0.25]{iv}{viii}
-  \ganttlink[link mid=0.25]{v}{viii}
-  \ganttlink[link mid=0.25]{vi}{viii}
-  \ganttlink[link mid=0.25]{vii}{viii}
+%  \ganttlink[link mid=0.25]{i}{viii}
+%  \ganttlink[link mid=0.25]{ii}{viii}
+%  \ganttlink[link mid=0.25]{iii}{viii}
+%  \ganttlink[link mid=0.25]{iv}{viii}
+%  \ganttlink[link mid=0.25]{v}{viii}
+%  \ganttlink[link mid=0.25]{vi}{viii}
+%  \ganttlink[link mid=0.25]{vii}{viii}
 \end{ganttchart}
 
 \begin{enumerate}[I]
 	\item Pesquisar e estudar trabalhos relacionados atuais.
-	\item Estudar a biblioteca OpenCV\@.
-	\item Estudar a ferramenta para reconhecimento ótico de caracteres Tesseract.
-	\item Estudar o Raspberry Pi e seu módulo de câmera.
+	\item Estudar as ferramentas e bibliotecas OpenCV, Tesseract e Raspberry Pi.
 	\item Definir modelo e iniciar implementação.
 	\item Integrar o OpenCV e o Raspberry Pi e implementar uma prova de conceito que utilize os dois.
 	\item Implementar uma aplicação que localize a placa de um carro em uma imagem utilizando OpenCV.
 	\item Escrever o volume final de TCI.
+	\item Implementar uma aplicação de contagem de carros.
+	\item Implementar a aplicação de reconhecimento de placas.
+	\item Colocar a aplicação a prova em um ambiente real e refinar com base nos resultados.
+	\item Escrever o volume final de TCII.
 \end{enumerate}
-
