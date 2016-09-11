@@ -6,24 +6,27 @@ tempo real com base nas imagens da câmera captadas no momento. A informação
 coletada e processada deve ser enviada para um servidor que possa utilizar estes
 dados em tempo real.
 
-O fluxo esperado do software é o seguinte. O computador Raspberry pi ficará postado
-em uma rota de fluxo frequente de carros. Ele ficará posicionado de maneira que consiga capturar
-imagens das placas em boa qualidade com sua câmera. Será nescessário o módulo de câmera
-e de bateria, ou haver uma fonte de energia por perto. Ao capturar as imagens, o computador
-irá processá-las localmente, seguindo os passos do reconhecimento de placas e contagem de carros.
-Após obtida, a informação será enviada para um servidor simples que irá armazená-la. Para o envio
-das informações, o computador também precisará estar equipado com algum módulo de internet.
+O fluxo esperado do software é o seguinte. O computador Raspberry pi ficará
+postado em uma rota de fluxo frequente de carros. Ele ficará posicionado de
+maneira que consiga capturar imagens das placas em boa qualidade com sua câmera.
+Será nescessário o módulo de câmera e de bateria, ou haver uma fonte de energia
+por perto. Ao capturar as imagens, o computador irá processá-las localmente,
+seguindo os passos do reconhecimento de placas e contagem de carros.  Após
+obtida, a informação será enviada para um servidor simples que irá armazená-la.
+Para o envio das informações, o computador também precisará estar equipado com
+algum módulo de internet.
 
-Segundo Ahmad et al.~\cite{ahmad2015automatic}, o reconhecimento de placas automotivas requer
-três passos, a localização da placa, a separação dos caracteres e o
-reconhecimento dos caracteres. Para a localização da placa e separação dos
-caracteres serão utilizados a biblioteca OpenCV e a linguagem de programação C,
-C++ ou Python. O motivo da escolha dessas linguagens se dá porque são as linguagens mais usadas 
-para OpenCV, a melhor abordagem ainda será analisada. Para o reconhecimento dos caracteres será
-estudada a possibilidade de utilizar o software Tesseract ou criar uma solução
-própria. As escolhas a serem feitas tem como objetivo maximizar os resultados ao
-final do trabalho, tentando criar um balanço entre facilidade de implementação e
-qualidade do reconhecimento.
+Segundo Ahmad et al.~\cite{ahmad2015automatic}, o reconhecimento de placas
+automotivas requer três passos, a localização da placa, a separação dos
+caracteres e o reconhecimento dos caracteres. Para a localização da placa e
+separação dos caracteres serão utilizados a biblioteca OpenCV e a linguagem de
+programação C, C++ ou Python. O motivo da escolha dessas linguagens se dá porque
+são as linguagens mais usadas para OpenCV, a melhor abordagem ainda será
+analisada. Para o reconhecimento dos caracteres será estudada a possibilidade de
+utilizar o software Tesseract ou criar uma solução própria. As escolhas a serem
+feitas tem como objetivo maximizar os resultados ao final do trabalho, tentando
+criar um balanço entre facilidade de implementação e qualidade do
+reconhecimento.
 
 O trabalho será realizado em etapas, tendo como objetivo intermediário conseguir
 fazer o reconhecimento e a contagem dos carros, e como objetivo final a
@@ -39,8 +42,8 @@ Foundation\footnote{https://www.raspberrypi.org/}.
 \section{OpenCV}
 \label{sec:opencv}
 
-OpenCV (\emph{Open Source Computer Vision Library}) é uma biblioteca open source de
-visão computacional e aprendizado de máquina. Contém mais de 2500 algoritmos
+OpenCV (\emph{Open Source Computer Vision Library}) é uma biblioteca open source
+de visão computacional e aprendizado de máquina. Contém mais de 2500 algoritmos
 otimizados nessas áreas, incluindo algoritmos clássicos e recentes. A biblioteca
 é escrita nativamente em C++, e dispõe de interfaces para C, C++, Python, Java e
 MATLAB, suportando os sistemas operacionais Windows, Linux, Android e Mac
@@ -49,16 +52,16 @@ OS.\footnote{http://opencv.org/}
 \section{OCR}
 \label{sec:ocr}
 
-Reconhecimento Ótico de Caracteres(\emph{Optical character recognition}, OCR) consiste da conversão de textos em
-formato de imagem para o formato reconhecido por máquina. É o método mais
-eficiente para fazer o processamento de imagem para
+Reconhecimento Ótico de Caracteres(\emph{Optical character recognition}, OCR)
+consiste da conversão de textos em formato de imagem para o formato reconhecido
+por máquina. É o método mais eficiente para fazer o processamento de imagem para
 texto.~\cite{mohit2015designing}
 
 Uma ferramenta conhecida de OCR é o
 Tesseract\footnote{https://github.com/tesseract-ocr/tesseract}. É uma ferramenta
-\emph{open source} de reconhecimento ótico de caracteres que suporta múltiplas linguas.
-É essencialmente um algoritmo de comparação de \emph{templates}, e as amostras de
-caracteres podem ser auto-treinados.~\cite{ho2016intelligent}
+\emph{open source} de reconhecimento ótico de caracteres que suporta múltiplas
+linguas.  É essencialmente um algoritmo de comparação de \emph{templates}, e as
+amostras de caracteres podem ser auto-treinados.~\cite{ho2016intelligent}
 
 \section{Placa de Transito Brasileira}
 
@@ -99,8 +102,8 @@ e~\ref{fig:placa_moto}.
 
 
 A tipologia dos caracteres das placas utiliza a fonte
-Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de
-veículos são diferenciadas pelas suas cores na tabela~\ref{tab:placa_cores}.
+Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de veículos
+são diferenciadas pelas suas cores na tabela~\ref{tab:placa_cores}.
 
 \begin{table}[]
 \centering

@@ -231,7 +231,7 @@ Novo comando: \ listofabbreviations^^J
     {\LARGE \@title\\[2em]}
     		{\large DANIEL ANTONIAZZI AMARANTE E MATTHIAS OLIVEIRA DE NUNES \\[2em]}
  			       	\vspace*{\stretch{1}}
- 			       {\LARGE Título }
+ 			       {\LARGE Reconhecimento de Placas de Carro em Tempo Real }
  			       
  			        \vspace*{\stretch{0.3}} 
  			        
