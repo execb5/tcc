@@ -6,7 +6,7 @@ e iniciar a implementação.
 \centering
 \label{tab:crono}
 \begin{tabular}{c|c|c|c}
-    & Setembro & Outubro & Novembro \\ \hline
+	& Setembro & Outubro & Novembro \\ \hline
 I   & X        &         &          \\
 II  &          & X       &          \\
 III &          & X       &          \\
@@ -15,6 +15,45 @@ V   &          &         & X
 \end{tabular}
 \caption{Cronograma proposto}
 \end{table}
+
+\begin{ganttchart}[
+    y unit title=0.5cm,
+    y unit chart=0.6cm,
+    time slot format=isodate-yearmonth,
+    compress calendar,
+    title/.append style={shape=rectangle, fill=black!10},
+    title height=1,
+    bar/.append style={fill=green!90},
+    bar height=.6,
+    bar label font=\normalsize\color{black!50},
+    group top shift=.6,
+    group height=.3,
+    group peaks height=.2,
+    bar incomplete/.append style={fill=green!40}
+  ]{2016-07}{2017-07}
+  \gantttitlecalendar{year} \\
+  \gantttitlecalendar{month} \\
+  \ganttset{progress label text={}} % this suppresses percentage done labels
+  \ganttgroup{TCI: Projeto}{2016-08}{2016-11} \\
+    \ganttbar[progress=00, name=i]{I}{2016-08}{2016-08} \\
+    \ganttbar[progress=00, name=ii]{II}{2016-09}{2016-10} \\
+    \ganttbar[progress=00, name=iii]{III}{2016-09}{2016-10} \\
+    \ganttbar[progress=00, name=iv]{IV}{2016-09}{2016-10} \\
+    \ganttbar[progress=00, name=v]{V}{2016-09}{2016-10} \\
+    \ganttbar[progress=00, name=vi]{VI}{2016-09}{2016-10} \\
+    \ganttbar[progress=00, name=vii]{VII}{2016-09}{2016-10} \\
+    \ganttbar[progress=00, name=viii]{VIII}{2016-10}{2016-11} \\
+  \ganttgroup{TCII: Implementação}{2017-03}{2017-06} \\
+  % misc links
+  \ganttset{progress label text={}}
+  \ganttlink[link mid=0.25]{i}{viii}
+  \ganttlink[link mid=0.25]{ii}{viii}
+  \ganttlink[link mid=0.25]{iii}{viii}
+  \ganttlink[link mid=0.25]{iv}{viii}
+  \ganttlink[link mid=0.25]{v}{viii}
+  \ganttlink[link mid=0.25]{vi}{viii}
+  \ganttlink[link mid=0.25]{vii}{viii}
+\end{ganttchart}
 
 \begin{enumerate}[I]
 	\item Pesquisar e estudar trabalhos relacionados atuais.
