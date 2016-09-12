@@ -6,9 +6,9 @@
 
 Complete:
 
-- [ ] *Introduction*
-- [ ] *Related works/articles*
-- [ ] *Objectives*
+- [x] *Introduction*
+- [x] *Related works/articles*
+- [x] *Objectives*
 - [x] *Resources*
 - [x] *Schedule*
 
