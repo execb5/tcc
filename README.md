@@ -13,3 +13,11 @@ Complete:
 - [x] *Schedule*
 
 ---
+
+## Final Volume
+
+Complete:
+
+- [ ] *Data collection*
+- [ ] *Development Enviroment*
+- [ ] *Architecture*
