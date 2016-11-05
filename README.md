@@ -18,6 +18,9 @@ Complete:
 
 Complete:
 
+- [ ] *Fix stuff from proposal*
 - [ ] *Data collection*
-- [ ] *Development Enviroment*
-- [ ] *Architecture*
+- [ ] *Project Development*
+- [ ] *Development Methodology*
+- [ ] *Schedule*
+- [ ] *Final Comments*
