@@ -1,4 +1,3 @@
-
 Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
 proposta por Serro~\cite{serro2012deteccao} na PUCRS\@. Neste trabalho foram
 utilizadas técnicas de segmentação de imagens, histograma, cisalhamento de
@@ -65,3 +64,19 @@ teve uma taxa de acerto de 97,5\% no processo de detecção e 92,8\% na
 identificação, com o maior tempo de execução para um dos processos sendo de
 0,3s. Com estes resultados seria possível utilizar este método em aplicações de
 tempo real.
+
+Analisando os trabalhos feitos na área, nota-se que por mais que os algoritmos variem,
+a base da detecção de placas permanece parecida. Eles costumam ser divididos em pelo 
+menos duas partes, a localização da placa e a detecção dos caracteres. Inclusive 
+~\cite{ahmad2015automatic} misturou diferentes algoritmos, utilizando a localização 
+de um e a detecção de outro, demonstrando que os dois passos são bem independentes.
+
+Pode-se notar que o reconhecimento de placas de carros é uma área bastante estudada, 
+com diversas abordagens diferentes e grande variação de resultados. Entretanto, 
+um problema que ainda existe, é a grande diferença nas placas de diferentes países, 
+no estilo, fonte, caracteres utilizados e padrão do texto. 
+
+O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr} 
+criou uma solução de reconhecimento de placas que permite que a comunidade contribua 
+treinando o reconhecedor de caracteres a reconhecer as placas de seus países para contornar 
+esse problema.
