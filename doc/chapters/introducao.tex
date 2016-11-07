@@ -1,4 +1,3 @@
-
 O controle e identificação de veículos é usado nas mais diversas áreas, indo
 desde serviços de pagamentos automatizados, como pedágios, até aplicações mais
 críticas, como segurança de fronteiras e sistemas de vigilância de
@@ -26,12 +25,13 @@ análise e processamento das imagens em tempo real. Isso será realizado
 utilizando um software embarcado, que estará coletando as imagens ao mesmo tempo
 que as analisa e as envia para um servidor. Com essa abordagem, será possível
 que esses dados sejam úteis para uma tomada de decisão imediata do usuário. Um
-exemplo de uma aplicação, onde a velocidade e a imediatidade das informações é
-crucial para a viabilidade do produto, seria em um \emph{software} de controle
-de lotação de estacionamento. O usuário que utilizaria uma ferramenta para
-descobrir onde se encontram as vagas para estacionar precisa que estes dados
-sejam atualizados em tempo real, correndo o risco de a vaga denunciada pela
-aplicação não estar mais disponível de fato, se o processamento não for ao vivo.
+exemplo de uma aplicação, onde a velocidade e a disponibilidade imediata das informações é
+crucial para a viabilidade do produto, seria em um \emph{software} de identificação 
+de carros roubados. O sistema analisaria as placas dos carros que trafegam em uma
+rodovia e identificaria quais daqueles carros tem placas que correspondem a placas
+de carros roubados. Para que o \emph{software} seja eficiente é nescessário 
+que o processamento seja feito em tempo real, qualquer atraso na identificação do
+veículo permite que ele se distancie muito, impedindo que as autoridades reajam a tempo.
 
 Uma abordagem alternativa seria fazer a gravação das imagens em um momento, e o
 processamento em outro. Entretanto, desta maneira, a utilidade do
@@ -41,13 +41,9 @@ precisam estar disponíveis imediatamente.
 Com o resultado da implementação proposta será feita uma prova de conceito
 utilizando o estacionamento da PUCRS, se for possível adquirir permissão.
 Posicionando o computador com a câmera em um ponto estratégico do
-estacionamento, serão analisados os carros que passarem. Esta localização deverá
-ser um ponto de gargalo do estacionamento, que sirva de única entrada para uma
-determinada área. Fazendo a contagem dos carros que passarem por este caminho,
-será possível obter informações sobre a quantidade de carros que se encontram
-naquela área e identificar os veículos presentes. Com essas informações à
-disposição, seria possível alimentar uma aplicação móvel que informe o usuário
-quais os melhores lugares para encontrar vagas para estacionar, por exemplo.
+estacionamento, serão analisados os carros que passarem. O programa então
+coletará informações referentes ao número de carros que passaram por aquele ponto
+e suas respectivas placas.
 
 Este trabalho está organizado da seguinte maneira: No capítulo~\ref{cha:trab},
 serão apresentados trabalhos relacionados aos temas de reconhecimento de placas
@@ -55,4 +51,3 @@ e contagem de carros. No capítulo~\ref{cha:modelo}, será apresentado o modelo
 proposto. E nos capítulos~\ref{cha:crono}  e~\ref{cha:recursos}, serão mostrados
 o cronograma planejado e os recursos nescessários para a conclusão deste
 trabalho respectivamente.
-
