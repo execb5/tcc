@@ -60,3 +60,14 @@ simples presente na literatura.
 
 \section{Reconhecimento dos caracteres}
 \label{sec:reconhecimento}
+
+O ultimo passo para reconhecimento da placa é o reconhecimento ótico dos caracteres extraídos. Os maiores
+desafios da extração de caracteres é o fato de os caracteres extraídos não terem o mesmo tamanho e grossura, devido 
+ao \emph{zoom} da camera. Outro problema, ao criar um reconhecedor de propósito geral, é as diferentes fontes das diferentes 
+placas ao redor do mundo. ~\cite{s2013automatic} Este segundo não será um problema para este trabalho pois só há interesse em 
+reconhecer placas brasileiras. Outro desafio é o reconhecimento de caracteres semelhantes, como o D e o 0~\cite{ho2016intelligent}.
+Esse problema será mitigado com o conhecimento prévio das placas brasileiras, sabendo onde é possível haver letras e onde é 
+possível haver números.
+
+Para o reconhecimento de caracteres foi escolhido utilizar o \emph{software} \emph{Tesseract}. A ferramenta possui execução 
+veloz e eficiente, permite o treinamento para reconhecer novas fontes e suporte para diversas línguas.
