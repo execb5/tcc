@@ -1,0 +1,35 @@
+O desenvolvimento deste trabalho requer o uso de \emph{hardware} e \emph{software} existentes 
+que nescessitam de um certo nivel de configuração para serem utilizados concorrentemente.
+
+\section{Raspberry Pi e módulo de camera}
+\label{sec:confrpi}
+
+No \emph{Raspberry Pi} será instalado o sistema operacional \emph{Raspbian}. Sua imagem pode ser baixada no 
+site oficial, \texttt{https://www.raspberrypi.org/downloads/raspbian/}. O módulo de camera é facilmente acoplado no 
+\emph{Raspberry Pi} e para funcionar só é nescessário habilitar a camera na ferramenta de configuração do sistema que pode 
+ser acessada utilizando o comando \texttt{sudo raspi-config}. Para garantir que a camera está funcionando pode-se usar o 
+comando \texttt{raspistill} para capturar uma imagem.
+
+\section{OpenCV}
+\label{sec:confopencv} 
+
+
+
+\section{Tesseract}
+\label{sec:conftess}
+
+A ferramenta \emph{Tesseract} pode ser instalada no \emph{Raspbian} utilizando o gerenciador de pacotes padrão do sistema, 
+utilizando o comando \texttt{sudo apt-get install tesseract-ocr}. Com isso é possível utilizar o \emph{Tesseract} na linha 
+de comando. Para utilizar com \emph{Python}, pode-se instalar o pacote \emph{pytesseract} com o gerenciador de pacotes \emph{pip}, 
+que é um gerenciador de pacotes para programas em \emph{Python}. Para instalar o \emph{pytesseract} executa-se o comando 
+\texttt{sudo -H pip install pytesseract}.
+
+Com ambos os pacotes instalados, podemos então, chamar funções do reconhecedor de caracteres \emph{Tesseract} dentro 
+do código em \emph{Python} como no exemplo abaixo.
+
+\begin{verbatim}
+from PIL import Image
+import pytesseract
+
+print(pytesseract.image_to_string(Image.open('license_plate.jpg')))
+\end{verbatim}
