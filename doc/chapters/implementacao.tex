@@ -45,8 +45,8 @@ otimizar o processo.
 A fase de extração é a fase mais importante em um sistema de reconhecimento de
 placas, porque todas as outras fases dependem da exata extração da área da
 placa. Essa extração é difícil pois influencia na precisão do sistema como um
-todo. Muitas dificuldades podem ocorrer durante a fase de extração pelos
-seguintes motivos:
+todo~\cite{kaur2014efficient}. Muitas dificuldades podem ocorrer durante a fase
+de extração pelos seguintes motivos:
 
 \begin{itemize}
 	\item A eficiência da extração é afetada pela complexidade da cena.
@@ -96,7 +96,7 @@ processamento. O melhoramento do contraste é feito pela equalização do
 histograma, alongamento de contraste etc. Varios filtros são usados para a
 remoção de ruído.
 
-\subsubsection{Conversão de RGB para escala de tons de cinza}
+\subsection{Conversão de RGB para escala de tons de cinza}
 
 A imagem capturada está no formato RGB\@. O primeiro passo do pré-processamento é
 converter essa imagem para a escala de tons de cinza. O objetivo dessa conversão é reduzir
@@ -110,7 +110,7 @@ bits de cada pixel (i,j), e um valor de 8 bits em cinza é calculado.
 	\label{fig:ext_gray_scale}
 \end{figure}
 
-\subsubsection{Remoção de ruído por filtro bilateral}
+\subsection{Remoção de ruído por filtro bilateral}
 
 O filtro bilateral é um filtro não linear, que preserva as arestas e reduz ruído.
 Ele funciona substituindo o valor de intensidade de cada \emph{pixel} em uma imagem
@@ -264,7 +264,7 @@ problema proposto. Sanyuan~\cite{sanyuan2004car} utiliza essa técnica de
 segmentação de caracteres, e, utilizando-a juntamente de remoção de ruídos e
 análise de sequência de caracteres, obteve uma taxa de acerto de 99.2\% e uma
 velocidade de processamento de 10 a 20 milisegundos, o que é bem animador. As
-vantagens deste método é que a segmentação independe das posições dos
+vantagens deste método são que a segmentação independe das posições dos
 caracteres, e consegue lidar bem com rotações. Suas desvantagens são que é
 afetada ruído na imagem e requer o conhecimento do número de caracteres na
 placa, o que não será problema devido ao fato de as placas brasileiras terem um
