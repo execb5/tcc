@@ -28,16 +28,19 @@ da imagem adquirida.~\cite{s2013automatic}
 A solução proposta neste trabalho tem como diferencial o fato de permitir uma
 análise e processamento das imagens em tempo real. Isso será realizado
 utilizando um software embarcado, que estará coletando as imagens ao mesmo tempo
-que as analisa e as envia para um servidor. Com essa abordagem, será possível
-que esses dados sejam úteis para uma tomada de decisão imediata do usuário.
+que as analisa, enviando o dado já processado para um servidor, ocupando menos
+largura de banda na transmissão. Com essa abordagem, será possível que esses
+dados sejam úteis para uma tomada de decisão imediata das "autoridades" de
+controle de tráfego e/ou policiamento
 
-Um exemplo de uma aplicação, onde a velocidade e a disponibilidade imediata das informações é
-crucial para a viabilidade do produto, seria em um \emph{software} de identificação
-de carros roubados. O sistema analisaria as placas dos carros que trafegam em uma
-rodovia e identificaria quais daqueles carros tem placas que correspondem a placas
-de carros roubados. Para que o \emph{software} seja eficiente é nescessário
-que o processamento seja feito em tempo real, qualquer atraso na identificação do
-veículo permite que ele se distancie muito, impedindo que as autoridades reajam a tempo.
+Um exemplo de uma aplicação, onde a velocidade e a disponibilidade imediata das
+informações é crucial para a viabilidade do produto, seria em um \emph{software}
+de identificação de carros roubados. O sistema analisaria as placas dos carros
+que trafegam em uma rodovia e identificaria quais daqueles carros têm placas que
+correspondem a placas de carros roubados. Para que o \emph{software} seja
+eficiente é nescessário que o processamento seja feito em tempo real, qualquer
+atraso na identificação do veículo permite que ele se distancie muito, impedindo
+que as autoridades reajam a tempo.
 
 Uma abordagem alternativa seria fazer a gravação das imagens em um momento, e o
 processamento em outro. Entretanto, desta maneira, a utilidade do
@@ -51,9 +54,9 @@ estacionamento, serão analisados os carros que passarem. O programa então
 coletará informações referentes ao número de carros que passaram por aquele ponto
 e suas respectivas placas.
 
-Este trabalho está organizado da seguinte maneira: No capítulo~\ref{cha:trab},
+Este trabalho está organizado da seguinte maneira: no capítulo~\ref{cha:trab},
 serão apresentados trabalhos relacionados aos temas de reconhecimento de placas
-e contagem de carros. No capítulo~\ref{cha:modelo}, será apresentado o modelo
+e contagem de carros. No capítulo~\ref{cha:componentes}, será apresentado o modelo
 proposto. No capítulo~\ref{cha:implementacao}, será especificado os passos a serem
 seguidos no desenvolvimento da aplicação, classificando os algoritmos a serem utilizados
 em cada etapa. No capítulo~\ref{cha:configuracao}, será demonstrada como deve ser feita
@@ -61,3 +64,28 @@ a configuração e instalação das ferramentas nescessárias para o desenvolvim
  E nos capítulos~\ref{cha:crono}  e~\ref{cha:recursos}, serão mostrados
 o cronograma planejado e os recursos nescessários para a conclusão deste
 trabalho respectivamente.
+
+\section{Blabla}
+\label{sec:bla}
+
+O objetivo deste trabalho é desenvolver um software embarcado em um Raspberry Pi
+(um computador de tamanho muito pequeno) equipado com módulo de câmera que seja
+capaz de reconhecer veículos, contá-los e identificá-los baseando-se em sua
+placa. Todo o processamento deve acontecer em tempo real com base nas imagens da
+câmera captadas no momento. A informação coletada e processada deve ser enviada
+para um servidor que possa utilizar estes dados em tempo real.
+
+O fluxo esperado do software é o seguinte. O computador Raspberry pi ficará
+postado em uma rota de fluxo frequente de carros. Ele ficará posicionado de
+maneira que consiga capturar imagens das placas em boa qualidade com sua câmera.
+Será nescessário o módulo de câmera e de bateria, ou haver uma fonte de energia
+por perto. Ao capturar as imagens, o computador irá processá-las localmente,
+seguindo os passos do reconhecimento de placas e contagem de carros.  Após
+obtida, a informação será enviada para um servidor simples que irá armazená-la.
+Para o envio das informações, o computador também precisará estar equipado com
+algum módulo de Internet.
+
+O trabalho será realizado em etapas, tendo como objetivo intermediário conseguir
+fazer o reconhecimento e a contagem dos carros, e como objetivo final a
+identificação das placas.
+
