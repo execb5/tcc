@@ -24,18 +24,18 @@ identificação das placas.
 
 Raspberry Pi é um computador construído em uma placa de circuito do tamanho de
 um cartão de crédito desenvolvido pela Raspberry Pi
-Foundation\footnote{https://www.raspberrypi.org/}. Existem diversos modelos diferentes 
-de Raspberry Pi no mercado, o que será utilizado no trabalho é um dos mais recentes atualmente, 
-o Raspberry Pi 3 model B. Será utilizado o sistema operacional \emph{Raspbian}, que é o 
+Foundation\footnote{https://www.raspberrypi.org/}. Existem diversos modelos diferentes
+de Raspberry Pi no mercado, o que será utilizado no trabalho é um dos mais recentes atualmente,
+o Raspberry Pi 3 model B. Será utilizado o sistema operacional \emph{Raspbian}, que é o
 sistema operacional oficial suportado pela \emph{Raspberry Pi Foundation}.
 
-Apesar de novo, o computador ainda tem suas limitações, com um processador quad-core ARMv8 de 
-1.2GHz e apenas 1GB de memória RAM. Pela limitação do \emph{hardware} é possível que algumas 
-aplicações fiquem mais lentas do que ficariam em um computador mais potente, mas, apesar disso, 
+Apesar de novo, o computador ainda tem suas limitações, com um processador quad-core ARMv8 de
+1.2GHz e apenas 1GB de memória RAM. Pela limitação do \emph{hardware} é possível que algumas
+aplicações fiquem mais lentas do que ficariam em um computador mais potente, mas, apesar disso,
 o Raspberry Pi é um computador bem completo e capaz de exercer todas as funções de um computador normal.
 
-O modelo utilizado de Raspberry Pi contém módulo de WiFi embutido, sem a nescessidade de 
-periférico, que será utilizado no trabalho para enviar as informações processadas pela 
+O modelo utilizado de Raspberry Pi contém módulo de WiFi embutido, sem a nescessidade de
+periférico, que será utilizado no trabalho para enviar as informações processadas pela
 internet. Também será utilizado um módulo externo de camera para coletar as imagens em tempo real.
 
 \section{OpenCV}
@@ -47,6 +47,36 @@ algoritmos otimizados nessas áreas, incluindo algoritmos clássicos e recentes.
 biblioteca é escrita nativamente em C++, e dispõe de interfaces para C, C++,
 Python, Java e MATLAB, suportando os sistemas operacionais Windows, Linux,
 Android e Mac OS.\footnote{http://opencv.org/}
+
+No desenvolvimento deste trabalho será utilizada a linguagem de programação \emph{Python},
+e algumas bibliotecas são utilizadas para trabalhar com \emph{OpenCV}. A biblioteca
+\emph{numpy}\footnote{http://www.numpy.org/}, é uma biblioteca de computação cientifica em
+\emph{Python}, que inclui funções de processamento numérico e vetores que são utilizados
+pelo \emph{OpenCV} para representar as imagens.
+
+Também será utilizada o pacote \emph{picamera}\footnote{https://picamera.readthedocs.io/en/release-1.12/},
+que possui uma interface em \emph{Python} para se comunicar com o módulo de camera do \emph{Raspberry Pi}.
+É possível utilizar as funções próprias de captura de imagem da camera do \emph{OpenCV}, como por exemplo
+o \texttt{cv2.VideoCapture(0)}, mas será optado por utilizar o \emph{picamera}, por ser uma interface mais
+específica para a camera utilizada.
+
+Um exemplo de código de captura de imagem utilizando a camera do \emph{Raspberry Pi} em \emph{Python}, utilizando
+as bibliotecas citadas pode ser visto abaixo.
+
+\begin{verbatim}
+from picamera.array import PiRGBArray
+from picamera import PiCamera
+import cv2
+
+camera = PiCamera()
+rawCapture = PiRGBArray(camera, size=(640, 480))
+
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+	image = frame.array
+	cv2.imshow("Frame", image)
+	rawCapture.truncate(0)
+\end{verbatim}
+
 
 \section{OCR}
 \label{sec:ocr}
