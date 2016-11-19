@@ -30,13 +30,3 @@ utilizando o comando \texttt{sudo apt-get install tesseract-ocr}. Com isso é po
 de comando. Para utilizar com \emph{Python}, pode-se instalar o pacote \emph{pytesseract} com o gerenciador de pacotes \emph{pip},
 que é um gerenciador de pacotes para programas em \emph{Python}. Para instalar o \emph{pytesseract} executa-se o comando
 \texttt{sudo -H pip install pytesseract}.
-
-Com ambos os pacotes instalados, podemos então, chamar funções do reconhecedor de caracteres \emph{Tesseract} dentro
-do código em \emph{Python} como no exemplo abaixo.
-
-\begin{verbatim}
-from PIL import Image
-import pytesseract
-
-print(pytesseract.image_to_string(Image.open('license_plate.jpg')))
-\end{verbatim}
