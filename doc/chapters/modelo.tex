@@ -61,7 +61,10 @@ o \texttt{cv2.VideoCapture(0)}, mas será optado por utilizar o \emph{picamera},
 específica para a camera utilizada.
 
 Um exemplo de código de captura de imagem utilizando a camera do \emph{Raspberry Pi} em \emph{Python}, utilizando
-as bibliotecas citadas pode ser visto abaixo.
+as bibliotecas citadas pode ser visto abaixo. No exemplo, os quadros são capturados pela camera do \emph{Raspberry Pi},
+convertidos para escalas de tons de cinza (\emph{grayscale}), e mostrados na tela, dado que haja um monitor conectado ao
+computador \emph{Raspberry Pi}. Converter a imagem para \emph{grayscale} é um dos primeiros passos de pré-processamento
+para iniciar o reconhecimento da placa.
 
 \begin{verbatim}
 from picamera.array import PiRGBArray
@@ -73,7 +76,8 @@ rawCapture = PiRGBArray(camera, size=(640, 480))
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 	image = frame.array
-	cv2.imshow("Frame", image)
+	gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+	cv2.imshow("Frame", gray_image)
 	rawCapture.truncate(0)
 \end{verbatim}
 
