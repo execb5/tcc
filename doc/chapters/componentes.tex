@@ -13,7 +13,7 @@ por perto. Ao capturar as imagens, o computador irá processá-las localmente,
 seguindo os passos do reconhecimento de placas e contagem de carros.  Após
 obtida, a informação será enviada para um servidor simples que irá armazená-la.
 Para o envio das informações, o computador também precisará estar equipado com
-algum módulo de internet.
+algum módulo de Internet.
 
 O trabalho será realizado em etapas, tendo como objetivo intermediário conseguir
 fazer o reconhecimento e a contagem dos carros, e como objetivo final a
@@ -24,19 +24,23 @@ identificação das placas.
 
 Raspberry Pi é um computador construído em uma placa de circuito do tamanho de
 um cartão de crédito desenvolvido pela Raspberry Pi
-Foundation\footnote{https://www.raspberrypi.org/}. Existem diversos modelos diferentes
-de Raspberry Pi no mercado, o que será utilizado no trabalho é um dos mais recentes atualmente,
-o Raspberry Pi 3 model B. Será utilizado o sistema operacional \emph{Raspbian}, que é o
-sistema operacional oficial suportado pela \emph{Raspberry Pi Foundation}.
+Foundation\footnote{https://www.raspberrypi.org/}. Existem diversos modelos
+diferentes de Raspberry Pi no mercado, o que será utilizado no trabalho é um dos
+mais recentes atualmente, o Raspberry Pi 3 model B. Será utilizado o sistema
+operacional \emph{Raspbian}, que é o sistema operacional oficial suportado pela
+\emph{Raspberry Pi Foundation}.
 
-Apesar de novo, o computador ainda tem suas limitações, com um processador quad-core ARMv8 de
-1.2GHz e apenas 1GB de memória RAM. Pela limitação do \emph{hardware} é possível que algumas
-aplicações fiquem mais lentas do que ficariam em um computador mais potente, mas, apesar disso,
-o Raspberry Pi é um computador bem completo e capaz de exercer todas as funções de um computador normal.
+Apesar de novo, o computador ainda tem suas limitações, com um processador
+quad-core ARMv8 de 1.2GHz e apenas 1GB de memória RAM. Pela limitação do
+\emph{hardware} é possível que algumas aplicações fiquem mais lentas do que
+ficariam em um computador mais potente, mas, apesar disso, o Raspberry Pi é um
+computador bem completo e capaz de exercer todas as funções de um computador
+normal.
 
-O modelo utilizado de Raspberry Pi contém módulo de WiFi embutido, sem a nescessidade de
-periférico, que será utilizado no trabalho para enviar as informações processadas pela
-internet. Também será utilizado um módulo externo de camera para coletar as imagens em tempo real.
+O modelo utilizado de Raspberry Pi contém módulo de WiFi embutido, sem a
+nescessidade de periférico, que será utilizado no trabalho para enviar as
+informações processadas pela Internet. Também será utilizado um módulo externo
+de câmera para coletar as imagens em tempo real.
 
 \section{OpenCV}
 \label{sec:opencv}
@@ -128,7 +132,7 @@ nome do município, e pelo código de identificação único, composto por três
 letras, seguidas por quatro digitos, separados por um hífen.
 
 Veículos particulares, de aluguel, oficial, de experiência, de aprendizagem e de
-fabricante tem suas dimensões de 130mmx400mm e altura dos caracteres de 63mm.
+fabricante têm suas dimensões de 130mmx400mm e altura dos caracteres de 63mm.
 Caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
 placas de motocicleta, motoneta, ciclomotor e triciclos autorizados tem
 dimensões de 136mmx187mm e altura de caracteres de 42mm. Imagem das placas com

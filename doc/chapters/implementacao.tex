@@ -1,9 +1,9 @@
 Segundo Ahmad et al.~\cite{ahmad2015automatic}, o reconhecimento de placas
 automotivas requer três passos, a localização da placa, a separação dos
-caracteres e o reconhecimento dos caracteres.~\cite{s2013automatic} ainda
+caracteres e o reconhecimento dos caracteres. S Du~\cite{s2013automatic} ainda
 defende que são nescessários os mesmos passos, com a inclusão da aquisição das
 imagens como passo inicial. Para a localização da placa e separação dos
-caracteres serão utilizados a biblioteca OpenCV e a linguagem de programação
+caracteres serão utilizadas a biblioteca OpenCV e a linguagem de programação
 Python. O motivo da escolha dessa linguagem se dá por ser uma das linguagens
 mais usadas para OpenCV\@. Para o reconhecimento dos caracteres será utilizado o
 software Tesseract, havendo a possibilidade de precisar ser treinado para
@@ -18,8 +18,9 @@ um balanço entre facilidade de implementação e qualidade do reconhecimento.
 	\label{fig:processo}
 \end{figure}
 
-O trabalho será dividido nos quatro passos propostos por~\cite{s2013automatic},
-onde cada um será executado da maneira mais adequada.
+O trabalho será dividido nos quatro passos propostos por S
+Du~\cite{s2013automatic}: aquisição da imagem, extração da placa, segmentação
+dos caracteres e reconhecimento dos caracteres.
 
 \section{Aquisição das imagens}
 \label{sec:aquisicao}
@@ -30,11 +31,11 @@ externos podem afetar o reconhecimento da placa, como a iluminação, a distânc
 e o ângulo da imagem. A influência desses fatores pode ser minimizada
 utilizando-se de imagens de qualidade.
 
-A aquisição das imagens será feita utilizando o módulo de camera do
-\emph{Raspberry Pi}. É uma camera de 5 megapixels capaz de gravar videos em
-1080p. Uma das vantagens de utilizar essa combinação do \emph{Raspberry Pi} e
-seu módulo de camera é a sua portabilidade. Por serem pequenos e leves, caso a
-camera tenha dificuldade em capturar imagens de qualidade para o reconhecimento
+A aquisição das imagens será feita utilizando o módulo de câmera do
+\emph{Raspberry Pi}. É uma câmera de 5 \emph{megapixels} capaz de gravar videos
+em 1080p. Uma das vantagens de utilizar essa combinação do \emph{Raspberry Pi} e
+seu módulo de câmera é a sua portabilidade. Por serem pequenos e leves, caso a
+câmera tenha dificuldade em capturar imagens de qualidade para o reconhecimento
 das placas, é possível movê-los e colocá-los em posições privilegiadas para
 otimizar o processo.
 
@@ -50,11 +51,11 @@ seguintes motivos:
 \begin{itemize}
 	\item A eficiência da extração é afetada pela complexidade da cena.
 	\item Diferentes veículos possuem suas placas em diferentes posições.
-	\item Pode ocorrer ruído durante a captura da camera.
+	\item Pode ocorrer ruído durante a captura da câmera.
 	\item Condições do tempo pode influenciar no ruído.
 	\item Hora do dia afeta na luminosidade e resulta em erros de contraste.
 	\item Outros caracteres, quadros e parafusos podem introduzir confusão.
-	\item Mal posicionamento da camera, ou placa, pode resultar em distorção que afeta na eficiencia.
+	\item Mal posicionamento da câmera, ou placa, pode resultar em distorção que afeta na eficiência.
 	\item Luminosidade baixa, ou desigual, imagem desfocada, baixa resolução, reflexão, sombra afetam a eficiência da extração.
 \end{itemize}
 
@@ -63,7 +64,7 @@ extração que segue o seguinte fluxograma:
 
 \begin{enumerate}
 	\item Aquisição de Imagem
-	\item Conversão de RGB para escala Cinza
+	\item Conversão de RGB para escala de tons de cinza
 	\item Remoção de ruído por filtro bilateral
 	\item Aumento de contraste usando equalização de histograma adaptativo
 	\item Operações Morfológicas de Abertura e Subtração de Imagem
@@ -91,14 +92,14 @@ Pi.
 
 O objetivo básico do pré-processamento é melhorar o contraste da imagem de
 entrada, para reduzir ruído e, em consequência, a velocidade de
-processamento. O melhoramento do contrasto é feito pela equalização do
-histogram, alongamento de contraste etc. Varios filtros são usados para a
+processamento. O melhoramento do contraste é feito pela equalização do
+histograma, alongamento de contraste etc. Varios filtros são usados para a
 remoção de ruído.
 
-\subsubsection{Conversão de RGB para escala Cinza}
+\subsubsection{Conversão de RGB para escala de tons de cinza}
 
 A imagem capturada está no formato RGB\@. O primeiro passo do pré-processamento é
-converter essa imagem para a escala Cinza. O objetivo dessa conversão é reduzir
+converter essa imagem para a escala de tons de cinza. O objetivo dessa conversão é reduzir
 o número de cores. Os componentes R, G e B são separados do valor de cor de 24
 bits de cada pixel (i,j), e um valor de 8 bits em cinza é calculado.
 
@@ -115,10 +116,10 @@ O filtro bilateral é um filtro não linear, que preserva as arestas e reduz ru�
 Ele funciona substituindo o valor de intensidade de cada \emph{pixel} em uma imagem
 por uma média ponderada dos valores de intensidade dos \emph{pixels} próximos.
 O objetivo básico da filtragem é remover ruído e distorção da imagem. O ruído
-pode ocorrer durante a captura pela camera ou pelas condições do tempo. No
-método que~\cite{kaur2014efficient} propõe, filtro bilateral iterativo é
-utilizado para remover ruído. Ele é não linear, prove mecanismo para remoção de
-ruído enquanto preserva bordas mais efetifamente que filtro mediano.
+pode ocorrer durante a captura pela câmera ou pelas condições do tempo. No
+método que Kaur~\cite{kaur2014efficient} propõe, filtro bilateral iterativo é
+utilizado para remover ruído. Ele é não linear, provê mecanismo para remoção de
+ruído enquanto preserva bordas mais efetifamente que o filtro mediano.
 
 \begin{figure}[H]
 	\centering
@@ -246,44 +247,45 @@ A placa de número extraída pode consistir em vários ruídos ou furos indeseja
 O terceiro passo para o reconhecimento da placa é a segmentação dos caracteres.
 A segmentação dos caracteres consiste na extração dos caracteres utilizando
 estratégias como projetar as suas informações de cores, rotulá-los ou comparar
-suas posições com modelos. A placa extraida no passo anterior pode conter
+suas posições com modelos. A placa extraída no passo anterior pode conter
 problemas de inclinação ou iluminação, mas o algoritmo de segmentação deve
-superar todos esses problemas com preprocessamento.~\cite{s2013automatic}
+superar todos esses problemas com pré-processamento.~\cite{s2013automatic}
 
 Badawy~\cite{s2013automatic} faz uma análise dos algoritmos de segmentação mais
 utilizados com seus prós e contras.  Os principais algoritmos utilizados são:
-segmentação utilizando conectividade de pixels, segmentação utilizando perfis de
-projeção, segmentação utilizando conhecimento anterior dos caracteres,
+segmentação utilizando conectividade de \emph{pixels}, segmentação utilizando
+perfis de projeção, segmentação utilizando conhecimento anterior dos caracteres,
 segmentação utilizando contorno dos caracteres e segmentação utilizando
 características combinadas.
 
 Analisando os resultados foi definido que a segmentação dos caracteres
 utilizando perfis de projeção foi o mais eficiente, e que mais se encaixa no
-problema proposto.~\cite{sanyuan2004car} utiliza essa técnica de segmentação de
-caracteres, e, utilizando-a juntamente de remoção de ruidos e análise de
-sequencia de caracateres,obteve uma taxa de acerto de 99.2\% e uma velocidade de
-processamento de 10 a 20 milisegundos, o que é bem animador. As vantagens deste
-método é que a segmentação independe das posições dos caracteres, e consegue
-lidar bem com rotações. Suas desvantagens são que é afetada ruído na imagem e
-requer o conhecimento do número de caracteres na placa, o que não será problema
-devido ao fato de as placas brasileiras terem um número constante de caracteres.
+problema proposto. Sanyuan~\cite{sanyuan2004car} utiliza essa técnica de
+segmentação de caracteres, e, utilizando-a juntamente de remoção de ruídos e
+análise de sequência de caracteres, obteve uma taxa de acerto de 99.2\% e uma
+velocidade de processamento de 10 a 20 milisegundos, o que é bem animador. As
+vantagens deste método é que a segmentação independe das posições dos
+caracteres, e consegue lidar bem com rotações. Suas desvantagens são que é
+afetada ruído na imagem e requer o conhecimento do número de caracteres na
+placa, o que não será problema devido ao fato de as placas brasileiras terem um
+número constante de caracteres.
 
 Este método utiliza-se da diferença entre a cor dos caracteres da placa e a cor
-do fundo da placa, por terem valores diferentes eles tem valores binários
+do fundo da placa, por terem valores diferentes eles têm valores binários
 opostos em uma imagem binária. Portanto, o método de segmentação consiste em
-projetar a placa extraída verticalmente para determinar o inicio e final dos
+projetar a placa extraída verticalmente para determinar o início e final dos
 caracteres e depois projetar os caracteres extraídos horizontalmente para
-extraír cada caracter independente.
+extrair cada caracter independente.
 
-Badawy~\cite{s2013automatic} ainda afirma que é evidente que este metodo de
+Badawy~\cite{s2013automatic} ainda afirma que é evidente que este método de
 segmentação é o mais comum e o mais simples presente na literatura.
 
 \section{Reconhecimento dos caracteres} \label{sec:reconhecimento}
 
-O ultimo passo para reconhecimento da placa é o reconhecimento ótico dos
+O último passo para reconhecimento da placa é o reconhecimento ótico dos
 caracteres extraídos. Os maiores desafios da extração de caracteres é o fato de
 os caracteres extraídos não terem o mesmo tamanho e grossura, devido ao
-\emph{zoom} da camera. Outro problema, ao criar um reconhecedor de propósito
+\emph{zoom} da câmera. Outro problema, ao criar um reconhecedor de propósito
 geral, é as diferentes fontes das diferentes placas ao redor do mundo.~\cite{s2013automatic}
 Este segundo não será um problema para este trabalho pois
 só há interesse em reconhecer placas brasileiras. Outro desafio é o
