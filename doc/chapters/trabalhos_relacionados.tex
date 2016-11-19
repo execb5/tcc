@@ -65,18 +65,32 @@ identificação, com o maior tempo de execução para um dos processos sendo de
 0,3s. Com estes resultados seria possível utilizar este método em aplicações de
 tempo real.
 
+Com relação ao uso de sistema embarcado para executar o reconhecimento, Arth et
+al.~\cite{arth2007real} trabalharam no desenvolvimento de um sistema de reconhecimento
+de placas de carro em um processador de digital de sinal (\emph{Digital Signal Processor}, DSP).
+\emph{DSP} são microprocessadores especializados em processamento digital de sinal utilizados para
+processar sinais como áudio ou vídeo em tempo real.~\cite{yovits1993advances} O processador utilizado
+neste trabalho específico foi um \emph{Texas Instruments C64} com \emph{1MB} de \emph{cache RAM} e um outro bloco
+de memória mais lento, \emph{SDRAM} de \emph{16MB}. O processador não possui camera integrada mas permite a conexão de
+uma fonte de vídeo analógica ou digital. Na solução implementada foi utilizada uma camera com resolução de \emph{352x288 pixels}.
+
+Com sua implementação, Arth et al.~\cite{arth2007real} foram capazes de conseguir localizar a placa em
+\emph{7.30 ms}, levando mais aproximadamente \emph{1 ms} para identificar cada caractere. Não é informado no artigo
+a taxa de sucesso de cada reconhecimento. Os autores ainda concluem que por o tempo de detecção da placa ser superior
+ao tempo de reconhecimento dos caracteres, este algoritmo deve ser melhorado.
+
 Analisando os trabalhos feitos na área, nota-se que por mais que os algoritmos variem,
-a base da detecção de placas permanece parecida. Eles costumam ser divididos em pelo 
-menos duas partes, a localização da placa e a detecção dos caracteres. Inclusive 
-~\cite{ahmad2015automatic} misturou diferentes algoritmos, utilizando a localização 
+a base da detecção de placas permanece parecida. Eles costumam ser divididos em pelo
+menos duas partes, a localização da placa e a detecção dos caracteres. Inclusive
+~\cite{ahmad2015automatic} misturou diferentes algoritmos, utilizando a localização
 de um e a detecção de outro, demonstrando que os dois passos são bem independentes.
 
-Pode-se notar que o reconhecimento de placas de carros é uma área bastante estudada, 
-com diversas abordagens diferentes e grande variação de resultados. Entretanto, 
-um problema que ainda existe, é a grande diferença nas placas de diferentes países, 
-no estilo, fonte, caracteres utilizados e padrão do texto. 
+Pode-se notar que o reconhecimento de placas de carros é uma área bastante estudada,
+com diversas abordagens diferentes e grande variação de resultados. Entretanto,
+um problema que ainda existe, é a grande diferença nas placas de diferentes países,
+no estilo, fonte, caracteres utilizados e padrão do texto.
 
-O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr} 
-criou uma solução de reconhecimento de placas que permite que a comunidade contribua 
-treinando o reconhecedor de caracteres a reconhecer as placas de seus países para contornar 
+O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr}
+criou uma solução de reconhecimento de placas que permite que a comunidade contribua
+treinando o reconhecedor de caracteres a reconhecer as placas de seus países para contornar
 esse problema.
