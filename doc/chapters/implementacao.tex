@@ -111,6 +111,9 @@ bits de cada pixel (i,j), e um valor de 8 bits em cinza é calculado.
 
 \subsubsection{Remoção de ruído por filtro bilateral}
 
+O filtro bilateral é um filtro não linear, que preserva as arestas e reduz ruído.
+Ele funciona substituindo o valor de intensidade de cada \emph{pixel} em uma imagem
+por uma média ponderada dos valores de intensidade dos \emph{pixels} próximos.
 O objetivo básico da filtragem é remover ruído e distorção da imagem. O ruído
 pode ocorrer durante a captura pela camera ou pelas condições do tempo. No
 método que~\cite{kaur2014efficient} propõe, filtro bilateral iterativo é
