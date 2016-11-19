@@ -109,6 +109,14 @@ import pytesseract
 print(pytesseract.image_to_string(Image.open('license_plate.jpg')))
 \end{verbatim}
 
+O \emph{Tesseract} pode ser treinado para reconhecer diferentes fontes e línguas. O
+treinamento deve ocorrer previamente, e não enquanto executa o reconhecimento das placas.
+Deverá ser coletado um significativo número de exemplos de caracteres como eles serão segmentados
+pelo algoritmo, e com esse conjunto de treinamento, deve se executar a ferramenta de treinamento do
+\emph{Tesseract}. Um manual de como utilizar o \emph{software} de treinamento pode ser encontrado
+no repositório do \emph{Tesseract}\footnote{https://github.com/tesseract-ocr/tesseract}, onde o
+\emph{software open source} está disponível.
+
 
 \section{Placa de Transito Brasileira}
 \label{sec:placabr}
