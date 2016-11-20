@@ -20,14 +20,14 @@ Raspberry Pi é um computador construído em uma placa de circuito do tamanho de
 um cartão de crédito desenvolvido pela Raspberry Pi
 Foundation\footnote{https://www.raspberrypi.org/}. Existem diversos modelos
 diferentes de Raspberry Pi no mercado, o que será utilizado no trabalho é um dos
-mais recentes atualmente, o Raspberry Pi 3 model B. Será utilizado o sistema
+mais recentes, o Raspberry Pi 3 model B. Será utilizado o sistema
 operacional \emph{Raspbian}, que é o sistema operacional oficial suportado pela
 \emph{Raspberry Pi Foundation}.
 
-Apesar de novo, o computador ainda tem suas limitações, com um processador
+O computador ainda tem suas limitações, com um processador
 quad-core ARMv8 de 1.2GHz e apenas 1GB de memória RAM\@. Pela limitação do
 \emph{hardware} é possível que algumas aplicações fiquem mais lentas do que
-ficariam em um computador mais potente, mas, apesar disso, o Raspberry Pi é um
+ficariam em um computador mais potente, apesar disso, o Raspberry Pi é um
 computador bem completo e capaz de exercer todas as funções de um computador
 normal.
 
@@ -48,7 +48,7 @@ Android e Mac OS.\footnote{http://opencv.org/}
 
 No desenvolvimento deste trabalho será utilizada a linguagem de programação \emph{Python},
 e algumas bibliotecas são utilizadas para trabalhar com \emph{OpenCV}. A biblioteca
-\emph{numpy}\footnote{http://www.numpy.org/}, é uma biblioteca de computação cientifica em
+\emph{numpy}\footnote{http://www.numpy.org/}, é uma biblioteca de computação científica em
 \emph{Python}, que inclui funções de processamento numérico e vetores que são utilizados
 pelo \emph{OpenCV} para representar as imagens.
 
@@ -59,7 +59,7 @@ o \texttt{cv2.VideoCapture(0)}, mas será optado por utilizar o \emph{picamera},
 específica para a camera utilizada.
 
 Um exemplo de código de captura de imagem utilizando a camera do \emph{Raspberry Pi} em \emph{Python}, utilizando
-as bibliotecas citadas pode ser visto abaixo. No exemplo, os quadros são capturados pela camera do \emph{Raspberry Pi},
+as bibliotecas citadas, pode ser visto abaixo. No exemplo, os quadros são capturados pela camera do \emph{Raspberry Pi},
 convertidos para escalas de tons de cinza (\emph{grayscale}), e mostrados na tela, dado que haja um monitor conectado ao
 computador \emph{Raspberry Pi}. Converter a imagem para \emph{grayscale} é um dos primeiros passos de pré-processamento
 para iniciar o reconhecimento da placa.
@@ -86,13 +86,13 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 Reconhecimento Ótico de Caracteres (\emph{Optical Character Recognition}, OCR)
 consiste da conversão de textos em formato de imagem para o formato reconhecido
 por máquina. É o método mais eficiente para fazer o processamento de imagem para
-texto.~\cite{mohit2015designing}
+texto de acordo com Mohit et al.~\cite{mohit2015designing}.
 
 Uma ferramenta conhecida de OCR é o
 Tesseract\footnote{https://github.com/tesseract-ocr/tesseract}. É uma ferramenta
 \emph{open source} de reconhecimento ótico de caracteres que suporta múltiplas
 línguas.  É essencialmente um algoritmo de comparação de \emph{templates}, e as
-amostras de caracteres podem ser auto-treinados.~\cite{ho2016intelligent} Esta
+amostras de caracteres podem ser auto-treinadas.~\cite{ho2016intelligent} Esta
 ferramenta será utilizada para fazer o reconhecimento dos caracteres neste trabalho.
 
 Um exemplo do uso do \emph{Tesseract} na linguagem de programação \emph{Python} pode ser
@@ -120,18 +120,16 @@ no repositório do \emph{Tesseract}\footnote{https://github.com/tesseract-ocr/te
 \label{sec:placabr}
 
 Segundo o código de transito brasileiro~\cite{brasil1997lei}, todos os veículos
-são identificados por meio de placas dianteira e traseira. Elas são
+são identificados por meio de placas, dianteira e traseira. Elas são
 identificadas por uma tarja na parte superior contendo a sigla do estado e o
 nome do município, e pelo código de identificação único, composto por três
 letras, seguidas por quatro digitos, separados por um hífen.
 
 Veículos particulares, de aluguel, oficial, de experiência, de aprendizagem e de
-fabricante têm suas dimensões de 130mmx400mm e altura dos caracteres de 63mm.
+fabricante têm suas dimensões de 130mmx400mm e altura dos caracteres de 63mm(figura~\ref{fig:placa_carro}).
 Caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
 placas de motocicleta, motoneta, ciclomotor e triciclos autorizados tem
-dimensões de 136mmx187mm e altura de caracteres de 42mm. Imagem das placas com
-suas dimensões podem ser vistos nas figuras~\ref{fig:placa_carro}
-e~\ref{fig:placa_moto}.
+dimensões de 136mmx187mm e altura de caracteres de 42mm(figura~\ref{fig:placa_moto}).
 
 \begin{figure}[H]
 	\centering
