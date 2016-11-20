@@ -56,7 +56,7 @@ convertidos para escalas de tons de cinza (\emph{grayscale}), e mostrados na tel
 computador \emph{Raspberry Pi}. Converter a imagem para \emph{grayscale} é um dos primeiros passos de pré-processamento
 para iniciar o reconhecimento da placa.
 
-\begin{verbatim}
+\begin{lstlisting}
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import cv2
@@ -69,7 +69,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 	gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 	cv2.imshow("Frame", gray_image)
 	rawCapture.truncate(0)
-\end{verbatim}
+\end{lstlisting}
 
 
 \section{OCR}
@@ -92,12 +92,12 @@ visto abaixo. É nescessário utilizar uma biblioteca chamada \emph{pytesseract}
 uma interface em \emph{Python} para a utilização da ferramenta. O exemplo abaixo lê uma
 imagem do disco e imprime no console quais os caracteres que foram reconhecidos.
 
-\begin{verbatim}
+\begin{lstlisting}
 from PIL import Image
 import pytesseract
 
 print(pytesseract.image_to_string(Image.open('license_plate.jpg')))
-\end{verbatim}
+\end{lstlisting}
 
 O \emph{Tesseract} pode ser treinado para reconhecer diferentes fontes e línguas. O
 treinamento deve ocorrer previamente, e não enquanto executa o reconhecimento das placas.
@@ -126,17 +126,17 @@ suas dimensões podem ser vistos nas figuras~\ref{fig:placa_carro}
 e~\ref{fig:placa_moto}.
 
 \begin{figure}[H]
-		\centering
-		\includegraphics[width=88mm]{placa_carro.png}
-		\caption{Placa de um carro}
-		\label{fig:placa_carro}
+	\centering
+	\includegraphics[width=88mm]{placa_carro.png}
+	\caption{Placa de um carro}
+	\label{fig:placa_carro}
 \end{figure}
 
 \begin{figure}[H]
-		\centering
-		\includegraphics[width=88mm]{placa_moto.png}
-		\caption{Placa de uma moto}
-		\label{fig:placa_moto}
+	\centering
+	\includegraphics[width=88mm]{placa_moto.png}
+	\caption{Placa de uma moto}
+	\label{fig:placa_moto}
 \end{figure}
 
 A tipologia dos caracteres das placas utiliza a fonte
@@ -144,10 +144,10 @@ Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de veículo
 são diferenciadas pelas suas cores na tabela~\ref{tab:placa_cores}.
 
 \begin{figure}[H]
-		\centering
-		\includegraphics[width=88mm]{fonte.png}
-		\caption{Tipografia das placas}
-		\label{fig:tipografia}
+	\centering
+	\includegraphics[width=88mm]{fonte.png}
+	\caption{Tipografia das placas}
+	\label{fig:tipografia}
 \end{figure}
 
 \begin{table}[]
