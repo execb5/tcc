@@ -56,7 +56,6 @@ Kaur~\cite{kaur2014efficient} propõe um método eficiênte de
 extração que segue o seguinte fluxograma:
 
 \begin{enumerate}
-	\item Aquisição de Imagem
 	\item Conversão de RGB para escala de tons de cinza
 	\item Remoção de ruído por filtro bilateral
 	\item Aumento de contraste usando equalização de histograma adaptativo
@@ -67,20 +66,6 @@ extração que segue o seguinte fluxograma:
 	\item Extração da área da placa real
 	\item Aprimoramento da região extraída
 \end{enumerate}
-
-\section{Aquisição da imagem}
-
-O primeiro passo é adquirir a imagem que vai servir de entrada. Essa imagem, no
-contexto do nosso trabalho, vai vir de uma câmera digital ligada ao Raspberry
-Pi.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=88mm]{ext01.png}
-	\caption{Imagem de entrada}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
-	\label{fig:ext_input_image}
-\end{figure}
 
 \subsection{Pré-processamento}
 
