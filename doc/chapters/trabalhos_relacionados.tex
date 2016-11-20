@@ -7,9 +7,9 @@ para definir a região de interesse e o ângulo de cisalhamento, detecção da
 placa, segmentação dos caracteres e aplicação do reconhecedor ótico de
 caracteres.
 
-Com a solução proposta foi obtida uma taxa de acerto de aproximadamente 54\%,
-com tempo médio de execução de 0,062 segundos por imagem. A baixa taxa de acerto
-pode ter sido por problemas de foco e nitidez, o tamanho da placa em
+Com a solução proposta por Serro~\cite{serro2012deteccao}  foi obtida uma taxa de
+acerto de aproximadamente 54\%, com tempo médio de execução de 0,062 segundos por imagem.
+A baixa taxa de acerto pode ter sido por problemas de foco e nitidez, o tamanho da placa em
 \emph{pixels} nas imagens e a existência de outros objetos em cena. Todos esses
 problemas foram citados no desenvolvimento do projeto.
 
@@ -27,9 +27,10 @@ placa e dois diferentes métodos de reconhecimento de caracteres, resultando em 
 diferentes abordagens para o reconhecimento de placas. Todas essas combinações
 foram então testadas contra diferentes conjuntos de dados.
 
-Os resultados obtidos na experimentação não foram muito animadores, variando
-entre 20 e 40 por cento. Um dos motivos para os maus resultados foi a variedade
-de parâmetros nas imagens do conjunto de dados de teste. Tais parâmetros incluem
+Os resultados obtidos por Ahmad et al.~\cite{ahmad2015automatic} na experimentação não
+foram muito animadores, variando entre 20 e 40 por cento.
+Um dos motivos para os maus resultados foi a variedade de parâmetros nas imagens do conjunto
+de dados de teste. Tais parâmetros incluem
 variações na distância, ângulo, iluminação e ambiente. Estes erros poderiam ser
 mitigados em sistemas reais com uma câmera com resolução fixa e de boa
 qualidade. A variação do tamanho da placa afetou o desempenho de alguns
@@ -40,11 +41,11 @@ Outros motivos para a baixa taxa de acerto foram a falta de pré-processamento
 das imagens, que a análise não considerou, e a utilização de mais dados de
 aprendizado para o reconhecimento ótico de caracteres.
 
-Em Abtahi et al.~\cite{abtahi2015deep} foi feita uma nova abordagem para a
+Em Abtahi et al.~\cite{abtahi2015deep} foram feitas novas abordagens para a
 segmentação de caracteres em imagens. De acordo com eles, o método padrão de
 segmentação baseado em projeção sofre com variações consideráveis na região da
-placa ao redor dos caracteres. Estes autores propõem duas abordagens. A primeira
-é feita adaptando um método de aprendizado por reforço, criando um agente que
+placa ao redor dos caracteres, portanto estes autores propuseram duas abordagens.
+A primeira é feita adaptando um método de aprendizado por reforço, criando um agente que
 consiga achar os melhores caminhos para a segmentação.  A segunda abordagem usa
 um método híbrido que utiliza a simplicidade e velocidade do método de projeção,
 mas com o poder do aprendizado por reforço.
