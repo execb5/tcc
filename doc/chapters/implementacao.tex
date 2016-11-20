@@ -175,6 +175,9 @@ Fonte: An efficient approach for number plate extraction from vehicles image und
 
 Nesta operação a imagem de escala de cinza subtraída é convertida em imagem
 binária. Em primeiro lugar, o nível de limiar é calculado pelo método de Otsu.
+O algoritmo do método de Otsu assume que  a imagem contém duas classes de pixels
+seguindo um histograma bi-modal. Ele então calcula o limiar ótimo separando as
+duas classes para que o seu espalhamento combinado seja mínimo.
 Tendo o limiar calculado, a imagem de escala de cinza subtraída é convertida em
 imagem em preto e branco.
 
