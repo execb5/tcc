@@ -1,14 +1,8 @@
 Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
 proposta por Serro~\cite{serro2012deteccao} na PUCRS\@. Neste trabalho foram
 utilizadas técnicas de segmentação de imagens, histograma, cisalhamento de
-imagens e reconhecimento ótico de caracteres. Sua implementação tem uma série de
-restrições. É apenas considerado um subconjunto de placas, excluindo placas de
-representação e de deficientes auditivos. Não são reconhecidos estado e cidade
-da placa. E o ambiente onde seria feita a foto para reconhecimento seria em
-situações onde o veículo se encontra parado, com a câmera posicionada à frente
-do veículo.
-
-A metodologia utilizada consistiu das seguintes etapas, calibração do sistema
+imagens e reconhecimento ótico de caracteres. A metodologia utilizada consistiu das
+seguintes etapas, calibração do sistema
 para definir a região de interesse e o ângulo de cisalhamento, detecção da
 placa, segmentação dos caracteres e aplicação do reconhecedor ótico de
 caracteres.
@@ -80,7 +74,7 @@ a taxa de sucesso de cada reconhecimento. Os autores ainda concluem que por o te
 ao tempo de reconhecimento dos caracteres, este algoritmo deve ser melhorado.
 
 Analisando os trabalhos feitos na área, nota-se que por mais que os algoritmos variem,
-a base da detecção de placas permanece parecida. Eles costumam ser divididos em pelo 
+a base da detecção de placas permanece parecida. Eles costumam ser divididos em pelo
 menos duas partes, a localização da placa e a detecção dos caracteres. Inclusive~\cite{ahmad2015automatic}
 misturou diferentes algoritmos, utilizando a localização de um e a detecção de
 outro, demonstrando que os dois passos são bem independentes.
