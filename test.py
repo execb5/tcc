@@ -11,6 +11,8 @@ def main():
     # cv2.imwrite('opened_image.jpg', opened_image)
     binarized_image = binarize_image(equalized_image)
     cv2.imwrite('binarized_image.jpg', binarized_image)
+    sobel_image = apply_sobel_edge_detection(binarized_image)
+    cv2.imwrite('sobel_image.jpg', sobel_image)
 
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -26,6 +28,17 @@ def apply_morphological_openning(image):
 def binarize_image(image):
     (thresh, binarized_image) = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     return binarized_image
+
+
+def apply_sobel_edge_detection(image):
+    scale = 1
+    delta = 0
+    ddepth = cv2.CV_16S
+    grad_x = cv2.Sobel(image, ddepth, 1, 0, ksize = 3, scale = scale, delta = delta,borderType = cv2.BORDER_DEFAULT)
+    grad_y = cv2.Sobel(image, ddepth, 0, 1, ksize = 3, scale = scale, delta = delta, borderType = cv2.BORDER_DEFAULT)
+    abs_grad_x = cv2.convertScaleAbs(grad_x)
+    abs_grad_y = cv2.convertScaleAbs(grad_y)
+    return cv2.addWeighted(abs_grad_x,0.5,abs_grad_y,0.5,0)
 
 if __name__ == "__main__":
     main()
