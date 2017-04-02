@@ -2,7 +2,7 @@ import cv2
 import numpy
 
 def main():
-    image = cv2.imread('image.jpg')
+    image = cv2.imread('test_image_2.png')
     gray_image = convert_grayscale(image)
     cv2.imwrite('grayscale.jpg', gray_image)
     equalized_image = apply_histogram_equalization(gray_image)
