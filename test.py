@@ -21,6 +21,9 @@ def main():
     dilated_image = apply_dilation(sobel_image)
     cv2.imwrite('dilated_image.jpg', dilated_image)
 
+    filled_image = fill_image(dilated_image)
+    cv2.imwrite('filled_image.jpg', filled_image)
+
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -50,6 +53,15 @@ def apply_sobel_edge_detection(image):
 def apply_dilation(image):
     kernel = numpy.ones((5,5),numpy.uint8)
     return cv2.dilate(image, kernel, iterations = 1)
+
+def fill_image(image):
+    im_floodfill = image.copy()
+    h, w = image.shape[:2]
+    mask = numpy.zeros((h+2, w+2), numpy.uint8)
+    cv2.floodFill(im_floodfill, mask, (0,0), 255)
+    im_floodfill_inv = cv2.bitwise_not(im_floodfill)
+    im_out = image | im_floodfill_inv
+    return im_out
 
 if __name__ == "__main__":
     main()
