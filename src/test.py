@@ -22,8 +22,9 @@ def test_bilateral_filter():
 
 def test_histogram_equalization():
     image = cv2.imread('../img/original_image_3_bilateral_filter.png')
-    equalized_image = apply_histogram_equalization(image)
-    cv2.imwrite('histogram_eq.jpg', image)
+    grayscale = convert_grayscale(image)
+    equalized_image = apply_histogram_equalization(grayscale)
+    cv2.imwrite('histogram_eq.jpg', equalized_image)
 
 def test_opening():
     image = cv2.imread('../img/original_image_4_histogram_equalization.png')
@@ -35,7 +36,8 @@ def test_subtraction():
 
 def test_binarization():
     image = cv2.imread('../img/original_image_6_subtraction.png')
-    binarized_image = binarize_image(image)
+    grayscale = convert_grayscale(image)
+    binarized_image = binarize_image(grayscale)
     cv2.imwrite('binarized_image.jpg', binarized_image)
 
 def test_edge_detection():
@@ -68,7 +70,6 @@ def apply_morphological_openning(image):
 def binarize_image(image):
     (thresh, binarized_image) = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     return binarized_image
-
 
 def apply_sobel_edge_detection(image):
     scale = 1
