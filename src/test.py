@@ -1,7 +1,36 @@
 import cv2
 import numpy
+from PIL import Image
+import pytesseract
+
+def tesseract():
+    image = cv2.imread("textomelhor.png")
+    api = tesseract.TessBaseAPI()
+    api.SetVariable("tessedit_char_whitelist", "0123456789abcdefghijklmnopqrstuvwxyz")
+    # gray_image = convert_grayscale(image)
+    # equalized_image = apply_histogram_equalization(gray_image)
+    # binarized_image = binarize_image(equalized_image)
+    # cv2.imwrite('bla.jpg', binarized_image)
+    # dst = cv2.fastNlMeansDenoisingColored(image,None,10,10,7,21)
+    # cv2.imwrite('bla.jpg', dst)
+    print(pytesseract.image_to_string(Image.fromarray(image)))
 
 def main():
+    image = cv2.imread("full_car.JPG")
+    gray_image = convert_grayscale(image)
+    cv2.imwrite('grayscale.jpg', gray_image)
+    equalized_image = apply_histogram_equalization(gray_image)
+    cv2.imwrite('histogram_eq.jpg', equalized_image)
+    binarized_image = binarize_image(equalized_image)
+    cv2.imwrite('binarized_image.jpg', binarized_image)
+    sobel_image = apply_sobel_edge_detection(binarized_image)
+    cv2.imwrite('sobel_image.jpg', sobel_image)
+    dilated_image = apply_dilation(sobel_image)
+    cv2.imwrite('dilated_image.jpg', dilated_image)
+    filled_image = fill_image(dilated_image)
+    cv2.imwrite('filled_image.jpg', filled_image)
+
+def test():
     test_grayscale()
     test_bilateral_filter()
     test_histogram_equalization()
@@ -95,4 +124,6 @@ def fill_image(image):
     return im_out
 
 if __name__ == "__main__":
-    main()
+    # test()
+    # main()
+    tesseract()
