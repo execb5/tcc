@@ -4,16 +4,11 @@ from PIL import Image
 import pytesseract
 
 def tesseract():
-    image = cv2.imread("textomelhor.png")
-    api = tesseract.TessBaseAPI()
-    api.SetVariable("tessedit_char_whitelist", "0123456789abcdefghijklmnopqrstuvwxyz")
-    # gray_image = convert_grayscale(image)
-    # equalized_image = apply_histogram_equalization(gray_image)
-    # binarized_image = binarize_image(equalized_image)
-    # cv2.imwrite('bla.jpg', binarized_image)
-    # dst = cv2.fastNlMeansDenoisingColored(image,None,10,10,7,21)
-    # cv2.imwrite('bla.jpg', dst)
-    print(pytesseract.image_to_string(Image.fromarray(image)))
+    letters = cv2.imread("letras.png")
+    numbers = cv2.imread("numeros.png")
+
+    print(pytesseract.image_to_string(Image.fromarray(letters), None, False, "-c tessedit_char_whitelist=QWERTYUIOPASDFGHJKLZXCVBNM -psm 6"))
+    print(pytesseract.image_to_string(Image.fromarray(numbers), None, False, "-c tessedit_char_whitelist=0123456789 -psm 6"))
 
 def main():
     image = cv2.imread("full_car.JPG")
