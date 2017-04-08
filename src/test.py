@@ -2,6 +2,7 @@ import cv2
 import numpy
 from PIL import Image
 import pytesseract
+from scipy import ndimage
 
 def tesseract():
     letters = cv2.imread("letras.png")
@@ -11,18 +12,27 @@ def tesseract():
     print(pytesseract.image_to_string(Image.fromarray(numbers), None, False, "-c tessedit_char_whitelist=0123456789 -psm 6"))
 
 def main():
-    image = cv2.imread("full_car.JPG")
+    image = cv2.imread("full_car.jpg")
+
     gray_image = convert_grayscale(image)
     cv2.imwrite('grayscale.jpg', gray_image)
-    equalized_image = apply_histogram_equalization(gray_image)
+
+    bilateral_image = apply_bilateral_filter(gray_image)
+    cv2.imwrite('bilateral.jpg', bilateral_image)
+
+    equalized_image = apply_histogram_equalization(bilateral_image)
     cv2.imwrite('histogram_eq.jpg', equalized_image)
+
     binarized_image = binarize_image(equalized_image)
     cv2.imwrite('binarized_image.jpg', binarized_image)
+
     sobel_image = apply_sobel_edge_detection(binarized_image)
     cv2.imwrite('sobel_image.jpg', sobel_image)
+
     dilated_image = apply_dilation(sobel_image)
     cv2.imwrite('dilated_image.jpg', dilated_image)
-    filled_image = fill_image(dilated_image)
+
+    filled_image = flood_fill(dilated_image)
     cv2.imwrite('filled_image.jpg', filled_image)
 
 def test():
@@ -83,6 +93,9 @@ def test_fill():
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
+def apply_bilateral_filter(image):
+    return cv2.bilateralFilter(image, 9, 75, 75)
+
 def apply_histogram_equalization(image):
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
     return clahe.apply(image)
@@ -118,7 +131,37 @@ def fill_image(image):
     im_out = image | im_floodfill_inv
     return im_out
 
+def flood_fill(test_array, four_way=False):
+    matth_array = cv2.bitwise_not(test_array)
+
+    input_array = numpy.copy(matth_array)
+
+    h_max = numpy.max(input_array * 2.0)
+
+    data_mask = numpy.isfinite(input_array)
+    inside_mask = ndimage.binary_erosion(
+        data_mask,
+        structure=numpy.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]).astype(numpy.bool))
+    edge_mask = (data_mask & ~inside_mask)
+
+    output_array = numpy.copy(input_array)
+    output_array[inside_mask] = h_max
+
+    output_old_array = numpy.copy(input_array)
+    output_old_array.fill(0)
+
+    if four_way:
+        el = numpy.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]).astype(numpy.bool)
+    else:
+        el = numpy.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]).astype(numpy.bool)
+        while not numpy.array_equal(output_old_array, output_array):
+            output_old_array = numpy.copy(output_array)
+            output_array = numpy.maximum(
+            input_array,
+            ndimage.grey_erosion(output_array, size=(3, 3), footprint=el))
+            return output_array
+
 if __name__ == "__main__":
     # test()
-    # main()
-    tesseract()
+    main()
+    # tesseract()
