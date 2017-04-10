@@ -4,6 +4,25 @@ from PIL import Image
 import pytesseract
 from scipy import ndimage
 
+def after_matlab():
+    image = cv2.imread("imgfill.png")
+
+    fill_grayscale = convert_grayscale(image)
+    cv2.imwrite('fill_grayscale.jpg', fill_grayscale)
+
+    fill_binary = binarize_image(fill_grayscale)
+    cv2.imwrite('fill_binary.jpg', fill_binary)
+
+    fill_eroded = apply_erosion(fill_binary)
+    cv2.imwrite('fill_eroded.jpg', fill_eroded)
+
+    fill_dilated = apply_dilation(fill_eroded)
+    cv2.imwrite('fill_dilated.jpg', fill_dilated)
+
+    # fill_open = apply_morphological_openning(fill_binary)
+    # cv2.imwrite("fill_open.jpg", fill_open)
+
+
 def tesseract():
     letters = cv2.imread("letras.png")
     numbers = cv2.imread("numeros.png")
@@ -32,9 +51,6 @@ def main():
     dilated_image = apply_dilation(sobel_image)
     cv2.imwrite('dilated_image.jpg', dilated_image)
 
-    filled_image = flood_fill(dilated_image)
-    cv2.imwrite('filled_image.jpg', filled_image)
-
 def test():
     test_grayscale()
     test_bilateral_filter()
@@ -44,7 +60,6 @@ def test():
     test_binarization()
     test_edge_detection()
     test_dilation()
-    test_fill()
 
 def test_grayscale():
     image = cv2.imread('../img/original_image_1.png')
@@ -84,12 +99,6 @@ def test_dilation():
     dilated_image = apply_dilation(image)
     cv2.imwrite('dilated_image.jpg', dilated_image)
 
-def test_fill():
-    image = cv2.imread('../img/original_image_9_dilation.png')
-    filled_image = fill_image(image)
-    cv2.imwrite('filled_image.jpg', filled_image)
-
-
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -119,49 +128,15 @@ def apply_sobel_edge_detection(image):
     return cv2.addWeighted(abs_grad_x,0.5,abs_grad_y,0.5,0)
 
 def apply_dilation(image):
-    kernel = numpy.ones((5,5),numpy.uint8)
+    kernel = numpy.ones((100, 100),numpy.uint8)
     return cv2.dilate(image, kernel, iterations = 1)
 
-def fill_image(image):
-    im_floodfill = image.copy()
-    h, w = image.shape[:2]
-    mask = numpy.zeros((h+2, w+2), numpy.uint8)
-    cv2.floodFill(im_floodfill, mask, (0,0), 255)
-    im_floodfill_inv = cv2.bitwise_not(im_floodfill)
-    im_out = image | im_floodfill_inv
-    return im_out
-
-def flood_fill(test_array, four_way=False):
-    matth_array = cv2.bitwise_not(test_array)
-
-    input_array = numpy.copy(matth_array)
-
-    h_max = numpy.max(input_array * 2.0)
-
-    data_mask = numpy.isfinite(input_array)
-    inside_mask = ndimage.binary_erosion(
-        data_mask,
-        structure=numpy.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]).astype(numpy.bool))
-    edge_mask = (data_mask & ~inside_mask)
-
-    output_array = numpy.copy(input_array)
-    output_array[inside_mask] = h_max
-
-    output_old_array = numpy.copy(input_array)
-    output_old_array.fill(0)
-
-    if four_way:
-        el = numpy.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]]).astype(numpy.bool)
-    else:
-        el = numpy.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]]).astype(numpy.bool)
-        while not numpy.array_equal(output_old_array, output_array):
-            output_old_array = numpy.copy(output_array)
-            output_array = numpy.maximum(
-            input_array,
-            ndimage.grey_erosion(output_array, size=(3, 3), footprint=el))
-            return output_array
+def apply_erosion(image):
+    kernel = numpy.ones((100, 100),numpy.uint8)
+    return cv2.erode(image, kernel, iterations = 1)
 
 if __name__ == "__main__":
     # test()
-    main()
+    # main()
     # tesseract()
+    after_matlab()
