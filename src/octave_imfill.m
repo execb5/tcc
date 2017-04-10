@@ -1,5 +1,5 @@
 #! /usr/local/bin/octave -qf
 pkg load image
-IMG = imread('dilated_image.jpg');
+IMG = imread('../img/6dilated_image.jpg');
 FILL = imfill(IMG);
-imwrite(FILL, 'filled_image.png')
+imwrite(FILL, '../img/7filled_image.png')

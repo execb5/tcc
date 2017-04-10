@@ -28,7 +28,7 @@ def main():
 
     call(["./octave_imfill.m"])
 
-    filled_image = cv2.imread("filled_image.png")
+    filled_image = cv2.imread("../img/7filled_image.png")
 
     fill_grayscale = convert_grayscale(filled_image)
     cv2.imwrite('../img/8fill_grayscale.jpg', fill_grayscale)
