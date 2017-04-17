@@ -47,19 +47,15 @@ def main():
 
 
 
-    _, thresh = cv2.threshold(fill_dilated, 0, 255, cv2.THRESH_BINARY)
+    _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
 
 
-    # output = cv2.connectedComponentsWithStats(thresh, 4, cv2.CV_32S)
-    # print output
-
-
-    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     i = 5
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.boundingRect(contour)
-        cv2.imwrite(str(i)+".jpg",image[y:y+h,x:x+h])
+        cv2.imwrite(str(i)+".jpg",image[y:y+h,x:x+w])
         i=i+1
 
 def convert_grayscale(image):
