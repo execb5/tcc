@@ -42,6 +42,26 @@ def main():
     fill_dilated = apply_super_dilation(fill_eroded)
     cv2.imwrite('../img/11fill_dilated.jpg', fill_dilated)
 
+
+
+
+
+
+    _, thresh = cv2.threshold(fill_dilated, 0, 255, cv2.THRESH_BINARY)
+
+
+    # output = cv2.connectedComponentsWithStats(thresh, 4, cv2.CV_32S)
+    # print output
+
+
+    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    i = 5
+    for contour in contours:
+        x, y, w, h = cv2.boundingRect(contour)
+        cv2.boundingRect(contour)
+        cv2.imwrite(str(i)+".jpg",image[y:y+h,x:x+h])
+        i=i+1
+
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
