@@ -42,21 +42,22 @@ def main():
     fill_dilated = apply_super_dilation(fill_eroded)
     cv2.imwrite('../img/11fill_dilated.jpg', fill_dilated)
 
+    rois = extract_region_of_interest(fill_dilated, image)
+    print rois
 
-
-
-
-
+def extract_region_of_interest(fill_dilated, original_image):
     _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
-
-
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    i = 5
+    i = 1
+    rois = []
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.boundingRect(contour)
-        cv2.imwrite(str(i)+".jpg",image[y:y+h,x:x+w])
+        name = "../img/roi_" + str(i) + ".jpg"
+        cv2.imwrite(name, original_image[y:y+h,x:x+w])
         i=i+1
+        rois.append(name)
+    return rois
 
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
