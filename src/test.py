@@ -9,38 +9,38 @@ def main():
     image = cv2.imread("full_car.jpg")
 
     gray_image = convert_grayscale(image)
-    cv2.imwrite('../img/1grayscale.jpg', gray_image)
+    cv2.imwrite('../output/1grayscale.jpg', gray_image)
 
     bilateral_image = apply_bilateral_filter(gray_image)
-    cv2.imwrite('../img/2bilateral.jpg', bilateral_image)
+    cv2.imwrite('../output/2bilateral.jpg', bilateral_image)
 
     equalized_image = apply_histogram_equalization(bilateral_image)
-    cv2.imwrite('../img/3histogram_eq.jpg', equalized_image)
+    cv2.imwrite('../output/3histogram_eq.jpg', equalized_image)
 
     binarized_image = binarize_image(equalized_image)
-    cv2.imwrite('../img/4binarized_image.jpg', binarized_image)
+    cv2.imwrite('../output/4binarized_image.jpg', binarized_image)
 
     sobel_image = apply_sobel_edge_detection(binarized_image)
-    cv2.imwrite('../img/5sobel_image.jpg', sobel_image)
+    cv2.imwrite('../output/5sobel_image.jpg', sobel_image)
 
     dilated_image = apply_dilation(sobel_image)
-    cv2.imwrite('../img/6dilated_image.jpg', dilated_image)
+    cv2.imwrite('../output/6dilated_image.jpg', dilated_image)
 
     call(["./octave_imfill.m"])
 
-    filled_image = cv2.imread("../img/7filled_image.png")
+    filled_image = cv2.imread("../output/7filled_image.png")
 
     fill_grayscale = convert_grayscale(filled_image)
-    cv2.imwrite('../img/8fill_grayscale.jpg', fill_grayscale)
+    cv2.imwrite('../output/8fill_grayscale.jpg', fill_grayscale)
 
     fill_binary = binarize_image(fill_grayscale)
-    cv2.imwrite('../img/9fill_binary.jpg', fill_binary)
+    cv2.imwrite('../output/9fill_binary.jpg', fill_binary)
 
     fill_eroded = apply_super_erosion(fill_binary)
-    cv2.imwrite('../img/10fill_eroded.jpg', fill_eroded)
+    cv2.imwrite('../output/10fill_eroded.jpg', fill_eroded)
 
     fill_dilated = apply_super_dilation(fill_eroded)
-    cv2.imwrite('../img/11fill_dilated.jpg', fill_dilated)
+    cv2.imwrite('../output/11fill_dilated.jpg', fill_dilated)
 
     rois = extract_region_of_interest(fill_dilated, image)
     print rois
@@ -53,7 +53,7 @@ def extract_region_of_interest(fill_dilated, original_image):
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.boundingRect(contour)
-        name = "../img/roi_" + str(i) + ".jpg"
+        name = "../output/roi_" + str(i) + ".jpg"
         cv2.imwrite(name, original_image[y:y+h,x:x+w])
         i=i+1
         rois.append(name)
