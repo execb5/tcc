@@ -6,35 +6,71 @@ from scipy import ndimage
 from subprocess import call
 
 def main():
+    plate = extract_plate_image()
+    prepare_plate_image_for_tesseract(plate)
+
+def prepare_plate_image_for_tesseract(plate):
+    gray_plate = convert_grayscale(plate)
+    cv2.imwrite('../output/a01grayscale.jpg', gray_plate)
+
+    fill_binary = binarize_image(gray_plate)
+    cv2.imwrite('../output/a02fill_binary.jpg', fill_binary)
+
+    # dilated_plate = apply_dilation(fill_binary)
+    # cv2.imwrite('../output/a03dilated_image.jpg', dilated_plate)
+
+    kernel = numpy.ones((11, 11),numpy.uint8)
+    dilated_plate = cv2.dilate(fill_binary, kernel, iterations = 1)
+    cv2.imwrite('../output/a03dilated_image.jpg', dilated_plate)
+
+    # fill_eroded = apply_super_erosion(fill_binary)
+    # cv2.imwrite('../output/a04fill_eroded.jpg', fill_eroded)
+
+    element = cv2.getStructuringElement(cv2.MORPH_CROSS,(3,3))
+
+    kernel = numpy.ones((20, 20),numpy.uint8)
+    fill_eroded = cv2.erode(dilated_plate, kernel, iterations = 1)
+    cv2.imwrite('../output/a04fill_eroded.jpg', fill_eroded)
+
+    kernel = numpy.ones((22, 22),numpy.uint8)
+    dilated_plate = cv2.dilate(fill_eroded, kernel, iterations = 1)
+    cv2.imwrite('../output/a05dilated_again_image.jpg', dilated_plate)
+
+    kernel = numpy.ones((22, 22),numpy.uint8)
+    fill_eroded = cv2.erode(dilated_plate, kernel, iterations = 1)
+    cv2.imwrite('../output/a06fill_eroded_again.jpg', fill_eroded)
+    print '../output/a06fill_eroded_again.jpg'
+
+def extract_plate_image():
     image = cv2.imread("full_car.jpg")
 
     gray_image = convert_grayscale(image)
-    cv2.imwrite('../output/1grayscale.jpg', gray_image)
+    cv2.imwrite('../output/01grayscale.jpg', gray_image)
 
     bilateral_image = apply_bilateral_filter(gray_image)
-    cv2.imwrite('../output/2bilateral.jpg', bilateral_image)
+    cv2.imwrite('../output/02bilateral.jpg', bilateral_image)
 
     equalized_image = apply_histogram_equalization(bilateral_image)
-    cv2.imwrite('../output/3histogram_eq.jpg', equalized_image)
+    cv2.imwrite('../output/03histogram_eq.jpg', equalized_image)
 
     binarized_image = binarize_image(equalized_image)
-    cv2.imwrite('../output/4binarized_image.jpg', binarized_image)
+    cv2.imwrite('../output/04binarized_image.jpg', binarized_image)
 
     sobel_image = apply_sobel_edge_detection(binarized_image)
-    cv2.imwrite('../output/5sobel_image.jpg', sobel_image)
+    cv2.imwrite('../output/05sobel_image.jpg', sobel_image)
 
     dilated_image = apply_dilation(sobel_image)
-    cv2.imwrite('../output/6dilated_image.jpg', dilated_image)
+    cv2.imwrite('../output/06dilated_image.jpg', dilated_image)
 
     call(["./octave_imfill.m"])
 
-    filled_image = cv2.imread("../output/7filled_image.png")
+    filled_image = cv2.imread("../output/07filled_image.png")
 
     fill_grayscale = convert_grayscale(filled_image)
-    cv2.imwrite('../output/8fill_grayscale.jpg', fill_grayscale)
+    cv2.imwrite('../output/08fill_grayscale.jpg', fill_grayscale)
 
     fill_binary = binarize_image(fill_grayscale)
-    cv2.imwrite('../output/9fill_binary.jpg', fill_binary)
+    cv2.imwrite('../output/09fill_binary.jpg', fill_binary)
 
     fill_eroded = apply_super_erosion(fill_binary)
     cv2.imwrite('../output/10fill_eroded.jpg', fill_eroded)
@@ -43,17 +79,18 @@ def main():
     cv2.imwrite('../output/11fill_dilated.jpg', fill_dilated)
 
     rois = extract_region_of_interest(fill_dilated, image)
-    print rois
+    return cv2.imread(rois[0])
+
 
 def extract_region_of_interest(fill_dilated, original_image):
     _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    i = 1
+    i = 12
     rois = []
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.boundingRect(contour)
-        name = "../output/roi_" + str(i) + ".jpg"
+        name = "../output/" + str(i) + "roi.jpg"
         cv2.imwrite(name, original_image[y:y+h,x:x+w])
         i=i+1
         rois.append(name)
