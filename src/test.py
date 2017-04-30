@@ -1,3 +1,4 @@
+import time
 import cv2
 import numpy
 from PIL import Image
@@ -9,78 +10,123 @@ def main():
     plate = extract_plate_image()
     prepare_plate_image_for_tesseract(plate)
 
-def prepare_plate_image_for_tesseract(plate):
-    gray_plate = convert_grayscale(plate)
-    cv2.imwrite('../output/a01grayscale.jpg', gray_plate)
-
-    fill_binary = binarize_image(gray_plate)
-    cv2.imwrite('../output/a02fill_binary.jpg', fill_binary)
-
-    # dilated_plate = apply_dilation(fill_binary)
-    # cv2.imwrite('../output/a03dilated_image.jpg', dilated_plate)
-
-    kernel = numpy.ones((11, 11),numpy.uint8)
-    dilated_plate = cv2.dilate(fill_binary, kernel, iterations = 1)
-    cv2.imwrite('../output/a03dilated_image.jpg', dilated_plate)
-
-    # fill_eroded = apply_super_erosion(fill_binary)
-    # cv2.imwrite('../output/a04fill_eroded.jpg', fill_eroded)
-
-    element = cv2.getStructuringElement(cv2.MORPH_CROSS,(3,3))
-
-    kernel = numpy.ones((20, 20),numpy.uint8)
-    fill_eroded = cv2.erode(dilated_plate, kernel, iterations = 1)
-    cv2.imwrite('../output/a04fill_eroded.jpg', fill_eroded)
-
-    kernel = numpy.ones((22, 22),numpy.uint8)
-    dilated_plate = cv2.dilate(fill_eroded, kernel, iterations = 1)
-    cv2.imwrite('../output/a05dilated_again_image.jpg', dilated_plate)
-
-    kernel = numpy.ones((22, 22),numpy.uint8)
-    fill_eroded = cv2.erode(dilated_plate, kernel, iterations = 1)
-    cv2.imwrite('../output/a06fill_eroded_again.jpg', fill_eroded)
-    print '../output/a06fill_eroded_again.jpg'
-
 def extract_plate_image():
     image = cv2.imread("full_car.jpg")
 
+    start_time = time.time()
     gray_image = convert_grayscale(image)
     cv2.imwrite('../output/01grayscale.jpg', gray_image)
+    end_time = time.time() - start_time
+    print "grayscale " + str(end_time) + " seconds"
 
+    start_time = time.time()
     bilateral_image = apply_bilateral_filter(gray_image)
     cv2.imwrite('../output/02bilateral.jpg', bilateral_image)
+    end_time = time.time() - start_time
+    print "bilateral filter " + str(end_time) + " seconds"
 
+    start_time = time.time()
     equalized_image = apply_histogram_equalization(bilateral_image)
     cv2.imwrite('../output/03histogram_eq.jpg', equalized_image)
+    end_time = time.time() - start_time
+    print "histogram equalization " + str(end_time) + " seconds"
 
+    start_time = time.time()
     binarized_image = binarize_image(equalized_image)
     cv2.imwrite('../output/04binarized_image.jpg', binarized_image)
+    end_time = time.time() - start_time
+    print "binarize " + str(end_time) + " seconds"
 
+    start_time = time.time()
     sobel_image = apply_sobel_edge_detection(binarized_image)
     cv2.imwrite('../output/05sobel_image.jpg', sobel_image)
+    end_time = time.time() - start_time
+    print "edge detection " + str(end_time) + " seconds"
 
+    start_time = time.time()
     dilated_image = apply_dilation(sobel_image)
     cv2.imwrite('../output/06dilated_image.jpg', dilated_image)
+    end_time = time.time() - start_time
+    print "dilation " + str(end_time) + " seconds"
 
+    start_time = time.time()
     call(["./octave_imfill.m"])
-
     filled_image = cv2.imread("../output/07filled_image.png")
+    end_time = time.time() - start_time
+    print "imfill " + str(end_time) + " seconds"
 
+    start_time = time.time()
     fill_grayscale = convert_grayscale(filled_image)
     cv2.imwrite('../output/08fill_grayscale.jpg', fill_grayscale)
+    end_time = time.time() - start_time
+    print "grayscale " + str(end_time) + " seconds"
 
+    start_time = time.time()
     fill_binary = binarize_image(fill_grayscale)
     cv2.imwrite('../output/09fill_binary.jpg', fill_binary)
+    end_time = time.time() - start_time
+    print "binarize " + str(end_time) + " seconds"
 
+    start_time = time.time()
     fill_eroded = apply_super_erosion(fill_binary)
     cv2.imwrite('../output/10fill_eroded.jpg', fill_eroded)
+    end_time = time.time() - start_time
+    print "erosion " + str(end_time) + " seconds"
 
+    start_time = time.time()
     fill_dilated = apply_super_dilation(fill_eroded)
     cv2.imwrite('../output/11fill_dilated.jpg', fill_dilated)
+    end_time = time.time() - start_time
+    print "super dilation " + str(end_time) + " seconds"
 
+    start_time = time.time()
     rois = extract_region_of_interest(fill_dilated, image)
+    end_time = time.time() - start_time
+    print "rois " + str(end_time) + " seconds"
     return cv2.imread(rois[0])
 
+def prepare_plate_image_for_tesseract(plate):
+    start_time = time.time()
+    gray_plate = convert_grayscale(plate)
+    cv2.imwrite('../output/a01grayscale.jpg', gray_plate)
+    end_time = time.time() - start_time
+    print "grayscale " + str(end_time) + " seconds"
+
+    start_time = time.time()
+    fill_binary = binarize_image(gray_plate)
+    cv2.imwrite('../output/a02fill_binary.jpg', fill_binary)
+    end_time = time.time() - start_time
+    print "binarization " + str(end_time) + " seconds"
+
+    start_time = time.time()
+    kernel = numpy.ones((11, 11),numpy.uint8)
+    dilated_plate = cv2.dilate(fill_binary, kernel, iterations = 1)
+    cv2.imwrite('../output/a03dilated_image.jpg', dilated_plate)
+    end_time = time.time() - start_time
+    print "dilation " + str(end_time) + " seconds"
+
+    start_time = time.time()
+    kernel = numpy.ones((20, 20),numpy.uint8)
+    fill_eroded = cv2.erode(dilated_plate, kernel, iterations = 1)
+    cv2.imwrite('../output/a04fill_eroded.jpg', fill_eroded)
+    end_time = time.time() - start_time
+    print "erosion " + str(end_time) + " seconds"
+
+    start_time = time.time()
+    kernel = numpy.ones((22, 22),numpy.uint8)
+    dilated_plate = cv2.dilate(fill_eroded, kernel, iterations = 1)
+    cv2.imwrite('../output/a05dilated_again_image.jpg', dilated_plate)
+    end_time = time.time() - start_time
+    print "dilation " + str(end_time) + " seconds"
+
+    start_time = time.time()
+    kernel = numpy.ones((22, 22),numpy.uint8)
+    fill_eroded = cv2.erode(dilated_plate, kernel, iterations = 1)
+    cv2.imwrite('../output/a06fill_eroded_again.jpg', fill_eroded)
+    end_time = time.time() - start_time
+    print "erosion " + str(end_time) + " seconds"
+
+    print '../output/a06fill_eroded_again.jpg'
 
 def extract_region_of_interest(fill_dilated, original_image):
     _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
