@@ -126,7 +126,51 @@ def prepare_plate_image_for_tesseract(plate):
     end_time = time.time() - start_time
     print "erosion " + str(end_time) + " seconds"
 
-    print '../output/a06fill_eroded_again.jpg'
+    clean, characters = extract_plate_characters(fill_eroded)
+    output_img = highlight_characters(clean, characters)
+    cv2.imwrite('../output/a08character_borders.png', output_img)
+
+    i = 9
+
+    for _, char_img in characters:
+        cv2.imwrite("../output/a" + str(i) + "character.png", char_img)
+        i = i + 1
+
+def extract_plate_characters(image):
+    bw_image = cv2.bitwise_not(image)
+    _, contours, _ = cv2.findContours(bw_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    char_mask = numpy.zeros_like(image)
+    bounding_boxes = []
+    for contour in contours:
+        x,y,w,h = cv2.boundingRect(contour)
+        area = w * h
+        center = (x + w/2, y + h/2)
+        if (area > 1000) and (area < 10000):
+            x,y,w,h = x-4, y-4, w+8, h+8
+            bounding_boxes.append((center, (x,y,w,h)))
+            cv2.rectangle(char_mask,(x,y),(x+w,y+h),255,-1)
+
+    cv2.imwrite('../output/a07mask.png', char_mask)
+
+    clean = cv2.bitwise_not(cv2.bitwise_and(char_mask, char_mask, mask = bw_image))
+
+    bounding_boxes = sorted(bounding_boxes, key=lambda item: item[0][0])
+
+    characters = []
+    for center, bbox in bounding_boxes:
+        x,y,w,h = bbox
+        char_image = clean[y:y+h,x:x+w]
+        characters.append((bbox, char_image))
+
+    return clean, characters
+
+def highlight_characters(img, chars):
+    output_img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    for bbox, char_img in chars:
+        x,y,w,h = bbox
+        cv2.rectangle(output_img,(x,y),(x+w,y+h),255,1)
+
+    return output_img
 
 def extract_region_of_interest(fill_dilated, original_image):
     _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
