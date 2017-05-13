@@ -50,25 +50,13 @@ def extract_plate_image():
     print "dilation " + str(end_time) + " seconds"
 
     start_time = time.time()
-    call(["./octave_imfill.m"])
-    filled_image = cv2.imread("../output/07filled_image.png")
+    filled_image = imfill(dilated_image)
+    cv2.imwrite("../output/07filled_image.png", filled_image)
     end_time = time.time() - start_time
     print "imfill " + str(end_time) + " seconds"
 
     start_time = time.time()
-    fill_grayscale = convert_grayscale(filled_image)
-    cv2.imwrite('../output/08fill_grayscale.jpg', fill_grayscale)
-    end_time = time.time() - start_time
-    print "grayscale " + str(end_time) + " seconds"
-
-    start_time = time.time()
-    fill_binary = binarize_image(fill_grayscale)
-    cv2.imwrite('../output/09fill_binary.jpg', fill_binary)
-    end_time = time.time() - start_time
-    print "binarize " + str(end_time) + " seconds"
-
-    start_time = time.time()
-    fill_eroded = apply_super_erosion(fill_binary)
+    fill_eroded = apply_super_erosion(filled_image)
     cv2.imwrite('../output/10fill_eroded.jpg', fill_eroded)
     end_time = time.time() - start_time
     print "erosion " + str(end_time) + " seconds"
@@ -135,6 +123,15 @@ def prepare_plate_image_for_tesseract(plate):
     for _, char_img in characters:
         cv2.imwrite("../output/a" + str(i) + "character.png", char_img)
         i = i + 1
+
+def imfill(gray):
+    des = gray
+    _, contour,hier = cv2.findContours(des,cv2.RETR_CCOMP,cv2.CHAIN_APPROX_SIMPLE)
+
+    for cnt in contour:
+        cv2.drawContours(des,[cnt],0,255,-1)
+        gray = cv2.bitwise_not(des)
+    return cv2.bitwise_not(gray)
 
 def extract_plate_characters(image):
     bw_image = cv2.bitwise_not(image)
