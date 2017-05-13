@@ -8,7 +8,9 @@ from subprocess import call
 
 def main():
     plate = extract_plate_image()
-    prepare_plate_image_for_tesseract(plate)
+    prepared_plate = prepare_plate_image_for_tesseract(plate)
+    characters = extract_characters(prepared_plate)
+    read_characters(characters)
 
 def extract_plate_image():
     image = cv2.imread("full_car.jpg")
@@ -113,15 +115,26 @@ def prepare_plate_image_for_tesseract(plate):
     cv2.imwrite('../output/a06fill_eroded_again.jpg', fill_eroded)
     end_time = time.time() - start_time
     print "erosion " + str(end_time) + " seconds"
+    return fill_eroded
 
-    clean, characters = extract_plate_characters(fill_eroded)
+def extract_characters(image):
+    clean, characters = extract_plate_characters(image)
     output_img = highlight_characters(clean, characters)
     cv2.imwrite('../output/a08character_borders.png', output_img)
-
     i = 9
-
     for _, char_img in characters:
         cv2.imwrite("../output/a" + str(i) + "character.png", char_img)
+        i = i + 1
+    return characters
+
+def read_characters(characters):
+    i = 0
+    for _, character in characters:
+        image = Image.fromarray(character)
+        if i < 3:
+            print pytesseract.image_to_string(image, config="-psm 10 -c tessedit_char_whitelist=QWERTYUIOPASDFGHJKLZXCVBNM")
+        else:
+            print pytesseract.image_to_string(image, config="-psm 10 -c tessedit_char_whitelist=1234567890")
         i = i + 1
 
 def imfill(gray):
