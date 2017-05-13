@@ -130,7 +130,7 @@ def prepare_plate_image_for_tesseract(plate):
 
 def extract_region_of_interest(fill_dilated, original_image):
     _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
-    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    _, contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     i = 12
     rois = []
     for contour in contours:
