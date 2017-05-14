@@ -4,12 +4,14 @@ import numpy
 from PIL import Image
 import pytesseract
 
+from operations import *
 from plate_extractor import PlateExtractor
 
 
 def main():
+    image = cv2.imread("full_car.jpg")
     plate_extractor = PlateExtractor()
-    plate = plate_extractor.extract_plate_image(cv2.imread("full_car.jpg"))
+    plate = plate_extractor.extract_plate_candidates(image)
     prepared_plate = prepare_plate_image_for_tesseract(plate)
     characters = extract_characters(prepared_plate)
     read_characters(characters)
@@ -29,29 +31,25 @@ def prepare_plate_image_for_tesseract(plate):
     print "binarization " + str(end_time) + " seconds"
 
     start_time = time.time()
-    kernel = numpy.ones((11, 11), numpy.uint8)
-    dilated_plate = cv2.dilate(fill_binary, kernel, iterations=1)
+    dilated_plate = apply_dilation(fill_binary, 11)
     cv2.imwrite('../output/a03dilated_image.jpg', dilated_plate)
     end_time = time.time() - start_time
     print "dilation " + str(end_time) + " seconds"
 
     start_time = time.time()
-    kernel = numpy.ones((20, 20), numpy.uint8)
-    fill_eroded = cv2.erode(dilated_plate, kernel, iterations=1)
+    fill_eroded = apply_erosion(dilated_plate, 20)
     cv2.imwrite('../output/a04fill_eroded.jpg', fill_eroded)
     end_time = time.time() - start_time
     print "erosion " + str(end_time) + " seconds"
 
     start_time = time.time()
-    kernel = numpy.ones((22, 22), numpy.uint8)
-    dilated_plate = cv2.dilate(fill_eroded, kernel, iterations=1)
+    dilated_plate = apply_dilation(fill_eroded, 22)
     cv2.imwrite('../output/a05dilated_again_image.jpg', dilated_plate)
     end_time = time.time() - start_time
     print "dilation " + str(end_time) + " seconds"
 
     start_time = time.time()
-    kernel = numpy.ones((22, 22), numpy.uint8)
-    fill_eroded = cv2.erode(dilated_plate, kernel, iterations=1)
+    fill_eroded = apply_erosion(dilated_plate, 22)
     cv2.imwrite('../output/a06fill_eroded_again.jpg', fill_eroded)
     end_time = time.time() - start_time
     print "erosion " + str(end_time) + " seconds"
@@ -79,16 +77,6 @@ def read_characters(characters):
         else:
             print pytesseract.image_to_string(image, config="-psm 10 -c tessedit_char_whitelist=1234567890")
         i = i + 1
-
-
-def imfill(gray):
-    des = gray
-    _, contour, hier = cv2.findContours(des, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
-
-    for cnt in contour:
-        cv2.drawContours(des, [cnt], 0, 255, -1)
-        gray = cv2.bitwise_not(des)
-    return cv2.bitwise_not(gray)
 
 
 def extract_plate_characters(image):
@@ -127,70 +115,6 @@ def highlight_characters(img, chars):
         cv2.rectangle(output_img, (x, y), (x + w, y + h), 255, 1)
 
     return output_img
-
-
-def extract_region_of_interest(fill_dilated, original_image):
-    _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
-    _, contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-    i = 12
-    rois = []
-    for contour in contours:
-        x, y, w, h = cv2.boundingRect(contour)
-        cv2.boundingRect(contour)
-        name = "../output/" + str(i) + "roi.jpg"
-        cv2.imwrite(name, original_image[y:y + h, x:x + w])
-        i = i + 1
-        rois.append(name)
-    return rois
-
-
-def convert_grayscale(image):
-    return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-
-def apply_bilateral_filter(image):
-    return cv2.bilateralFilter(image, 9, 75, 75)
-
-
-def apply_histogram_equalization(image):
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    return clahe.apply(image)
-
-
-def apply_morphological_openning(image):
-    kernel = numpy.ones((5, 5), numpy.uint8)
-    return cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)
-
-
-def binarize_image(image):
-    (thresh, binarized_image) = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-    return binarized_image
-
-
-def apply_sobel_edge_detection(image):
-    scale = 1
-    delta = 0
-    ddepth = cv2.CV_16S
-    grad_x = cv2.Sobel(image, ddepth, 1, 0, ksize=3, scale=scale, delta=delta, borderType=cv2.BORDER_DEFAULT)
-    grad_y = cv2.Sobel(image, ddepth, 0, 1, ksize=3, scale=scale, delta=delta, borderType=cv2.BORDER_DEFAULT)
-    abs_grad_x = cv2.convertScaleAbs(grad_x)
-    abs_grad_y = cv2.convertScaleAbs(grad_y)
-    return cv2.addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0)
-
-
-def apply_dilation(image):
-    kernel = numpy.ones((5, 5), numpy.uint8)
-    return cv2.dilate(image, kernel, iterations=1)
-
-
-def apply_super_erosion(image):
-    kernel = numpy.ones((110, 110), numpy.uint8)
-    return cv2.erode(image, kernel, iterations=1)
-
-
-def apply_super_dilation(image):
-    kernel = numpy.ones((110, 110), numpy.uint8)
-    return cv2.dilate(image, kernel, iterations=1)
 
 
 if __name__ == "__main__":
