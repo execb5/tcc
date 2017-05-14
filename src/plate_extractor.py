@@ -1,7 +1,5 @@
 import time
 import cv2
-import numpy
-from PIL import Image
 from operations import *
 
 
