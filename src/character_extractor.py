@@ -1,5 +1,5 @@
 import cv2
-import numpy as np
+from operations import *
 
 
 class CharacterExtractor:
@@ -17,7 +17,7 @@ class CharacterExtractor:
 
     def extract_plate_characters(self, image):
         bw_image = cv2.bitwise_not(image)
-        _, contours, _ = cv2.findContours(bw_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        contours = find_contours(bw_image)
         char_mask = np.zeros_like(image)
         bounding_boxes = []
         for contour in contours:

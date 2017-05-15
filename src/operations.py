@@ -46,9 +46,12 @@ def apply_erosion(image, element_size):
     return cv2.erode(image, kernel, iterations=1)
 
 
+def find_contours(image):
+    return cv2.findContours(image, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[1]
+
+
 def extract_region_of_interest(fill_dilated, original_image):
-    _, thresh = cv2.threshold(fill_dilated, 127, 255, cv2.THRESH_BINARY)
-    _, contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    contours = find_contours(fill_dilated)
     i = 12
     rois = []
     for contour in contours:
