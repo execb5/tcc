@@ -10,12 +10,14 @@ class CharacterReader:
         pass
 
     def read_characters(self, characters):
-        i = 0
 
-        for _, character in characters:
-            image = Image.fromarray(character)
-            if i < 3:
-                print pytesseract.image_to_string(image, config=self.letter_options)
-            else:
-                print pytesseract.image_to_string(image, config=self.number_options)
-            i = i + 1
+        letters = characters[:3]
+        numbers = characters[3:]
+
+        for letter in letters:
+            image = Image.fromarray(letter)
+            print pytesseract.image_to_string(image, config=self.letter_options)
+
+        for number in numbers:
+            image = Image.fromarray(number)
+            print pytesseract.image_to_string(image, config=self.number_options)

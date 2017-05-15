@@ -7,11 +7,11 @@ class CharacterExtractor:
         pass
 
     def extract_characters(self, image):
-        clean, characters = self.extract_plate_characters(image)
-        
+        characters = self.extract_plate_characters(image)
+
         i = 9
-        for _, char_img in characters:
-            cv2.imwrite("../output/a" + str(i) + "character.png", char_img)
+        for character_img in characters:
+            cv2.imwrite("../output/a" + str(i) + "character.png", character_img)
             i = i + 1
         return characters
 
@@ -39,6 +39,6 @@ class CharacterExtractor:
         for center, bbox in bounding_boxes:
             x, y, w, h = bbox
             char_image = clean[y:y + h, x:x + w]
-            characters.append((bbox, char_image))
+            characters.append(char_image)
 
-        return clean, characters
+        return characters
