@@ -56,7 +56,7 @@ def find_contours(image):
 
 def extract_region_of_interest(fill_dilated, original_image):
     contours = find_contours(fill_dilated)
-    i = 12
+    i = 10
     rois = []
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
