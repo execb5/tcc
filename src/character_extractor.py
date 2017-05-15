@@ -8,8 +8,7 @@ class CharacterExtractor:
 
     def extract_characters(self, image):
         clean, characters = self.extract_plate_characters(image)
-        output_img = self.highlight_characters(clean, characters)
-        cv2.imwrite('../output/a08character_borders.png', output_img)
+        
         i = 9
         for _, char_img in characters:
             cv2.imwrite("../output/a" + str(i) + "character.png", char_img)
@@ -43,11 +42,3 @@ class CharacterExtractor:
             characters.append((bbox, char_image))
 
         return clean, characters
-
-    def highlight_characters(self, img, chars):
-        output_img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-        for bbox, char_img in chars:
-            x, y, w, h = bbox
-            cv2.rectangle(output_img, (x, y), (x + w, y + h), 255, 1)
-
-        return output_img
