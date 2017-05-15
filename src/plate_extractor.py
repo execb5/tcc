@@ -63,7 +63,10 @@ class PlateExtractor:
         print "super dilation " + str(end_time) + " seconds"
 
         start_time = time.time()
-        rois = extract_region_of_interest(fill_dilated, image)
+        names = extract_region_of_interest(fill_dilated, image)
         end_time = time.time() - start_time
         print "rois " + str(end_time) + " seconds"
-        return cv2.imread(rois[0])
+        rois = []
+        for name in names:
+            rois.append(cv2.imread(name))
+        return rois

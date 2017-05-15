@@ -12,10 +12,11 @@ def main():
     plate_cleaner = PlateCleaner()
     character_extractor = CharacterExtractor()
     character_reader = CharacterReader()
-    plate = plate_extractor.extract_plate_candidates(image)
-    prepared_plate = plate_cleaner.clean_plate(plate)
-    characters = character_extractor.extract_characters(prepared_plate)
-    character_reader.read_characters(characters)
+    candidates = plate_extractor.extract_plate_candidates(image)
+    for candidate in candidates:
+        prepared_plate = plate_cleaner.clean_plate(candidate)
+        characters = character_extractor.extract_characters(prepared_plate)
+        character_reader.read_characters(characters)
 
 
 if __name__ == "__main__":
