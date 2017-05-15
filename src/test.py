@@ -1,7 +1,5 @@
 import cv2
-import numpy
 
-from operations import *
 from plate_extractor import *
 from plate_cleaner import *
 from character_extractor import *
