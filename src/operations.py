@@ -2,6 +2,10 @@ import cv2
 import numpy as np
 
 
+def invert_image(image):
+    return cv2.bitwise_not(image)
+
+
 def convert_grayscale(image):
     return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -64,11 +68,9 @@ def extract_region_of_interest(fill_dilated, original_image):
     return rois
 
 
-def imfill(gray):
-    des = gray
-    _, contour, hier = cv2.findContours(des, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+def imfill(image):
+    contour = find_contours(image)
 
     for cnt in contour:
-        cv2.drawContours(des, [cnt], 0, 255, -1)
-        gray = cv2.bitwise_not(des)
-    return cv2.bitwise_not(gray)
+        cv2.drawContours(image, [cnt], 0, 255, -1)
+    return image
