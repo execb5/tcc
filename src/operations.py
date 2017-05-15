@@ -69,8 +69,7 @@ def extract_region_of_interest(fill_dilated, original_image):
 
 
 def imfill(image):
-    contour = find_contours(image)
-
-    for cnt in contour:
+    contours = find_contours(image)
+    for cnt in contours:
         cv2.drawContours(image, [cnt], 0, 255, -1)
     return image

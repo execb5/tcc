@@ -17,8 +17,8 @@ class CharacterExtractor:
 
     def extract_plate_characters(self, image):
         bw_image = invert_image(image)
-        contours = find_contours(bw_image)
-
+        filled_image = imfill(bw_image)
+        contours = find_contours(filled_image)
         char_mask = np.zeros_like(image)
 
         bounding_boxes = []
@@ -33,14 +33,12 @@ class CharacterExtractor:
 
         cv2.imwrite('../output/a07mask.png', char_mask)
 
-        clean = invert_image(cv2.bitwise_and(char_mask, char_mask, mask=bw_image))
-
         bounding_boxes = sorted(bounding_boxes, key=lambda item: item[0][0])
 
         characters = []
         for center, bbox in bounding_boxes:
             x, y, w, h = bbox
-            char_image = clean[y:y + h, x:x + w]
+            char_image = image[y:y + h, x:x + w]
             characters.append(char_image)
 
         return characters
