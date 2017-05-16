@@ -14,10 +14,16 @@ class CharacterReader:
         letters = characters[:3]
         numbers = characters[3:]
 
+        plate = ""
+
         for letter in letters:
             image = Image.fromarray(letter)
-            print pytesseract.image_to_string(image, config=self.letter_options)
+            plate = plate + pytesseract.image_to_string(image, config=self.letter_options)
+
+        plate = plate + "-"
 
         for number in numbers:
             image = Image.fromarray(number)
-            print pytesseract.image_to_string(image, config=self.number_options)
+            plate = plate + pytesseract.image_to_string(image, config=self.number_options)
+
+        print plate
