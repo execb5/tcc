@@ -80,9 +80,11 @@ def resize_image(image):
     width = image.shape[1]
 
     if width > height:
+        biggest = width
         border_width = 0
         border_height = (width - height) / 2
     else:
+        biggest = height
         border_height = 0
         border_width = (height - width) / 2
 
@@ -94,4 +96,4 @@ def resize_image(image):
                                 borderType=cv2.BORDER_CONSTANT,
                                 value=[255, 255, 255])
 
-    return cv2.resize(border, (300, 300))
+    return cv2.resize(border, (biggest, biggest))
