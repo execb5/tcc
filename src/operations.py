@@ -73,3 +73,27 @@ def imfill(image):
     for cnt in contours:
         cv2.drawContours(image, [cnt], 0, 255, -1)
     return image
+
+
+def resize_image(image):
+    height = image.shape[0]
+    width = image.shape[1]
+
+    if width > height:
+        biggest = width
+        border_width = 0
+        border_height = (width - height) / 2
+    else:
+        biggest = height
+        border_height = 0
+        border_width = (height - width) / 2
+
+    border = cv2.copyMakeBorder(image,
+                                top=border_height,
+                                bottom=border_height,
+                                left=border_width,
+                                right=border_width,
+                                borderType=cv2.BORDER_CONSTANT,
+                                value=[255, 255, 255])
+
+    return cv2.resize(border, (biggest, biggest))
