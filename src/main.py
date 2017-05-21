@@ -3,6 +3,7 @@ import cv2
 from plate_extractor import *
 from plate_cleaner import *
 from character_extractor import *
+from character_reader import *
 
 
 def main():
@@ -11,7 +12,7 @@ def main():
     plate_cleaner = PlateCleaner()
     character_extractor = CharacterExtractor()
     candidates = plate_extractor.extract_plate_candidates(image)
-    for candidate in reversed(candidates):
+    for candidate in candidates:
         prepared_plate = plate_cleaner.clean_plate(candidate)
         characters = character_extractor.extract_characters(prepared_plate)
 
@@ -28,23 +29,9 @@ def main():
 
         number_model = cv2.ml.KNearest_create()
         number_model.train(number_samples, cv2.ml.ROW_SAMPLE, number_responses)
+        character_reader = CharacterReader(number_model, letter_model)
 
-        i = 0
-        plate_chars = ""
-        for char_img in characters:
-            resized = resize_image(char_img)
-            small_img = cv2.resize(resized, (100, 100))
-            cv2.imwrite('penis%s.png' % i, small_img)
-            small_img = small_img.reshape((1, 10000))
-            small_img = np.float32(small_img)
-            if i < 3:
-                retval, results, neigh_resp, dists = letter_model.findNearest(small_img, k=1)
-            else:
-                retval, results, neigh_resp, dists = number_model.findNearest(small_img, k=1)
-            plate_chars += str(chr((results[0][0])))
-            i = i + 1
-
-        print("Licence plate: %s" % plate_chars)
+        print character_reader.read_characters(characters)
 
 
 if __name__ == "__main__":
