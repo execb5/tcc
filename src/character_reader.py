@@ -25,6 +25,6 @@ class CharacterReader:
         small_img = small_img.reshape((1, 10000))
         small_img = np.float32(small_img)
 
-        retval, results, neigh_resp, dists = model.findNearest(small_img, k=1)
+        _, results, _, _ = model.findNearest(small_img, k=1)
 
         return str(chr((results[0][0])))
