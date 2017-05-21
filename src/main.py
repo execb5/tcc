@@ -19,7 +19,6 @@ def main():
             process_frame_or_image(image)
         else:
             cap = cv2.VideoCapture(item)
-            pos_frame = cap.get(cv2.CAP_PROP_POS_FRAMES)
             while True:
                 _, frame = cap.read()
                 try:
@@ -46,9 +45,9 @@ def process_frame_or_image(image):
     plate_cleaner = PlateCleaner()
     character_extractor = CharacterExtractor()
     candidates = plate_extractor.extract_plate_candidates(image)
-    for candidate in candidates:
-        prepared_plate = plate_cleaner.clean_plate(candidate)
-        characters = character_extractor.extract_characters(prepared_plate)
+    for index, candidate in enumerate(candidates):
+        prepared_plate = plate_cleaner.clean_plate(candidate, index)
+        characters = character_extractor.extract_characters(prepared_plate, index)
         character_reader = CharacterReader(number_model, letter_model)
         print character_reader.read_characters(characters)
 
