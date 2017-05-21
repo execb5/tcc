@@ -8,7 +8,7 @@ LETTERS = [chr(ord('A') + i) for i in range(26)]
 def load_char_images(array):
     chars = {}
     for char in array:
-        char_img = cv2.imread("../learning_data/chars/%s.png" % char, 0)
+        char_img = cv2.imread(settings.learning_data_chars_path + "%s.png" % char, 0)
         chars[char] = char_img
     return chars
 
@@ -25,8 +25,8 @@ def create_samples(array, name):
     responses = np.array([ord(c) for c in array], np.float32)
     responses = responses.reshape((responses.size, 1))
 
-    np.savetxt("../learning_data/" + name + '_samples.data', samples)
-    np.savetxt("../learning_data/" + name + '_responses.data', responses)
+    np.savetxt(settings.learning_data_path + name + '_samples.data', samples)
+    np.savetxt(settings.learning_data_path + name + '_responses.data', responses)
 
 
 create_samples(NUMBERS, "numbers")

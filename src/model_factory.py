@@ -1,10 +1,11 @@
 import cv2
 import numpy as np
+import settings
 
 
 def train_letter_model():
-    samples = np.loadtxt('../learning_data/letters_samples.data', np.float32)
-    responses = np.loadtxt('../learning_data/letters_responses.data', np.float32)
+    samples = np.loadtxt(settings.learning_data_path + 'letters_samples.data', np.float32)
+    responses = np.loadtxt(settings.learning_data_path + 'letters_responses.data', np.float32)
     responses = responses.reshape((responses.size, 1))
 
     model = cv2.ml.KNearest_create()
@@ -13,8 +14,8 @@ def train_letter_model():
 
 
 def train_number_model():
-    samples = np.loadtxt('../learning_data/numbers_samples.data', np.float32)
-    responses = np.loadtxt('../learning_data/numbers_responses.data', np.float32)
+    samples = np.loadtxt(settings.learning_data_path + 'numbers_samples.data', np.float32)
+    responses = np.loadtxt(settings.learning_data_path + 'numbers_responses.data', np.float32)
     responses = responses.reshape((responses.size, 1))
 
     model = cv2.ml.KNearest_create()

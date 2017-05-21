@@ -1,5 +1,6 @@
 import os
 import cv2
+import settings
 from operations import *
 
 
@@ -24,17 +25,17 @@ def extract_chars(img):
 
 def output_chars(chars, labels):
     for i, char in enumerate(chars):
-        filename = "../learning_data/chars/%s.png" % labels[i]
+        filename = settings.learning_data_chars_path + "%s.png" % labels[i]
         char = resize_image(char)
         char = cv2.resize(char, (300, 300))
         cv2.imwrite(filename, char)
 
 
-if not os.path.exists("../learning_data/chars"):
-    os.makedirs("../learning_data/chars")
+if not os.path.exists(settings.learning_data_chars_path):
+    os.makedirs(settings.learning_data_chars_path)
 
-img_digits = cv2.imread("../learning_data/font/numbers.png", 0)
-img_letters = cv2.imread("../learning_data/font/letters.png", 0)
+img_digits = cv2.imread(settings.learning_data_font_path + "numbers.png", 0)
+img_letters = cv2.imread(settings.learning_data_font_path + "letters.png", 0)
 
 digits = extract_chars(img_digits)
 letters = extract_chars(img_letters)

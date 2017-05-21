@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import settings
 
 
 def invert_image(image):
@@ -61,7 +62,7 @@ def extract_region_of_interest(fill_dilated, original_image):
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.boundingRect(contour)
-        name = "../output/" + str(i) + "roi.jpg"
+        name = settings.output_path + str(i) + "roi.jpg"
         cv2.imwrite(name, original_image[y:y + h, x:x + w])
         i = i + 1
         rois.append(name)

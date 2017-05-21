@@ -1,6 +1,7 @@
 import cv2
 import sys
 import imghdr
+import settings
 
 from plate_extractor import *
 from plate_cleaner import *
@@ -10,6 +11,7 @@ from model_factory import *
 
 
 def main():
+    settings.init()
     for index, item in enumerate(sys.argv):
         if index == 0:
             continue
