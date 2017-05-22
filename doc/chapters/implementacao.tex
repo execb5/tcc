@@ -16,6 +16,46 @@ um balanço entre facilidade de implementação e qualidade do reconhecimento.
 	\label{fig:processo}
 \end{figure}
 
+\section{Placa de Transito Brasileira}
+\label{sec:placabr}
+
+Segundo o código de transito brasileiro~\cite{brasil1997lei}, todos os veículos
+são identificados por meio de placas, dianteira e traseira. Elas são
+identificadas por uma tarja na parte superior contendo a sigla do estado e o
+nome do município, e pelo código de identificação único, composto por três
+letras, seguidas por quatro digitos, separados por um hífen.
+
+Veículos particulares, de aluguel, oficial, de experiência, de aprendizagem e de
+fabricante têm suas dimensões de 130mmx400mm e altura dos caracteres de 63mm(figura~\ref{fig:placa_carro}).
+Caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
+placas de motocicleta, motoneta, ciclomotor e triciclos autorizados tem
+dimensões de 136mmx187mm e altura de caracteres de 42mm(figura~\ref{fig:placa_moto}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{placa_carro.png}
+	\caption{Placa de um carro}
+	\label{fig:placa_carro}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{placa_moto.png}
+	\caption{Placa de uma moto}
+	\label{fig:placa_moto}
+\end{figure}
+
+A tipologia dos caracteres das placas utiliza a fonte
+Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de veículos
+são diferenciadas pelas suas cores.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{fonte.png}
+	\caption{Tipografia das placas}
+	\label{fig:tipografia}
+\end{figure}
+
 \section{Aquisição das imagens}
 \label{sec:aquisicao}
 
@@ -290,6 +330,18 @@ reconhecimento de caracteres semelhantes, como o D e o
 prévio das placas brasileiras, sabendo onde é possível haver letras e onde é
 possível haver números.
 
-Para o reconhecimento de caracteres foi escolhido utilizar o \emph{software}
-\emph{Tesseract}. A ferramenta possui execução veloz e eficiente, permite o
-treinamento para reconhecer novas fontes e suporte para diversas línguas.
+Tendo em mente os possíveis problemas foi implementado um reconhecedor de caracteres especificamente para a solução deste problema. Foi utilizado o algoritmo \emph{K-Nearest Neighbors} para classificar os caracteres possíveis e utilizados os caracteres na fonte \emph{Mandatory} dispostos na imagem~\ref{fig:tipografia} como dados de treinamento. O \emph{feature space} consiste de um caractere apenas por classe, portanto será utilizado apenas um vizinho para classificar o novo dado.
+
+Além de focar na fonte na qual as placas estão escritas, o reconhecedor é calibrado tambem para o padrão. Sabendo que a placa de transito tem três letras e quatro números, mantendo esta ordem, o reconhecedor nunca vai confundir uma letra com um número. Para conseguir este resultado utilizamos dois diferentes \emph{feature spaces}, um para os números e um para as letras. Assim, quando classificamos um caracter novo, ele será classificado somente entre os possíveis candidatos.
+
+Para que a classificação tenha sucesso, tanto as imagens de teste quanto as imagens a serem classificadas devem ter o mesmo tamanho. O \emph{feature space} deve ter \emph{N} dimensões não variáveis. Para isso as imagens são tratadas para que tenham todas o tamanho de 100x100 \emph{pixels}, preenchendo o espaço restante com \emph{pixels} brancos
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=50mm]{classificacao.png}
+	\caption{Exemplo de classificação de caracter extraído}
+Fonte: Imagens utilizadas como dados de treino e imagem processada pelo algoritmo
+	\label{fig:classificacao}
+\end{figure}
+
+Na figura \ref{fig:classificacao} são mostrados os três vizinhos mais próximos de um determinado caracter retirado do processamento de uma imagem. A sua projeção visual é hipotética e foi criada para representar de uma forma mais didática a seleção dos vizinhos. Pode-se reparar a semelhança entre os caracteres e entender porque eles foram selecionados ao visualizar a imagem.

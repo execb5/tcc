@@ -104,8 +104,8 @@
 % Opções para o tipo de trabalho (OBRIGATÓRIO)
 %----------------------------------------------------------------
 %\tipotrabalho{\ptci}         % Proposta de Trabalho de Conclusão
-\tipotrabalho{\tci}         % Trabalho de Conclusão I
-%\tipotrabalho{\tcii}        % Trabalho de Conclusão II
+%\tipotrabalho{\tci}         % Trabalho de Conclusão I
+\tipotrabalho{\tcii}        % Trabalho de Conclusão II
 
 %----------------------------------------------------------------
 % Seleção do curso ("este trabalho é um requisito parcial para
@@ -163,31 +163,31 @@
 % Resumo, com as palavras-chave passadas por parâmetro
 % (OBRIGATÓRIO, ao menos para teses e dissertações)
 %----------------------------------------------------------------
-%\begin{resumo}{lorem, ipsum, dolor, sit, amet}
-%Seu resumo em português aqui. Lorem ipsum dolor sit amet
-%consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt
-%ut labore et dolore magna aliquyam erat sed diam voluptua at vero
-%eos et accusam et justo duo dolores et ea rebum stet clita.  Kasd
-%gubergren no sea takimata sanctus est lorem ipsum dolor sit amet
-%lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam
-%nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-%erat sed diam voluptua at.
-%\end{resumo}
+\begin{resumo}{lorem, ipsum, dolor, sit, amet}
+Seu resumo em português aqui. Lorem ipsum dolor sit amet
+consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt
+ut labore et dolore magna aliquyam erat sed diam voluptua at vero
+eos et accusam et justo duo dolores et ea rebum stet clita.  Kasd
+gubergren no sea takimata sanctus est lorem ipsum dolor sit amet
+lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+erat sed diam voluptua at.
+\end{resumo}
 
 %----------------------------------------------------------------
 % Abstract, com as palavras-chave passadas por parâmetro
 % (OBRIGATÓRIO, ao menos para teses e dissertações)
 %----------------------------------------------------------------
-%\begin{abstract}{lorem, ipsum, dolor, sit, amet}
-%Your abstract in English here. Lorem ipsum dolor sit amet
-%consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt
-%ut labore et dolore magna aliquyam erat sed diam voluptua at vero
-%eos et accusam et justo duo dolores et ea rebum stet clita kasd
-%gubergren no sea takimata sanctus est lorem ipsum dolor sit amet
-%lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam
-%nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
-%erat sed diam voluptua at
-%\end{abstract}
+\begin{abstract}{lorem, ipsum, dolor, sit, amet}
+Your abstract in English here. Lorem ipsum dolor sit amet
+consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt
+ut labore et dolore magna aliquyam erat sed diam voluptua at vero
+eos et accusam et justo duo dolores et ea rebum stet clita kasd
+gubergren no sea takimata sanctus est lorem ipsum dolor sit amet
+lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam
+nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam
+erat sed diam voluptua at
+\end{abstract}
 
 %----------------------------------------------------------------
 % Listas e sumário, nessa ordem. Somente o sumário é obrigatório,
@@ -213,31 +213,31 @@
 \label{cha:intro}
 \input{./chapters/introducao.tex}
 
+\chapter{Fundamentação Teórica}
+\label{cha:fundamentacao}
+\input{./chapters/fundamentacao_teorica.tex}
+
 \chapter{Trabalhos Relacionados}
 \label{cha:trab}
 \input{./chapters/trabalhos_relacionados.tex}
 
-\chapter{Componentes}
+\chapter{Ambiente de Desenvolvimento}
 \label{cha:componentes}
 \input{./chapters/componentes.tex}
 
-\chapter{Implementação}
+\chapter{Solução Desenvolvida}
 \label{cha:implementacao}
 \input{./chapters/implementacao.tex}
 
-\chapter{Configuração}
-\label{cha:configuracao}
-\input{./chapters/configuracao.tex}
+\chapter{Resultados Obtidos}
+\label{cha:resultados}
+\input{./chapters/resultados_obtidos.tex}
 
-\chapter{Cronograma}
-\label{cha:crono}
-\input{./chapters/cronograma.tex}
+\chapter{Dificuldades Encontradas}
+\label{cha:dificuldades}
+\input{./chapters/dificuldades_encontradas.tex}
 
-\chapter{Recursos Necessários}
-\label{cha:recursos}
-\input{./chapters/recursos_necessarios.tex}
-
-\chapter{Comentários Finais}
+\chapter{Conclusão e Trabalhos Futuros}
 \label{cha:conclusao}
 \input{./chapters/comentarios_finais.tex}
 

@@ -4,7 +4,6 @@ tanto de \emph{hardware} quanto de \emph{software}. Será utilizado o computador
 \emph{Python}. Será utilizada a biblioteca de visão computacional \emph{OpenCV}
 juntamente com outras bibliotecas auxiliares que permitam integrar o \emph{OpenCV}
 com a linguagem de programação \emph{Python} e o módulo de camera do \emph{Raspberry Pi}.
-E também será utilizada a ferramenta de reconhecimento ótico de caracteres \emph{Tesseract}.
 
 \section{Raspberry Pi}
 \label{sec:raspi}
@@ -49,136 +48,12 @@ Android e Mac OS.\footnote{http://opencv.org/}
 No desenvolvimento deste trabalho será utilizada a linguagem de programação \emph{Python},
 e algumas bibliotecas são utilizadas para trabalhar com \emph{OpenCV}. A biblioteca
 \emph{numpy}\footnote{http://www.numpy.org/}, é uma biblioteca de computação científica em
-\emph{Python}, que inclui funções de processamento numérico e vetores que são utilizados
-pelo \emph{OpenCV} para representar as imagens.
+\emph{Python}, que inclui funções de processamento numérico e vetores que são utilizados pelo \emph{OpenCV} para representar as imagens. 
+
+Para as aplicações de aprendizado de máquina será utilizada a biblioteca \emph{ml} que é um módulo do \emph{OpenCV}. Esta biblioteca contém um conjunto de classes e métodos para classificação estatística, regressão e agrupamento de dados.\footnote{http://docs.opencv.org/2.4/modules/ml/doc/ml.html}
 
 Também será utilizada o pacote \emph{picamera}\footnote{https://picamera.readthedocs.io/en/release-1.12/},
 que possui uma interface em \emph{Python} para se comunicar com o módulo de camera do \emph{Raspberry Pi}.
 É possível utilizar as funções próprias de captura de imagem da camera do \emph{OpenCV}, como por exemplo
 o \texttt{cv2.VideoCapture(0)}, mas será optado por utilizar o \emph{picamera}, por ser uma interface mais
 específica para a camera utilizada.
-
-Um exemplo de código de captura de imagem utilizando a camera do \emph{Raspberry Pi} em \emph{Python}, utilizando
-as bibliotecas citadas, pode ser visto abaixo. No exemplo, os quadros são capturados pela camera do \emph{Raspberry Pi},
-convertidos para escalas de tons de cinza (\emph{grayscale}), e mostrados na tela, dado que haja um monitor conectado ao
-computador \emph{Raspberry Pi}. Converter a imagem para \emph{grayscale} é um dos primeiros passos de pré-processamento
-para iniciar o reconhecimento da placa.
-
-\newpage
-
-\begin{lstlisting}
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-import cv2
-
-camera = PiCamera()
-rawCapture = PiRGBArray(camera, size=(640, 480))
-
-for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-	image = frame.array
-	gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-	cv2.imshow("Frame", gray_image)
-	rawCapture.truncate(0)
-\end{lstlisting}
-
-
-\section{OCR}
-\label{sec:ocr}
-
-Reconhecimento Ótico de Caracteres (\emph{Optical Character Recognition}, OCR)
-consiste da conversão de textos em formato de imagem para o formato reconhecido
-por máquina. É o método mais eficiente para fazer o processamento de imagem para
-texto de acordo com Mohit et al.~\cite{mohit2015designing}.
-
-Uma ferramenta conhecida de OCR é o
-Tesseract\footnote{https://github.com/tesseract-ocr/tesseract}. É uma ferramenta
-\emph{open source} de reconhecimento ótico de caracteres que suporta múltiplas
-línguas.  É essencialmente um algoritmo de comparação de \emph{templates}, e as
-amostras de caracteres podem ser auto-treinadas.~\cite{ho2016intelligent} Esta
-ferramenta será utilizada para fazer o reconhecimento dos caracteres neste trabalho.
-
-Um exemplo do uso do \emph{Tesseract} na linguagem de programação \emph{Python} pode ser
-visto abaixo. É nescessário utilizar uma biblioteca chamada \emph{pytesseract}, que possui
-uma interface em \emph{Python} para a utilização da ferramenta. O exemplo abaixo lê uma
-imagem do disco e imprime no console quais os caracteres que foram reconhecidos.
-
-\newpage
-
-\begin{lstlisting}
-from PIL import Image
-import pytesseract
-
-print(pytesseract.image_to_string(Image.open('license_plate.jpg')))
-\end{lstlisting}
-
-O \emph{Tesseract} pode ser treinado para reconhecer diferentes fontes e línguas. O
-treinamento deve ocorrer previamente, e não enquanto executa o reconhecimento das placas.
-Deverá ser coletado um significativo número de exemplos de caracteres como eles serão segmentados
-pelo algoritmo, e com esse conjunto de treinamento, deve se executar a ferramenta de treinamento do
-\emph{Tesseract}. Um manual de como utilizar o \emph{software} de treinamento pode ser encontrado
-no repositório do \emph{Tesseract}\footnote{https://github.com/tesseract-ocr/tesseract}, onde o
-\emph{software open source} está disponível.
-
-
-\section{Placa de Transito Brasileira}
-\label{sec:placabr}
-
-Segundo o código de transito brasileiro~\cite{brasil1997lei}, todos os veículos
-são identificados por meio de placas, dianteira e traseira. Elas são
-identificadas por uma tarja na parte superior contendo a sigla do estado e o
-nome do município, e pelo código de identificação único, composto por três
-letras, seguidas por quatro digitos, separados por um hífen.
-
-Veículos particulares, de aluguel, oficial, de experiência, de aprendizagem e de
-fabricante têm suas dimensões de 130mmx400mm e altura dos caracteres de 63mm(figura~\ref{fig:placa_carro}).
-Caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
-placas de motocicleta, motoneta, ciclomotor e triciclos autorizados tem
-dimensões de 136mmx187mm e altura de caracteres de 42mm(figura~\ref{fig:placa_moto}).
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=88mm]{placa_carro.png}
-	\caption{Placa de um carro}
-	\label{fig:placa_carro}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=88mm]{placa_moto.png}
-	\caption{Placa de uma moto}
-	\label{fig:placa_moto}
-\end{figure}
-
-A tipologia dos caracteres das placas utiliza a fonte
-Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de veículos
-são diferenciadas pelas suas cores na tabela~\ref{tab:placa_cores}.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=88mm]{fonte.png}
-	\caption{Tipografia das placas}
-	\label{fig:tipografia}
-\end{figure}
-
-\begin{table}[]
-\centering
-\caption{Cores das placas automotivas}
-\label{tab:placa_cores}
-\begin{tabular}{|l|l|l|}
-\hline
-\textbf{Categoria do Veículo}                                               & \textbf{Cor de Fundo} & \textbf{Cor de Caracteres} \\ \hline
-Particular                                                                  & Cinza                 & Preto                      \\ \hline
-Aluguel                                                                     & Vermelho              & Branco                     \\ \hline
-Experiência/Fabricante                                                      & Verde                 & Branco                     \\ \hline
-Aprendizagem                                                                & Branco                & Vermelho                   \\ \hline
-Coleção                                                                     & Preto                 & Cinza                      \\ \hline
-Oficial                                                                     & Branco                & Preto                      \\ \hline
-Missão Diplomática                                                          & Azul                  & Branco                     \\ \hline
-Corpo Consular                                                              & Azul                  & Branco                     \\ \hline
-Organismo Internacional                                                     & Azul                  & Branco                     \\ \hline
-Corpo Diplomático                                                           & Azul                  & Branco                     \\ \hline
-\begin{tabular}[c]{@{}l@{}}Organismo Consular/\\ Internacional\end{tabular} & Azul                  & Branco                     \\ \hline
-\begin{tabular}[c]{@{}l@{}}Acordo Cooperação\\ Internacional\end{tabular}   & Azul                  & Branco                     \\ \hline
-Representação                                                               & Preto                 & Dourado                    \\ \hline
-\end{tabular}
-\end{table}
