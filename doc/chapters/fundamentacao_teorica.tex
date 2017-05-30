@@ -12,7 +12,7 @@ por máquina. É o método mais eficiente para fazer o processamento de imagem p
 texto de acordo com Mohit et al.~\cite{mohit2015designing}.
 
 Uma ferramenta conhecida de OCR é o
-Tesseract\footnote{https://github.com/tesseract-ocr/tesseract}. É uma ferramenta
+\emph{Tesseract}\footnote{https://github.com/tesseract-ocr/tesseract}. É uma ferramenta
 \emph{open source} de reconhecimento ótico de caracteres que suporta múltiplas
 línguas.  É essencialmente um algoritmo de comparação de \emph{templates}, e as
 amostras de caracteres podem ser auto-treinadas.~\cite{ho2016intelligent}
@@ -27,7 +27,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \section{Detecção de Bordas}
 \label{sec:detecbordas}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Detecção de bordas é um método de processamento de imagem desenvolvido para detectar pixels de borda. os pixels de borda são pixels em que a intensidade da imagem muda abruptamente, e as bordas são conjuntos de pixels de borda conexos.\cite{gonzalez1977digital}
 
 \subsection{Filtro de Sobel}
 \label{sec:sobel}
@@ -72,7 +72,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 \section{K-Nearest Neighbors}
 \label{sec:knearest}
 
-\emph{K-Nearest Neighbors} é um dos mais simples algoritmos de classificação disponíveis para aprendizado supervisionado em aprendizado de máquina.~\cite{opencv2014knearest} Aprendizado supervisionado é tarefa de inferir uma função a partir de dados de treinamento rotulados. O algoritmo recebe um conjunto de exemplos como dados de treinamento e faz predições para os pontos não vistos com base nestes dados.~\cite{mohri2012foundations} A idéia do algoritmo \emph{K-Nearest Neighbors} é encontrar a combinação mais próxima de um determinado dado de teste em um espaço de dados.~\cite{opencv2014knearest}
+\emph{K-Nearest Neighbors} é um dos mais simples algoritmos de classificação disponíveis para aprendizado supervisionado em aprendizado de máquina.~\cite{opencv2014knearest} Aprendizado supervisionado é tarefa de inferir uma função a partir de dados de treinamento rotulados. O algoritmo recebe um conjunto de exemplos como dados de treinamento e faz predições para os pontos não vistos com base nestes dados.~\cite{mohri2012foundations} A ideia do algoritmo \emph{K-Nearest Neighbors} é encontrar a combinação mais próxima de um determinado dado de teste em um espaço de dados.~\cite{opencv2014knearest}
 
 \begin{figure}[H]
 	\centering
@@ -82,13 +82,13 @@ Fonte: Understanding k-Nearest Neighbour~\cite{opencv2014knearest}
 	\label{fig:knearest_example}
 \end{figure}
 
-Em um caso hipotético de aplicação do algoritmo existem duas classes, a classe dos quadrados azuis e a classe dos triangulos vermelhos. Este exemplo está ilustrado na figura \ref{fig:knearest_example}. Pontos representando estas classes são espalhados em um espaço chamado de \emph{feature space}. Estes espaços são os espaços onde todos os dados estão projetados. Em um espaço de duas dimensões, como no exemplo, cada dado tem duas caracteristicas, x e y. Em um espaço de três dimensões, cada dado teria 3 caracteristica, em N dimensões, N caracteristicas.
+Em um caso hipotético de aplicação do algoritmo existem duas classes, a classe dos quadrados azuis e a classe dos triângulos vermelhos. Este exemplo está ilustrado na figura \ref{fig:knearest_example}. Pontos representando estas classes são espalhados em um espaço chamado de \emph{feature space}. Estes espaços são os espaços onde todos os dados estão projetados. Em um espaço de duas dimensões, como no exemplo, cada dado tem duas características, x e y. Em um espaço de três dimensões, cada dado teria 3 característica, em N dimensões, N características.
 
 Na adição de um novo dado no \emph{feature space}, ele deve ser classificado como uma das duas classes. Este é o chamado de processo de classificação, onde o algoritmo é aplicado.
 
 Um método é o de calcular quem é o vizinho mais próximo. Na imagem, este seria o triangulo vermelho. Este método é chamado de \emph{Nearest Neighbor}, ou o vizinho mais próximo, pois a classificação só depende de um vizinho.
 
-Outro método seria checar múltiplos vizinhos para ver quantos vizinhos de cada classe o novo dado possui. Na imagem, o triangulo vermelho é o vizinho mais próximo, mas, considerando multiplos vizinhos, é possível classificar o novo dado na classe dos quadrados azuis, pois existem mais vizinhos desta classe. Este método é chamado de \emph{k Nearest Neighbors}, pois ele considera uma quantidade pré determinada \emph{k} de vizinhos para classificar seus novos dados. ~\cite{opencv2014knearest}
+Outro método seria checar múltiplos vizinhos para ver quantos vizinhos de cada classe o novo dado possui. Na imagem, o triangulo vermelho é o vizinho mais próximo, mas, considerando múltiplos vizinhos, é possível classificar o novo dado na classe dos quadrados azuis, pois existem mais vizinhos desta classe. Este método é chamado de \emph{k Nearest Neighbors}, pois ele considera uma quantidade pré determinada \emph{k} de vizinhos para classificar seus novos dados. ~\cite{opencv2014knearest}
 
-Neste projeto o algoritmo \emph{K-Nearest Neighbors} é utilizado na implementação do reconhecedor ótico de caracteres encontrados em placas de transito brasileiras. São utilizados como dados de teste as letras maiúsculas e números na fonte \emph{Mandatory}, e são aproximados os valores dos caracteres segmentados da placa com base nestes. Como teremos apenas um valor para cada classe, cada classe representando um caracter diferente, utilizaremos apenas o vizinho mais próximo para classificar nossos caracteres. Tendo um conjunto de treinamento maior, é possível aumentar este valor.
+Neste projeto o algoritmo \emph{K-Nearest Neighbors} é utilizado na implementação do reconhecedor ótico de caracteres encontrados em placas de transito brasileiras. São utilizados como dados de teste as letras maiúsculas e números na fonte \emph{Mandatory}, e são aproximados os valores dos caracteres segmentados da placa com base nestes. Como teremos apenas um valor para cada classe, cada classe representando um caractere diferente, utilizaremos apenas o vizinho mais próximo para classificar nossos caracteres. Tendo um conjunto de treinamento maior, é possível aumentar este valor.
  

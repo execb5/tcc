@@ -8,18 +8,18 @@ class CharacterExtractor:
         pass
 
     def extract_characters(self, image, index):
-        characters = self.extract_plate_characters(image)
+        characters = self.extract_plate_characters(image, index)
 
         for (i, character_img) in enumerate(characters):
             cv2.imwrite(settings.output_path + "c" + str(index) + str(i) + "character.png", character_img)
         return characters
 
-    def extract_plate_characters(self, image):
+    def extract_plate_characters(self, image, index):
         bw_image = invert_image(image)
         filled_image = imfill(bw_image)
 
         if __debug__:
-            cv2.imwrite(settings.output_path + 'b1filled_characters.png', filled_image)
+            cv2.imwrite(settings.output_path + 'b1' + str(index) + 'filled_characters.png', filled_image)
 
         contours = find_contours(filled_image)
         char_mask = np.zeros_like(image)
@@ -36,7 +36,7 @@ class CharacterExtractor:
                     cv2.rectangle(char_mask, (x, y), (x + w, y + h), 255, -1)
 
         if __debug__:
-            cv2.imwrite(settings.output_path + 'b2mask.png', char_mask)
+            cv2.imwrite(settings.output_path + 'b2' + str(index) + 'mask.png', char_mask)
 
         bounding_boxes = sorted(bounding_boxes, key=lambda item: item[0][0])
 

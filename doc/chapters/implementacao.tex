@@ -1,12 +1,10 @@
 O trabalho será dividido nos quatro passos propostos por S
 Du~\cite{s2013automatic}: aquisição da imagem, extração da placa, segmentação
 dos caracteres e reconhecimento dos caracteres. Para a localização da placa e separação dos
-caracteres serão utilizadas a biblioteca OpenCV e a linguagem de programação
-Python. O motivo da escolha dessa linguagem se dá por ser uma linguagem
-muito usada para OpenCV\@, contendo muita documentação. Para o reconhecimento dos caracteres será utilizado o
-software Tesseract, havendo a possibilidade de precisar ser treinado para
-reconhecer a fonte da placa de transito brasileira. As escolhas a serem feitas
-tem como objetivo maximizar os resultados ao final do trabalho, tentando criar
+caracteres foram utilizadas a biblioteca \emph{OpenCV} e a linguagem de programação
+\emph{Python}. O motivo da escolha dessa linguagem se dá por ser uma linguagem
+muito usada para OpenCV\@, contendo muita documentação. Para o reconhecimento dos caracteres foi implementado um algoritmo de aprendizado de máquina utilizando o módulo \emph{ml} do \emph{OpenCV}. As escolhas foram feitas
+com objetivo de maximizar os resultados ao final do trabalho, tentando criar
 um balanço entre facilidade de implementação e qualidade do reconhecimento.
 
 \begin{figure}[H]
@@ -23,13 +21,13 @@ Segundo o código de transito brasileiro~\cite{brasil1997lei}, todos os veículo
 são identificados por meio de placas, dianteira e traseira. Elas são
 identificadas por uma tarja na parte superior contendo a sigla do estado e o
 nome do município, e pelo código de identificação único, composto por três
-letras, seguidas por quatro digitos, separados por um hífen.
+letras, seguidas por quatro dígitos, separados por um hífen.
 
 Veículos particulares, de aluguel, oficial, de experiência, de aprendizagem e de
-fabricante têm suas dimensões de 130mmx400mm e altura dos caracteres de 63mm(figura~\ref{fig:placa_carro}).
+fabricante têm suas dimensões de \emph{130mmx400mm} e altura dos caracteres de 63mm(figura~\ref{fig:placa_carro}).
 Caso a placa não caiba no receptáculo ela pode ser reduzida em até 15\%. As
 placas de motocicleta, motoneta, ciclomotor e triciclos autorizados tem
-dimensões de 136mmx187mm e altura de caracteres de 42mm(figura~\ref{fig:placa_moto}).
+dimensões de \emph{136mmx187mm} e altura de caracteres de 42mm(figura~\ref{fig:placa_moto}).
 
 \begin{figure}[H]
 	\centering
@@ -46,7 +44,7 @@ dimensões de 136mmx187mm e altura de caracteres de 42mm(figura~\ref{fig:placa_m
 \end{figure}
 
 A tipologia dos caracteres das placas utiliza a fonte
-Mandatory~\ref{fig:tipografia}, e as placas de categorias diferentes de veículos
+\emph{Mandatory}~\ref{fig:tipografia}, e as placas de categorias diferentes de veículos
 são diferenciadas pelas suas cores.
 
 \begin{figure}[H]
@@ -65,7 +63,7 @@ e o ângulo da imagem. A influência desses fatores pode ser minimizada
 utilizando-se de imagens de qualidade.
 
 A aquisição das imagens será feita utilizando o módulo de câmera do
-\emph{Raspberry Pi}. É uma câmera de 5 \emph{megapixels} capaz de gravar videos
+\emph{Raspberry Pi}. É uma câmera de 5 \emph{megapixels} capaz de gravar vídeos
 em 1080p. Uma das vantagens de utilizar essa combinação do \emph{Raspberry Pi} e
 seu módulo de câmera é a sua portabilidade. Por serem pequenos e leves, caso a
 câmera tenha dificuldade em capturar imagens de qualidade para o reconhecimento
@@ -92,16 +90,15 @@ de extração pelos seguintes motivos:
 	\item Luminosidade baixa, ou desigual, imagem desfocada, baixa resolução, reflexão, sombra afetam a eficiência da extração.
 \end{itemize}
 
-Kaur~\cite{kaur2014efficient} propõe um método eficiênte de
+Kaur~\cite{kaur2014efficient} propõe um método eficiente de
 extração que segue o seguinte fluxograma:
 
 \begin{enumerate}
 	\item Conversão de RGB para escala de tons de cinza
 	\item Remoção de ruído por filtro bilateral
 	\item Aumento de contraste usando equalização de histograma adaptativo
-	\item Operações Morfológicas de Abertura e Subtração de Imagem
 	\item Binarização da Imagem
-	\item Detecção de borda pelo operador Sobel
+	\item Detecção de borda pelo operador \emph{Sobel}
 	\item Detecção de Área de Placa Candidata por Operações Morfológicas de Abertura e Fechamento
 	\item Extração da área da placa real
 	\item Aprimoramento da região extraída
@@ -112,7 +109,7 @@ extração que segue o seguinte fluxograma:
 O objetivo básico do pré-processamento é melhorar o contraste da imagem de
 entrada, para reduzir ruído e, em consequência, a velocidade de
 processamento. O melhoramento do contraste é feito pela equalização do
-histograma, alongamento de contraste etc. Varios filtros são usados para a
+histograma, alongamento de contraste etc. Vários filtros são usados para a
 remoção de ruído.
 
 \subsection{Conversão de RGB para escala de tons de cinza}
@@ -124,9 +121,9 @@ bits de cada pixel (i,j), e um valor de 8 bits em cinza é calculado.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext02.png}
+	\includegraphics[width=88mm]{1grayscale.jpg}
 	\caption{Imagem em escala de tons de cinza}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_gray_scale}
 \end{figure}
 
@@ -139,15 +136,15 @@ O objetivo básico da filtragem é remover ruído e distorção da imagem. O ru�
 pode ocorrer durante a captura pela câmera ou pelas condições do tempo. No
 método que Kaur~\cite{kaur2014efficient} propõe, filtro bilateral iterativo é
 utilizado para remover ruído. Ele é não linear, provê mecanismo para remoção de
-ruído enquanto preserva bordas mais efetifamente que o filtro mediano. O filtro
+ruído enquanto preserva bordas mais efetivamente que o filtro mediano. O filtro
 mediano funciona substituindo o valor de cada \emph{pixel} pela mediana dos \emph{pixels}
 vizinhos.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext03.png}
+	\includegraphics[width=88mm]{2bilateral.jpg}
 	\caption{Aplicação de filtro bilateral em uma imagem em escala de tons de cinza}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_filter_in_gray_scale}
 \end{figure}
 
@@ -160,40 +157,17 @@ mostra melhor contraste em relação a equalização de histograma.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext04.png}
+	\includegraphics[width=88mm]{3histogram_eq.jpg}
 	\caption{Aumento de contraste usando equalização de histograma adaptativo}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_contrast_adaptive_histogram}
-\end{figure}
-
-\subsection{Operações Morfológicas de Abertura e Subtração de Imagem}
-
-A operação de abertura morfológica é realizada na imagem de escala de cinza
-aumentada de contraste usando um elemento de estrutura em forma de disco. Na
-subtração de imagem, a imagem morfológica aberta é subtraída da imagem de escala
-de cinza aumentada de contraste.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=88mm]{ext05.png}
-	\caption{Efeito de abertura}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
-	\label{fig:ext_opening_effect}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=88mm]{ext06.png}
-	\caption{Imagem subtraída}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
-	\label{fig:ext_image_substraction}
 \end{figure}
 
 \subsection{Binarização da Imagem}
 
 Nesta operação a imagem de escala de cinza subtraída é convertida em imagem
-binária. Em primeiro lugar, o nível de limiar é calculado pelo método de Otsu.
-O algoritmo do método de Otsu assume que  a imagem contém duas classes de pixels
+binária. Em primeiro lugar, o nível de limiar é calculado pelo método de \emph{Otsu}.
+O algoritmo do método de \emph{Otsu} assume que  a imagem contém duas classes de pixels
 seguindo um histograma bi-modal. Ele então calcula o limiar ótimo separando as
 duas classes para que o seu espalhamento combinado seja mínimo.
 Tendo o limiar calculado, a imagem de escala de cinza subtraída é convertida em
@@ -201,26 +175,26 @@ imagem em preto e branco.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext07.png}
+	\includegraphics[width=88mm]{4binarized_image.jpg}
 	\caption{Imagem Binarizada}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_binarized_image}
 \end{figure}
 
 \subsection{Detecção de borda pelo operador Sobel}
 
-A borda vertical é detectada pelo operador sobel e o resultado do operador sobel
+A borda vertical é detectada pelo operador \emph{Sobel} e o resultado do operador \emph{Sobel}
 ser aplicado à imagem binarizada é mostrado na figura~\ref{fig:ext_edge_detection_sobel}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext08.png}
+	\includegraphics[width=88mm]{5sobel_image.jpg}
 	\caption{Detecção de borda pelo operador Sobel}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_edge_detection_sobel}
 \end{figure}
 
-\subsection{Detecção de Área de Placa Candidata por Operações Morfológicas de Abertura e Fechamento}
+\subsection{Detecção de Áreas de Placa Candidatas por Operações Morfológicas de Abertura e Fechamento}
 
 Com as operações morfológicas, os objetos indesejados na imagem são removidos.
 Para a detecção da área da placa, uma operação de dilatação é aplicada na imagem
@@ -229,39 +203,41 @@ e erosão são usadas para a detecção exata da área da placa.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext09.png}
+	\includegraphics[width=88mm]{6dilated_image.jpg}
 	\caption{Dilatação morfológica}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_morphological_dilation}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext10.png}
+	\includegraphics[width=88mm]{7filled_image.png}
 	\caption{Após preenchimento dos buracos}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_holes_filled}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext11.png}
-	\caption{Detecção da área da placa}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+	\includegraphics[width=88mm]{9fill_dilated.jpg}
+	\caption{Detecção das áreas candidatas da placa}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_plate_area_detection}
 \end{figure}
 
 \subsection{Extração da área da placa real}
 
-Após a detecção da área da placa, essa área é extraída da imagem. Em primeiro
-lugar, os índices de linha e coluna da área da placa são encontrados por análise
-de componentes conectados.
+Ao localizar as regiões candidatas onde pode-se encontrar uma placa, pode-se encontrar também regiões falsas, onde não existe placa. Para excluir estas regiões, Jia \cite{jia2007region} sugere que características sejam extraídas para diferenciar corretamente as regiões de placa por outras. 
+
+Diversas características podem ser utilizadas com este propósito. Elas incluem o tamanho da região, a altura e largura da região, a orientação dos caracteres posteriormente extraídos, a intensidade das bordas e a posição da região.
+ 
+Após a detecção da área da placa, essa área é extraída da imagem. Em primeiro lugar, os índices de linha e coluna da área da placa são encontrados por análise de componentes conectados.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext12.png}
+	\includegraphics[width=88mm]{a01grayscale.jpg}
 	\caption{Placa extraída}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_true_number_plate}
 \end{figure}
 
@@ -271,9 +247,9 @@ A placa de número extraída pode consistir em vários ruídos ou furos indeseja
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=88mm]{ext13.png}
+	\includegraphics[width=88mm]{a02fill_binary.jpg}
 	\caption{Placa aprimorada}
-Fonte: An efficient approach for number plate extraction from vehicles image under image processing~\cite{kaur2014efficient}
+Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_enhanced_number_plate}
 \end{figure}
 
@@ -294,27 +270,29 @@ perfis de projeção, segmentação utilizando conhecimento anterior dos caracte
 segmentação utilizando contorno dos caracteres e segmentação utilizando
 características combinadas.
 
-Analisando os resultados foi definido que a segmentação dos caracteres
-utilizando perfis de projeção foi o mais eficiente, e que mais se encaixa no
-problema proposto. Sanyuan~\cite{sanyuan2004car} utiliza essa técnica de
-segmentação de caracteres, e, utilizando-a juntamente de remoção de ruídos e
-análise de sequência de caracteres, obteve uma taxa de acerto de 99.2\% e uma
-velocidade de processamento de 10 a 20 milisegundos, o que é bem animador. As
-vantagens deste método são que a segmentação independe das posições dos
-caracteres, e consegue lidar bem com rotações. Suas desvantagens são que é
-afetada ruído na imagem e requer o conhecimento do número de caracteres na
-placa, o que não será problema devido ao fato de as placas brasileiras terem um
-número constante de caracteres.
+O método utilizado une a segmentação utilizando a conectividade de \emph{pixels} com algum conhecimento anterior dos caracteres. É utilizada uma detecção de \emph{pixels} conectados para detectar quais elementos são possíveis caracteres e utilizado o conhecimento sobre a placa para descartar pontos muito pequenos ou muito próximos as bordas da placa.
 
-Este método utiliza-se da diferença entre a cor dos caracteres da placa e a cor
-do fundo da placa, por terem valores diferentes eles têm valores binários
-opostos em uma imagem binária. Portanto, o método de segmentação consiste em
-projetar a placa extraída verticalmente para determinar o início e final dos
-caracteres e depois projetar os caracteres extraídos horizontalmente para
-extrair cada caracter independente.
+O primeiro passo é o preenchimento dos espaços em branco da placa previamente tratada. Este passo existe para evitar que, ao detectar os contornos dos caracteres por meio da conexão dos \emph{pixels}, não aconteça uma dupla detecção em caracteres que contém espaços internos abertos. Por exemplo o número 0, que possui um contorno interno e um contorno externo.
 
-Badawy~\cite{s2013automatic} ainda afirma que é evidente que este método de
-segmentação é o mais comum e o mais simples presente na literatura.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=100mm]{b10filled_characters.png}
+	\caption{Preenchimento dos caracteres}
+Fonte: Imagem processada pelo algoritmo
+	\label{fig:preenchimento}
+\end{figure}
+
+Neste ponto são detectados os contornos com base na conexão dos \emph{pixels}. Muitos \emph{pixels} conectados não fazem parte de nenhum caractere da placa. Para descartar os \emph{pixels} indesejados é feito um filtro baseado no tamanho dos contornos e na sua posição. A altura dos contornos não pode ser menor do que metade da altura da imagem completa. Isso descarta os conjuntos pequenos de \emph{pixels} indesejados. Outro critério é que o contorno encontrado não pode estar encostado na borda da imagem. Em uma placa corretamente extraída os caracteres nunca vão estar encostando na borda. Este critério exclui sombras ou áreas que sobram na lateral da placa na extração, que poderiam ser erroneamente confundidas com caracteres.
+
+Encontrados os contornos dos caracteres corretos, uma máscara é feita a partir deles que será aplicada sobre a imagem da placa extraída original. Esta máscara irá desconsiderar tudo, apenas o conteúdo extraído na etapa anterior. Os caracteres recortados com base nesta máscara serão extraídos, ordenados com base em sua posição x, e enviados para a etapa de reconhecimento de caracteres.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=100mm]{b20mask.png}
+	\caption{Máscara gerada}
+Fonte: Imagem processada pelo algoritmo
+	\label{fig:mascara}
+\end{figure}
 
 \section{Reconhecimento dos caracteres} \label{sec:reconhecimento}
 
@@ -332,16 +310,16 @@ possível haver números.
 
 Tendo em mente os possíveis problemas foi implementado um reconhecedor de caracteres especificamente para a solução deste problema. Foi utilizado o algoritmo \emph{K-Nearest Neighbors} para classificar os caracteres possíveis e utilizados os caracteres na fonte \emph{Mandatory} dispostos na imagem~\ref{fig:tipografia} como dados de treinamento. O \emph{feature space} consiste de um caractere apenas por classe, portanto será utilizado apenas um vizinho para classificar o novo dado.
 
-Além de focar na fonte na qual as placas estão escritas, o reconhecedor é calibrado tambem para o padrão. Sabendo que a placa de transito tem três letras e quatro números, mantendo esta ordem, o reconhecedor nunca vai confundir uma letra com um número. Para conseguir este resultado utilizamos dois diferentes \emph{feature spaces}, um para os números e um para as letras. Assim, quando classificamos um caracter novo, ele será classificado somente entre os possíveis candidatos.
+Além de focar na fonte na qual as placas estão escritas, o reconhecedor é calibrado também para o padrão. Sabendo que a placa de transito tem três letras e quatro números, mantendo esta ordem, o reconhecedor nunca vai confundir uma letra com um número. Para conseguir este resultado utilizamos dois diferentes \emph{feature spaces}, um para os números e um para as letras. Assim, quando classificamos um caractere novo, ele será classificado somente entre os possíveis candidatos.
 
 Para que a classificação tenha sucesso, tanto as imagens de teste quanto as imagens a serem classificadas devem ter o mesmo tamanho. O \emph{feature space} deve ter \emph{N} dimensões não variáveis. Para isso as imagens são tratadas para que tenham todas o tamanho de 100x100 \emph{pixels}, preenchendo o espaço restante com \emph{pixels} brancos
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=50mm]{classificacao.png}
-	\caption{Exemplo de classificação de caracter extraído}
+	\caption{Exemplo de classificação de caractere extraído}
 Fonte: Imagens utilizadas como dados de treino e imagem processada pelo algoritmo
 	\label{fig:classificacao}
 \end{figure}
 
-Na figura \ref{fig:classificacao} são mostrados os três vizinhos mais próximos de um determinado caracter retirado do processamento de uma imagem. A sua projeção visual é hipotética e foi criada para representar de uma forma mais didática a seleção dos vizinhos. Pode-se reparar a semelhança entre os caracteres e entender porque eles foram selecionados ao visualizar a imagem.
+Na figura \ref{fig:classificacao} são mostrados os três vizinhos mais próximos de um determinado caractere retirado do processamento de uma imagem. A sua projeção visual é hipotética e foi criada para representar de uma forma mais didática a seleção dos vizinhos. Pode-se reparar a semelhança entre os caracteres e entender porque eles foram selecionados ao visualizar a imagem.
