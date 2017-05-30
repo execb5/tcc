@@ -2,25 +2,15 @@
 
 ---
 
-## Proposal
-
-Complete:
-
-- [x] *Introduction*
-- [x] *Related works/articles*
-- [x] *Objectives*
-- [x] *Resources*
-- [x] *Schedule*
-
----
-
 ## Final Volume
 
 Complete:
 
-- [ ] *Fix stuff from proposal*
-- [ ] *Data collection*
-- [ ] *Project Development*
-- [ ] *Development Methodology*
-- [ ] *Schedule*
-- [ ] *Final Comments*
+- [ ] *Review introduction*
+- [ ] *Organize related works and add more stuff if possible*
+- [ ] *Talk about algorithms and stuff*
+- [ ] *Review plate extraction solution*
+- [ ] *Review plate cleaning solution*
+- [ ] *Experiment and write about it*
+- [ ] *Write about problems*
+- [ ] *Review conclusion*
