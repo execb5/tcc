@@ -1,7 +1,7 @@
 Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
 proposta por Serro~\cite{serro2012deteccao} na PUCRS\@. Neste trabalho foram
 utilizadas técnicas de segmentação de imagens, histograma, cisalhamento de
-imagens e reconhecimento ótico de caracteres. A metodologia utilizada consistiu das
+imagens e reconhecimento ótico de caracteres \emph{Tesseract}. Este último não sendo o foco principal do projeto. A metodologia utilizada consistiu das
 seguintes etapas, calibração do sistema
 para definir a região de interesse e o ângulo de cisalhamento, detecção da
 placa, segmentação dos caracteres e aplicação do reconhecedor ótico de
@@ -12,6 +12,8 @@ acerto de aproximadamente 54\%, com tempo médio de execução de 0,062 segundos
 A baixa taxa de acerto pode ter sido por problemas de foco e nitidez, o tamanho da placa em
 \emph{pixels} nas imagens e a existência de outros objetos em cena. Todos esses
 problemas foram citados no desenvolvimento do projeto.
+
+A área de reconhecimento automático de placas de carros é tão estudada, que alguns autores fizeram estudos comparando alguns dos mais comuns algoritmos para solucionar o problema.
 
 Em Ahmad et al.~\cite{ahmad2015automatic} foi feito um estudo comparativo dos
 sistemas de reconhecimento de placas automotivas automáticos. Segundo estes
@@ -27,19 +29,27 @@ placa e dois diferentes métodos de reconhecimento de caracteres, resultando em 
 diferentes abordagens para o reconhecimento de placas. Todas essas combinações
 foram então testadas contra diferentes conjuntos de dados.
 
+O primeiro método de extração estudado por Ahmad et al.~\cite{ahmad2015automatic} foi um método baseado em extrair as bordas verticais da imagem utilizando o operador de Sobel. A localização da placa então se dá pela comparação das distancias das bordas encontradas, que devem satisfazer um valor mínimo e máximo predefinido. O segundo método de extração segue os seguintes passos. Histogramas verticais são utilizados para encontrar as faixas mais prováveis de conter uma placa. A altura das faixas deve estar em uma variação razoável, então os que não se encaixam neste padrão são descartados. O último método consiste de três passos. Primeiro, pontos próximos são unidos para formar linhas. Depois, quando possivel, linhas são unidas para formar retângulos. Estes retângulos são então aceitos ou rejeitados.
+
+Dentro os métodos de reconhecimento de caracteres estudados, o primeiro é baseado em comparação de modelos. Neste método uma determinada imagem é binarizada e depois comparada \emph{pixel} a \emph{pixel} com padrões binários guardados em disco para encontrar o mais semelhante. O segundo método é mais complexo. Ele se baseia em uma rede neural probabilística. Este método funciona primeiro encontrando um bom mapeamento do espaço de imagem para o espaço dos caracteres, e então mapeando a nova imagem para este espaço. A rede neural então é treinada utilizando todas as instancias de caracteres no espaço dos caracteres.
+
 Os resultados obtidos por Ahmad et al.~\cite{ahmad2015automatic} na experimentação não
 foram muito animadores, variando entre 20 e 40 por cento.
 Um dos motivos para os maus resultados foi a variedade de parâmetros nas imagens do conjunto
 de dados de teste. Tais parâmetros incluem
-variações na distância, ângulo, iluminação e ambiente. Acreditamos que estes erros poderiam ser
+variações na distância, ângulo, iluminação e ambiente. Há a possibilidade de que estes erros poderiam ser
 mitigados em sistemas reais com uma câmera com resolução fixa e de boa
 qualidade. A variação do tamanho da placa afetou o desempenho de alguns
 algoritmos, mas em uma câmera fixa é possível obter uma consistência e conseguir
 resultados mais aceitáveis.
 
 Outros motivos para a baixa taxa de acerto foram a falta de pré-processamento
-das imagens, que a análise não considerou, e a utilização de mais dados de
+das imagens, que a análise não considerou, e a falta de utilização de mais dados de
 aprendizado para o reconhecimento ótico de caracteres.
+
+Em S Du~\cite{s2013automatic} também foi feito um estudo semelhante. Foi feita uma pesquisa categorizando os métodos existentes, de acordo com as características de cada um. Destes métodos, foram analisados seus prós e contras, e foram comparados sua performance de reconhecimento e velocidade de processamento.
+
+Escrever mais sobre S Du~\cite{s2013automatic} aqui!!
 
 Em Abtahi et al.~\cite{abtahi2015deep} foram feitas novas abordagens para a
 segmentação de caracteres em imagens. De acordo com eles, o método padrão de
