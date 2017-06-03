@@ -23,7 +23,7 @@
 
 \lstset{literate=
 	{ã}{{\~a}}1 {ẽ}{{\~e}}1 {ĩ}{{\~i}}1 {õ}{{\~o}}1 {ũ}{{\~u}}1
-	{Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1	
+	{Ã}{{\~A}}1 {Ẽ}{{\~E}}1 {Ĩ}{{\~I}}1 {Õ}{{\~O}}1 {Ũ}{{\~U}}1
 	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
 	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
 	{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
@@ -41,15 +41,15 @@
 \lstdefinestyle{codeStyle}{
 	commentstyle=\color{black},
 	basicstyle=\ttfamily\footnotesize,
-	breakatwhitespace=false,         
-	breaklines=true,                 
-	captionpos=b,                    
-	keepspaces=true,                 
-	numbers=left,                    
-	numbersep=5pt,                  
-	showspaces=false,                
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
 	showstringspaces=false,
-	showtabs=false,                  
+	showtabs=false,
 	tabsize=2
 }
 \renewcommand{\lstlistingname}{Código}
@@ -69,31 +69,31 @@
 \begin{document}
 
 %---------------------------------------------------------------
-%	POSTER HEADER 
+%	POSTER HEADER
 %---------------------------------------------------------------
 \begin{minipage}[c]{\linewidth}
 	\vspace{0.1cm}
 	\noindent\makebox[\textwidth][c]{
-		
+
 	\begin{minipage}[c]{0.15\linewidth}
 		\begin{center}
 			\includegraphics[width=9cm]{fig/pucrs-logo.pdf}
 		\end{center}
 	\end{minipage}
-	
+
 	\begin{minipage}[c]{0.70\linewidth}
 		\centering
-		\veryHuge \color{NavyBlue} 
-		\textbf{Seu Título Aqui}\\
-		
+		\veryHuge \color{NavyBlue}
+		\textbf{Reconhecimento de Placas de Carro em um Sistema Embarcado}\\
+
 		\color{Black}
 		\huge \textbf{Daniel Antoniazzi Amarante, Matthias Oliveira de Nunes}\\
-		\Large \textbf{Orientador: Nome do Orientador}\\
+		\Large \textbf{Orientador: Roland Teodorowitsch}\\
 		Curso de Ciência da Computação\\
 		Pontifícia Universidade Católica do Rio Grande do Sul\\
-		\Large \Letter ~ \texttt{\{daniel.amarante,matthias.nunes\}@acad.pucrs.br}\\
+		\Large \Letter \texttt{\{daniel.amarante,matthias.nunes\}@acad.pucrs.br}\\
 	\end{minipage}
-	
+
 	\begin{minipage}[c]{0.15\linewidth}
 		\begin{center}
 			\includegraphics[width=9cm]{fig/facin-logo.pdf}
@@ -107,7 +107,7 @@
 
 %---------------------------------------------------------------
 
-\begin{multicols}{2} 
+\begin{multicols}{2}
 %---------------------------------------------------------------
 %	MOTIVAÇÃO
 %---------------------------------------------------------------
@@ -120,7 +120,7 @@
 \begin{itemize}
 	\item Ponto 1;
 	\item Ponto 2;
-	\item 
+	\item
 \end{itemize}
 
 %---------------------------------------------------------------
@@ -153,24 +153,47 @@
 
 
 \begin{itemize}
-	\item Mais idéias...:
+	\item Mais idéias\dots:
 	\begin{enumerate}
 		[leftmargin=2em]\itemadjust
 		\item Idéia 1;
-		\item Idéia 2; 
+		\item Idéia 2;
 		\item Idéia 3; e
 		\item Idéia 4.
-	\end{enumerate}	
-	\item A Figura~\ref{fig:minhafigura} ilustra isto.
+	\end{enumerate}
+	\item A Figura~\ref{fig:character_segmentation} ilustra isto.
 \end{itemize}
 \vspace{13mm}
 
 \begin{center}
-	%\includegraphics[width=0.99\linewidth]{fig/minha-figura.pdf}
-	\Huge Figura Aqui (include comentado)
-	\captionof{figure}{Exemplo de Figura.}
-	\label{fig:minhafigura}
-\end{center}	
+	\includegraphics[width=0.99\linewidth]{../../input/full_car.JPG}
+	\captionof{figure}{Imagem inicial}
+	\label{fig:input_image}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.99\linewidth]{9fill_dilated.jpg}
+	\captionof{figure}{Regiões de Interesse}
+	\label{fig:fill_dilated}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.99\linewidth]{10roi.jpg}
+	\captionof{figure}{Placa extraída}
+	\label{fig:license_plate}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.99\linewidth]{a02fill_binary.jpg}
+	\captionof{figure}{Preparando para o \textbf{OCR}}
+	\label{fig:license_plate}
+\end{center}
+
+\begin{center}
+	\includegraphics[width=0.99\linewidth]{character_segmentation.jpeg}
+	\captionof{figure}{Segmentação de Caracteres}
+	\label{fig:character_segmentation}
+\end{center}
 
 
 %---------------------------------------------------------------
@@ -181,15 +204,15 @@
 \color{Black}
 
 \begin{itemize}
-	\item Mais idéias...:
+	\item Mais idéias\dots:
 	\begin{enumerate}
 		[leftmargin=2em]\itemadjust
 		\item Idéia 1;
-		\item Idéia 2; 
+		\item Idéia 2;
 		\item Idéia 3; e
 		\item Idéia 4.
-	\end{enumerate}	
-	\item A Figura~\ref{fig:minhafigura} ilustra isto.
+	\end{enumerate}
+	\item A Figura~\ref{fig:character_segmentation} ilustra isto.
 \end{itemize}
 
 
@@ -200,8 +223,8 @@
 		\begin{lstlisting}[language=Prolog, label={alg:exemplo-hello-world}, caption={Exemplo de programa em AgentSpeak(L).}]
 		/* Agent helloWorld */
 		/* Initial beliefs and rules */
-		
-		/* Initial goals */			
+
+		/* Initial goals */
 		!start.
 		/* Plans */
 		+!start : true <- aloha; ?continue(true);      !run (agentspeak).
@@ -209,7 +232,7 @@
 		\end{lstlisting}
 	\end{minipage}\hfill
 	\vspace{7mm}
-	
+
 	\begin{minipage}{\textwidth}
 		\lstset{style=codeStyle}
 		\begin{lstlisting}[language=Prolog, label={alg:exemplo-projeto-hello-world}, caption={Exemplo de projeto do AgentSpeak(Py).}]
@@ -226,19 +249,19 @@
 	\begin{lstlisting}[language=Python, label={alg:exemplo-environment}, caption={Exemplo da descrição do ambiente em Python.}]
 	from environment import *
 	lt_continue = parse_literal('continue(true)')
-	
+
 	class HelloWorldEnv(Environment):
 		def __init__(self):
 			Environment.__init__(self)
-		
+
 		def execute_action(self, agent_name, action):
 			self.clear_perceptions()
 			getattr(self, action.functor)(list(action.args))
-		
+
 		def aloha(self, *args):
 			self.add_percept(lt_continue)
 			print('Aloha HelloWorldEnv!')
-		
+
 		def mahalo(self, *args):
 			print('Mahaloing with %s!' % ", ".join(map(str, *args)))
 	\end{lstlisting}
