@@ -108,9 +108,7 @@
 %---------------------------------------------------------------
 
 \begin{multicols}{2}
-%---------------------------------------------------------------
-%	MOTIVAÇÃO
-%---------------------------------------------------------------
+
 \color{NavyBlue}
 \section*{\huge Motivação}
 \color{Black}
@@ -135,8 +133,8 @@ estrangeiras, necessitando pesquisas locais neste tema.
 A solução foi desenvolvida na linguagem de programação \emph{Python} e utilizando
 a biblioteca de visão computacional \emph{OpenCV}
 
-O algoritmo consiste de 4 passos. A aquisição da imagem, a extração da 
-placa a segmentação dos caracteres e a reconhecimento dos caracteres.
+O algoritmo consiste de 4 passos. A aquisição da imagem, extração da 
+placa, segmentação dos caracteres e reconhecimento dos caracteres.
 A extração da placa e segmentação dos caracteres é feita utilizando técnicas de
 processamento de imagem e o reconhecimento dos caracteres é feito utilizando
 \emph{Machine Learning}.
@@ -159,12 +157,12 @@ placa, influenciando o sistema como um todo.
 Para a extração das áreas candidatas são utilizadas diversas técnicas de processamento de
 imagem em sequência.
 
-\begin{itemize}
+\begin{enumerate}
 	\item Remoção de ruídos e aumento de contrastes.
 	\item Detecção de bordas
 	\item Preenchimento dos contornos
 	\item Abertura e fechamento morfológico
-\end{itemize}
+\end{enumerate}
 
 \begin{center}
 	\includegraphics[width=0.70\linewidth]{9fill_dilated.jpg}
@@ -184,6 +182,8 @@ que a enquadra em um caractere, este espaço é segmentado para ser reconhecido.
 	\captionof{figure}{Placa Extraída}
 	\label{fig:license_plate}
 \end{center}
+
+\vspace{2cm}
 
 \begin{center}
 	\includegraphics[width=0.70\linewidth]{a02fill_binary.jpg}
