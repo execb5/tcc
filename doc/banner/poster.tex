@@ -112,182 +112,94 @@
 %	MOTIVAÇÃO
 %---------------------------------------------------------------
 \color{NavyBlue}
-\section*{\huge Seção 1}
+\section*{\huge Motivação}
 \color{Black}
 \Large
 \justifying
 
-\begin{itemize}
-	\item Ponto 1;
-	\item Ponto 2;
-	\item
-\end{itemize}
-
-%---------------------------------------------------------------
-%   AGENTES
-%---------------------------------------------------------------
-\color{NavyBlue}
-\section*{\huge Seção 2}
-\color{Black}
-
-\begin{itemize}
-	\item Idéia 1; e
-	\item Idéia 2.
-\end{itemize}
+O controle e identificação de veículos é usado nas mais diversas áreas, indo
+desde serviços de pagamentos automatizados, como pedágios, até aplicações
+mais críticas, como segurança de fronteiras, sistemas de vigilância de
+tráfego. Com o crescimento constante da frota de carros no Brasil,
+aplicações para auxiliar neste trabalho tornam-se cada vez mais necessárias.
+Com isso em mente, propõe-se neste trabalho uma solução de aplicação
+embarcada de reconhecimento de placas, visando a crescente necessidade de
+controle na área e as peculiaridades das placas automotivas brasileiras, que
+impossibilitam a utilização de ferramentas configuradas para placas
+estrangeiras, necessitando pesquisas locais neste tema.
 
 %---------------------------------------------------------------
 %	AgentSpeak(L)
 %---------------------------------------------------------------
 \color{NavyBlue}
-\section*{\huge Seção 3}
+\section*{\huge Solução}
 \color{Black}
 
-\begin{itemize}
-	\item É uma linguagem abstrata de programação orientada a agentes baseada na arquitetura BDI;
-	\item Os programas desenvolvidos utilizando a linguagem, como exemplificado no Código~\ref{alg:exemplo-hello-world}, são especificados por um conjunto de crenças, planos, eventos ativadores e ações que o agente executa no ambiente;
-	%\item Rao \cite{article:Rao:1996} introduz as noções básicas para especificação desses conjuntos a partir das definições apresentadas na Tabela~\ref{tab:sintaxe-agentsepak}.
-	\item As definições da Tabela~\ref{tab:sintaxe-agentsepak} são utilizadas para especificar estes conjuntos.
-\end{itemize}
+A solução desenvolvida consiste de 4 passos. A aquisição da imagem, a extração da 
+placa a segmentação dos caracteres e a reconhecimento dos caracteres.
 
-\vspace{13mm}
-
-
-\begin{itemize}
-	\item Mais idéias\dots:
-	\begin{enumerate}
-		[leftmargin=2em]\itemadjust
-		\item Idéia 1;
-		\item Idéia 2;
-		\item Idéia 3; e
-		\item Idéia 4.
-	\end{enumerate}
-	\item A Figura~\ref{fig:character_segmentation} ilustra isto.
-\end{itemize}
-\vspace{13mm}
+A aquisição da imagem pode ser afetada por diversos fatores. Iluminação, distâcia,
+ângulo e qualidade da imagem podem causar dificuldades no reconhecimento. As imagens
+serão extraídas e processadas em tempo real utilizando o computador \emph{Raspberry Pi}
+com seu módulo de câmera.
 
 \begin{center}
-	\includegraphics[width=0.99\linewidth]{../../input/full_car.JPG}
+	\includegraphics[width=0.70\linewidth]{../../input/full_car.JPG}
 	\captionof{figure}{Imagem inicial}
 	\label{fig:input_image}
 \end{center}
 
+A fase de extração da placa é a fase mais importante em um sistema de reconhecimento de
+placas. Todas as etapas subsequentes dependem da exata extração da área da
+placa, influenciando o sistema como um todo.
+
+Para a extração das áreas candidatas são utilizadas diversas técnicas de processamento de
+imagem em sequência.
+
+\begin{itemize}
+	\item Remoção de ruídos e aumento de contrastes.
+	\item Detecção de bordas
+	\item Preenchimento dos contornos
+	\item Abertura e fechamento morfológico
+\end{itemize}
+
 \begin{center}
-	\includegraphics[width=0.99\linewidth]{9fill_dilated.jpg}
+	\includegraphics[width=0.70\linewidth]{9fill_dilated.jpg}
 	\captionof{figure}{Regiões de Interesse}
 	\label{fig:fill_dilated}
 \end{center}
 
 \begin{center}
-	\includegraphics[width=0.99\linewidth]{10roi.jpg}
-	\captionof{figure}{Placa extraída}
-	\label{fig:license_plate}
-\end{center}
-
-\begin{center}
-	\includegraphics[width=0.99\linewidth]{a02fill_binary.jpg}
+	\includegraphics[width=0.70\linewidth]{a02fill_binary.jpg}
 	\captionof{figure}{Preparando para o \textbf{OCR}}
 	\label{fig:license_plate}
 \end{center}
 
 \begin{center}
-	\includegraphics[width=0.99\linewidth]{character_segmentation.jpeg}
+	\includegraphics[width=0.70\linewidth]{character_segmentation.jpg}
 	\captionof{figure}{Segmentação de Caracteres}
 	\label{fig:character_segmentation}
 \end{center}
 
-
-%---------------------------------------------------------------
-%	AgentSpeak(Py)
-%---------------------------------------------------------------
 \color{NavyBlue}
-\section*{\huge Seção 3}
+\section*{\huge Resultados}
 \color{Black}
 
-\begin{itemize}
-	\item Mais idéias\dots:
-	\begin{enumerate}
-		[leftmargin=2em]\itemadjust
-		\item Idéia 1;
-		\item Idéia 2;
-		\item Idéia 3; e
-		\item Idéia 4.
-	\end{enumerate}
-	\item A Figura~\ref{fig:character_segmentation} ilustra isto.
-\end{itemize}
+Nas imagens pode-se observar os resultados dos processamentos executados em cada 
+passo do algoritmo. A localização da placa na imagem e a segmentação
+dos caracteres para reconhecimento.
 
 
-\vspace{13mm}
-\noindent\begin{minipage}{.235\textwidth}
-	\begin{minipage}{\textwidth}
-		\lstset{style=codeStyle}
-		\begin{lstlisting}[language=Prolog, label={alg:exemplo-hello-world}, caption={Exemplo de programa em AgentSpeak(L).}]
-		/* Agent helloWorld */
-		/* Initial beliefs and rules */
-
-		/* Initial goals */
-		!start.
-		/* Plans */
-		+!start : true <- aloha; ?continue(true);      !run (agentspeak).
-		+!run(A) : true <- mahalo(A).
-		\end{lstlisting}
-	\end{minipage}\hfill
-	\vspace{7mm}
-
-	\begin{minipage}{\textwidth}
-		\lstset{style=codeStyle}
-		\begin{lstlisting}[language=Prolog, label={alg:exemplo-projeto-hello-world}, caption={Exemplo de projeto do AgentSpeak(Py).}]
-		/* Project Name */
-		helloWorld:
-		// List of agents
-		agents = [helloWorld]
-		environment = HelloWorldEnv
-		\end{lstlisting}
-	\end{minipage}\hfill
-\end{minipage}\hfill
-\begin{minipage}{.235\textwidth}
-	\lstset{style=codeStyle}
-	\begin{lstlisting}[language=Python, label={alg:exemplo-environment}, caption={Exemplo da descrição do ambiente em Python.}]
-	from environment import *
-	lt_continue = parse_literal('continue(true)')
-
-	class HelloWorldEnv(Environment):
-		def __init__(self):
-			Environment.__init__(self)
-
-		def execute_action(self, agent_name, action):
-			self.clear_perceptions()
-			getattr(self, action.functor)(list(action.args))
-
-		def aloha(self, *args):
-			self.add_percept(lt_continue)
-			print('Aloha HelloWorldEnv!')
-
-		def mahalo(self, *args):
-			print('Mahaloing with %s!' % ", ".join(map(str, *args)))
-	\end{lstlisting}
-\end{minipage}
-
-%---------------------------------------------------------------
-%	Tecnologias Utilizadas
-%---------------------------------------------------------------
-\color{NavyBlue}
-\section*{\huge Seção 4}
-\color{Black}
-
-
-
-
-
-%---------------------------------------------------------------
-%	REFERENCES
-%---------------------------------------------------------------
-%\vspace{-10mm}
-%\large
-%\color{NavyBlue}
-%\color{Black}
-%\raggedright
-%\bibliographystyle{plain}
-%\bibliography{poster}
+% ---------------------------------------------------------------
+% 	REFERENCES
+% ---------------------------------------------------------------
+% \vspace{-10mm}
+% \large
+% \color{NavyBlue}
+% \color{Black}
+% \raggedright
+% \bibliographystyle{plain}
+% \bibliography{poster}
 
 \end{multicols}
 
