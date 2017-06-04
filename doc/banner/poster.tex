@@ -119,7 +119,7 @@
 
 O controle e identificação de veículos é usado nas mais diversas áreas, indo
 desde serviços de pagamentos automatizados, como pedágios, até aplicações
-mais críticas, como segurança de fronteiras, sistemas de vigilância de
+mais críticas, como segurança de fronteiras e sistemas de vigilância de
 tráfego. Com o crescimento constante da frota de carros no Brasil,
 aplicações para auxiliar neste trabalho tornam-se cada vez mais necessárias.
 Com isso em mente, propõe-se neste trabalho uma solução de aplicação
@@ -128,15 +128,18 @@ controle na área e as peculiaridades das placas automotivas brasileiras, que
 impossibilitam a utilização de ferramentas configuradas para placas
 estrangeiras, necessitando pesquisas locais neste tema.
 
-%---------------------------------------------------------------
-%	AgentSpeak(L)
-%---------------------------------------------------------------
 \color{NavyBlue}
 \section*{\huge Solução}
 \color{Black}
 
-A solução desenvolvida consiste de 4 passos. A aquisição da imagem, a extração da 
+A solução foi desenvolvida na linguagem de programação \emph{Python} e utilizando
+a biblioteca de visão computacional \emph{OpenCV}
+
+O algoritmo consiste de 4 passos. A aquisição da imagem, a extração da 
 placa a segmentação dos caracteres e a reconhecimento dos caracteres.
+A extração da placa e segmentação dos caracteres é feita utilizando técnicas de
+processamento de imagem e o reconhecimento dos caracteres é feito utilizando
+\emph{Machine Learning}.
 
 A aquisição da imagem pode ser afetada por diversos fatores. Iluminação, distâcia,
 ângulo e qualidade da imagem podem causar dificuldades no reconhecimento. As imagens
@@ -169,10 +172,23 @@ imagem em sequência.
 	\label{fig:fill_dilated}
 \end{center}
 
+Com a região da placa detectada é feita a segmentação dos caracteres. Ela é realizada
+com base na conectividade dos pixels. São encontrados conjuntos de pixels conectados na imagem e
+se a caixa delimitadora desse conjunto de pixel tiver um tamanho relativo ao tamanho da placa
+que a enquadra em um caractere, este espaço é segmentado para ser reconhecido.
+
+\vspace{2cm}
+
+\begin{center}
+	\includegraphics[width=0.70\linewidth]{10roi.jpg}
+	\captionof{figure}{Placa Extraída}
+	\label{fig:license_plate}
+\end{center}
+
 \begin{center}
 	\includegraphics[width=0.70\linewidth]{a02fill_binary.jpg}
 	\captionof{figure}{Preparando para o \textbf{OCR}}
-	\label{fig:license_plate}
+	\label{fig:plate_filled}
 \end{center}
 
 \begin{center}
@@ -180,6 +196,15 @@ imagem em sequência.
 	\captionof{figure}{Segmentação de Caracteres}
 	\label{fig:character_segmentation}
 \end{center}
+
+O último passo para reconhecimento da placa é o reconhecimento ótico dos
+caracteres extraídos. Para esta etapa foi utilizada uma técnica de \emph{Machine Learning}
+de aprendizado supervisionado chamada \emph{K-Nearest Neighbors}.
+O modelo é treinado utilizando-se de uma base de dados com todos os caracteres
+de A a Z e de 1 a 9 na fonte \emph{Mandatory}, que é a fonte utilizada nas placas de
+trânsito brasileiras. O algoritmo funciona posicionando esses dados de treinamento
+em um espaço de N dimensões e depois tentando classificar novos dados com bases nos anteriores,
+encontrando os pontos mais próximos neste espaço.
 
 \color{NavyBlue}
 \section*{\huge Resultados}
