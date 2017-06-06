@@ -1,5 +1,9 @@
+O reconhecimento de placas de carro é uma área bastante estudada com diversas publicações sobre o tema. Neste capítulo são apresentadas algumas destas publicações, organizadas por sua relevância nas diferentes etapas do reconhecimento.
+
+\section{Reconhecimento de placas brasileiras}
+
 Uma solução para detectar e reconhecer placas de licenciamento brasileiras foi
-proposta por Serro~\cite{serro2012deteccao} na PUCRS\@. Neste trabalho foram
+proposta por Serro~\cite{serro2012deteccao} na PUCRS\@. Uma das motivações descritas na concepção do trabalho foi a falta de publicações focadas na placa de transito brasileira, que por suas peculiaridades, não é possível facilmente adaptar uma solução estrangeira. Neste trabalho foram
 utilizadas técnicas de segmentação de imagens, histograma, cisalhamento de
 imagens e reconhecimento ótico de caracteres \emph{Tesseract}. Este último não sendo o foco principal do projeto. A metodologia utilizada consistiu das
 seguintes etapas, calibração do sistema
@@ -13,7 +17,13 @@ A baixa taxa de acerto pode ter sido por problemas de foco e nitidez, o tamanho 
 \emph{pixels} nas imagens e a existência de outros objetos em cena. Todos esses
 problemas foram citados no desenvolvimento do projeto.
 
-A área de reconhecimento automático de placas de carros é tão estudada, que alguns autores fizeram estudos comparando alguns dos mais comuns algoritmos para solucionar o problema.
+O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr}
+criou uma solução de reconhecimento de placas que permite que a comunidade contribua
+treinando o reconhecedor de caracteres a reconhecer as placas de seus países. Esta seria uma solução alternativa ao problema da falta de trabalhos focados no reconhecimento de placas de carro localizada, mais especificamente para a placa brasileira.
+
+\section{Estudos comparativos}
+
+A área de reconhecimento automático de placas de carros é muito  estudada. Alguns autores fizeram estudos comparando as técnicas mais comuns para solucionar o problema.
 
 Em Ahmad et al.~\cite{ahmad2015automatic} foi feito um estudo comparativo dos
 sistemas de reconhecimento de placas automotivas automáticos. Segundo estes
@@ -47,9 +57,63 @@ Outros motivos para a baixa taxa de acerto foram a falta de pré-processamento
 das imagens, que a análise não considerou, e a falta de utilização de mais dados de
 aprendizado para o reconhecimento ótico de caracteres.
 
-Em S Du~\cite{s2013automatic} também foi feito um estudo semelhante. Foi feita uma pesquisa categorizando os métodos existentes, de acordo com as características de cada um. Destes métodos, foram analisados seus prós e contras, e foram comparados sua performance de reconhecimento e velocidade de processamento.
+Em S Du et al.~\cite{s2013automatic} também foi feito um estudo semelhante. Foi feita uma pesquisa categorizando os métodos existentes, de acordo com as características de cada um. Destes métodos, foram analisados seus prós e contras, e foram comparados sua performance de reconhecimento e velocidade de processamento. Foram estudadas seis técnicas de extração da placa, cinco técnicas de segmentação dos caracteres e duas técnicas de reconhecimento dos caracteres.
 
-Escrever mais sobre S Du~\cite{s2013automatic} aqui!!
+As técnicas de extração de placa analisadas por S Du et al.~\cite{s2013automatic} são:
+
+\begin{itemize}
+	\item Utilizando características de fronteiras. Utilizando o conhecimento prévio de que o contorno da placa é retangular e procurando por contornos retangulares. Um método simples e rápido, mas dificilmente aplicável a imagens complexas por ser muito sensível a bordas indesejadas.
+    \item Utilizando características globais da imagem. Buscando por objetos conectados cujas dimensões se assemelham a uma placa de carro. Direta e independente da posição da placa, porém pode gerar objetos quebrados.
+    \item Utilizando características de textura. Técnica baseada na frequente troca de cores em uma placa de carro. Com ela pode-se detectar a placa mesmo que suas bordas estejam deformadas, porém é muito complexa computacionalmente.
+    \item Utilizando características de cores. Essa estratégia busca por uma cor específica da placa. Tem a mesma vantagem que a técnica anterior de detectar placas com bordas deformadas, mas é muito limitada a problemas de iluminação.
+	\item Utilizando características dos caracteres. Esta maneira necessita que hajam caracteres na placa. É uma técnica bem lenta e produz erros quando há mais texto na imagem além da placa.
+    \item Utilizando múltiplas características. Utilizando-se de mais de uma das técnicas anteriores se consegue resultados mais confiáveis, porém é mais complexa computacionalmente.
+\end{itemize}
+
+As técnicas de segmentação de caracteres analisadas por S Du et al.~\cite{s2013automatic} são:
+
+\begin{itemize}
+	\item Segmentação utilizando conectividade de \emph{pixels}. Procura por \emph{pixels} conexos para identificar um caractere. Estratégia simples e direta, robusta contra rotação da placa. Sua desvantagem está quando os caracteres na imagem estão quebrados ou unidos.
+    \item Segmentação utilizando perfis de projeção. Essa estratégia independe da posição dos caracteres e também consegue lidar com rotação, porém, ruídos na imagem podem afetar o valor da projeção.
+    \item Segmentação utilizando conhecimento prévio dos caracteres. Um método simples que assume a posição dos caracteres com base em conhecimento existente. Mudanças podem afetar o resultado.
+    \item Segmentação utilizando contornos dos caracteres. Encontrando os contornos dos caracteres é possível encontrar as fronteiras exatas dos caracteres, mas é uma técnica lenta e pode gerar contornos incompletos ou distorcidos.
+    \item Segmentação utilizando características combinadas. Utilizar mais de uma estratégia. Assim como na segmentação da placa, é uma técnica mais confiável, porém computacionalmente mais complexa.    
+\end{itemize}
+
+Por fim, as técnicas de reconhecimento de caracteres analisadas por S Du et al.~\cite{s2013automatic} são:
+
+\begin{itemize}
+	\item Reconhecimento por combinação de modelos(\emph{Template Matching}). É uma estratégia que pega os caracteres prontos e compara os caracteres a serem reconhecidos com eles. É um método simples, útil para reconhecer caracteres de uma fonte única e tamanho fixo.
+    \item Reconhecimento utilizando características extraídas. É uma alternativa a combinação de modelos. Esta técnica extrai características da imagem, como por exemplo formas do caractere. Isso diminui o tempo de processamento pois nem todos os \emph{pixels} estão mais envolvidos. 
+\end{itemize}
+
+\section{Extração da placa}
+
+Kaur\cite{kaur2014efficient} propõe um método eficiente de
+extração que se baseia em detecção de bordas. A imagem adquirida é tratada por um pré-processamento que aplica operações de redução de ruídos e aumento de contraste com técnicas de filtro bilateral, equalização de histograma adaptativo e abertura morfológica seguida de subtração da imagem.
+
+Após pré-processada é aplicada uma binarização utilizando o método de Otsu e uma detecção de bordas utilizando o operador de Sobel. O objetivo da detecção de bordas é tentar encontrar a borda fechada ao redor da placa do carro. Com as bordas encontradas, os buracos da imagem são preenchidos utilizando a operação \emph{imfill} do software MATLAB\footnote{https://www.mathworks.com/products/matlab.html}. Com o preenchimento dos buracos, a borda gerada pela placa será preenchida com \emph{pixels} conexos. Tendo essa região preenchida, é aplicada uma operação morfológica de abertura e fechamento para fazer desaparecer os conjuntos de \emph{pixels} em grupos menores, mantendo apenas candidatos a placa.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{ext10.png}
+	\caption{Imagem com as bordas encontradas e buracos preenchidos}
+Fonte: An Efficient Approach for Number Plate Extraction
+from Vehicles Image under Image Processing 
+	\label{fig:ext_gray_scale}
+\end{figure}
+
+O método proposto por Kaur\cite{kaur2014efficient} foi testado com 120 diferentes imagens de veículos e obteve sucesso em 118 deles, mantendo um percentual de 98.33\%. O método implementado neste trabalho para a detecção da área da placa se baseia neste método.
+
+Wafy e Madbouly~\cite{wafy2016efficient} propõe outra alternativa para a detecção da região da placa. Os autores se baseiam na distribuição semi-simétrica  dos pontos de canto nas imagens de carros e placas e nas características morfológicas da região da placa.
+
+O algoritmo de detectar as regiões candidatas consiste de quatro módulos. O primeiro módulo prepara a imagem para detecção aplicando piramides gaussianas para suavizar e remover ruídos da imagem. O segundo módulo detecta pontos de canto utilizando o detector de Harris. O terceiro módulo encontra uma linha vertical de simetria se baseando no fato de que uma imagem contendo uma placa de carro tem uma distribuição semi-simétrica de pontos de canto na placa. O quarto módulo procura verticalmente nas linhas simétricas para encontrar a regiçao candidata que tem o maior número de pontos de canto. 
+
+A solução proposta por Wafy e Madbouly~\cite{wafy2016efficient} teve uma taxa de acerto de 97,5\% no processo de detecção, com o maior tempo de execução para um dos processos sendo de
+0,3s. Com estes resultados seria possível utilizar este método em aplicações de
+tempo real.
+
+\section{Segmentação dos caracteres}
 
 Em Abtahi et al.~\cite{abtahi2015deep} foram feitas novas abordagens para a
 segmentação de caracteres em imagens. De acordo com eles, o método padrão de
@@ -60,15 +124,7 @@ consiga achar os melhores caminhos para a segmentação.  A segunda abordagem us
 um método híbrido que utiliza a simplicidade e velocidade do método de projeção,
 mas com o poder do aprendizado por reforço.
 
-De acordo com Wafy e Madbouly~\cite{wafy2016efficient}, o reconhecimento de uma
-placa consiste em dois mecanismos principais: detecção de uma placa e em seguida
-a sua identificação. O algoritmo proposto nesse artigo, faz os dois passos e se
-baseia na distribuição semi-simétrica dos pontos de canto nas imagens de carros
-e placas, e nas características morfológicas da região da placa. Essa solução
-teve uma taxa de acerto de 97,5\% no processo de detecção e 92,8\% na
-identificação, com o maior tempo de execução para um dos processos sendo de
-0,3s. Com estes resultados seria possível utilizar este método em aplicações de
-tempo real.
+\section{Reconhecimento em sistema embarcado}
 
 Com relação ao uso de sistema embarcado para executar o reconhecimento, Arth et
 al.~\cite{arth2007real} trabalharam no desenvolvimento de um sistema de reconhecimento
@@ -84,6 +140,8 @@ Com sua implementação, Arth et al.~\cite{arth2007real} foram capazes de conseg
 a taxa de sucesso de cada reconhecimento. Os autores ainda concluem que por o tempo de detecção da placa ser superior
 ao tempo de reconhecimento dos caracteres, e que este algoritmo deve ser melhorado.
 
+\section{Análise dos trabalhos}
+
 Analisando os trabalhos feitos na área, nota-se que por mais que os algoritmos variem,
 a base da detecção de placas permanece parecida. Eles costumam ser divididos em pelo
 menos duas partes, a localização da placa e a detecção dos caracteres. Inclusive, Ahmad et al~\cite{ahmad2015automatic}
@@ -95,8 +153,3 @@ com diversas abordagens diferentes e grande variação de resultados. Entretanto
 um problema que ainda existe, é a grande diferença nas placas de diferentes países,
 no estilo, fonte, caracteres utilizados e padrão do texto. A solução deste problema
 é a criação de uma solução local de reconhecimento de placas.
-
-O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr}
-criou uma solução de reconhecimento de placas que permite que a comunidade contribua
-treinando o reconhecedor de caracteres a reconhecer as placas de seus países para contornar
-esse problema.
