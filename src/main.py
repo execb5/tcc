@@ -13,6 +13,7 @@ photo_counter = 0
 plates_read = 0
 plates_read_correctly = 0
 
+
 def main():
     settings.init()
     # photo_counter = len(sys.argv) - 1
@@ -69,17 +70,19 @@ def process_frame_or_image(image, plate_from_file_name):
         characters = character_extractor.extract_characters(prepared_plate, index)
         character_reader = CharacterReader(number_model, letter_model)
         plate_read = character_reader.read_characters(characters)
-        if plate_read != None:
+        if plate_read is not None:
             is_correct = plate_read == plate_from_file_name
-            print '%s == %s ? %s'%(plate_from_file_name, plate_read, is_correct)
+            print '%s == %s ? %s' % (plate_from_file_name, plate_read, is_correct)
             if is_correct:
                 plates_read_correctly += 1
             plates_read += 1
             photo_counter += 1
-            return
+            if not __debug__:
+                return
     photo_counter += 1
     print "Didn't find anything in photo of plate %s :(" % plate_from_file_name
     return
+
 
 def get_license_plate_from_file_name(item):
     return item.split('.')[0].split('/')[-1]
