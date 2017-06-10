@@ -26,14 +26,16 @@ class CharacterExtractor:
 
         bounding_boxes = []
         for contour in contours:
-            x, y, w, h = cv2.boundingRect(contour)
-            area = w * h
-            center = (x + w / 2, y + h / 2)
+            x, y, width, height = cv2.boundingRect(contour)
+            if width > height:
+                continue
+            area = width * height
+            center = (x + width / 2, y + height / 2)
             if (area > 1000) and (area < 10000):
-                x, y, w, h = x - 4, y - 4, w + 8, h + 8
+                x, y, width, height = x - 4, y - 4, width + 8, height + 8
                 if x > 0 and y > 0:
-                    bounding_boxes.append((center, (x, y, w, h)))
-                    cv2.rectangle(char_mask, (x, y), (x + w, y + h), 255, -1)
+                    bounding_boxes.append((center, (x, y, width, height)))
+                    cv2.rectangle(char_mask, (x, y), (x + width, y + height), 255, -1)
 
         if __debug__:
             cv2.imwrite(settings.output_path + 'b2' + str(index) + 'mask.png', char_mask)
@@ -42,8 +44,8 @@ class CharacterExtractor:
 
         characters = []
         for _, bbox in bounding_boxes:
-            x, y, w, h = bbox
-            char_image = image[y:y + h, x:x + w]
+            x, y, width, height = bbox
+            char_image = image[y:y + height, x:x + width]
             characters.append(char_image)
 
         return characters
