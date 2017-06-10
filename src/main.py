@@ -9,12 +9,13 @@ from character_extractor import *
 from character_reader import *
 from model_factory import *
 
+photo_counter = 0
 plates_read = 0
 plates_read_correctly = 0
 
 def main():
     settings.init()
-    photo_counter = len(sys.argv) - 1
+    # photo_counter = len(sys.argv) - 1
     for index, item in enumerate(sys.argv):
         if index == 0:
             continue
@@ -54,6 +55,9 @@ def main():
 
 
 def process_frame_or_image(image, plate_from_file_name):
+    global photo_counter
+    global plates_read
+    global plates_read_correctly
     number_model = train_number_model()
     letter_model = train_letter_model()
     plate_extractor = PlateExtractor()
@@ -69,11 +73,11 @@ def process_frame_or_image(image, plate_from_file_name):
             is_correct = plate_read == plate_from_file_name
             print '%s == %s ? %s'%(plate_from_file_name, plate_read, is_correct)
             if is_correct:
-                global plates_read_correctly
                 plates_read_correctly += 1
-            global plates_read
             plates_read += 1
+            photo_counter += 1
             return
+    photo_counter += 1
     print "Didn't find anything in photo of plate %s :(" % plate_from_file_name
     return
 
