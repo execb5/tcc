@@ -57,9 +57,7 @@ def process_frame_or_image(image, plate_from_file_name):
         if plate_read != plate_read:
             print "Nothing to see here"
         else:
-            print "License plate from file: ", plate_from_file_name
-            print "License plate found: ", character_reader.read_characters(characters)
-            print "Read correctly? ", plate_read == plate_from_file_name
+            print '%s == %s ? %s'%(plate_from_file_name, plate_read, plate_read == plate_from_file_name)
 
 def get_license_plate_from_file_name(item):
     return item.split('.')[0].split('/')[-1]
