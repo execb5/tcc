@@ -1,4 +1,6 @@
 import cv2
+import re
+
 from operations import *
 
 
@@ -17,7 +19,10 @@ class CharacterReader:
         for char_img in numbers:
             chars += self.read_character(char_img, self.number_model)
 
-        return chars
+        pattern = re.compile("^[A-Z]{3}-[0-9]{4}$")
+        if pattern.match(chars) or __debug__:
+            return chars
+        return None
 
     def read_character(self, character, model):
         resized = resize_image(character)
