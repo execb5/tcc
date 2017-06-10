@@ -15,7 +15,8 @@ def main():
     for index, item in enumerate(sys.argv):
         if index == 0:
             continue
-        print imghdr.what(item)
+        if __debug__:
+            print imghdr.what(item)
         if imghdr.what(item) in ['jpg', 'png', 'JPEG', 'jpeg', 'JPG', 'gif']:
             image = cv2.imread(item)
             process_frame_or_image(image)
