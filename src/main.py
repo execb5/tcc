@@ -9,9 +9,12 @@ from character_extractor import *
 from character_reader import *
 from model_factory import *
 
+plates_read = 0
+plates_read_correctly = 0
 
 def main():
     settings.init()
+    photo_counter = len(sys.argv) - 1
     for index, item in enumerate(sys.argv):
         if index == 0:
             continue
@@ -40,6 +43,14 @@ def main():
                     print str(pos_frame) + " frames"
                 if cap.get(cv2.CAP_PROP_POS_FRAMES) == cap.get(cv2.CAP_PROP_FRAME_COUNT):
                     break
+    print 'Received %s image(s)' % photo_counter
+    print 'Read %s license plates' % plates_read
+    print 'Read %s license plates correctly' % plates_read_correctly
+    print "%s%% of license plates were read" % ((plates_read * 100) / photo_counter)
+    if plates_read > 0:
+        print "%s%% of license plates were read correctly" % ((plates_read_correctly * 100) / plates_read)
+    else:
+        print "0% of license plates were read correctly"
 
 
 def process_frame_or_image(image, plate_from_file_name):
@@ -55,9 +66,15 @@ def process_frame_or_image(image, plate_from_file_name):
         character_reader = CharacterReader(number_model, letter_model)
         plate_read = character_reader.read_characters(characters)
         if plate_read != None:
-            print '%s == %s ? %s'%(plate_from_file_name, plate_read, plate_read == plate_from_file_name)
+            is_correct = plate_read == plate_from_file_name
+            print '%s == %s ? %s'%(plate_from_file_name, plate_read, is_correct)
+            if is_correct:
+                global plates_read_correctly
+                plates_read_correctly += 1
+            global plates_read
+            plates_read += 1
             return
-    print "Didn't find anything for plate %s :(" % plate_from_file_name
+    print "Didn't find anything in photo of plate %s :(" % plate_from_file_name
     return
 
 def get_license_plate_from_file_name(item):
