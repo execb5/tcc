@@ -19,7 +19,8 @@ def main():
             print imghdr.what(item)
         if imghdr.what(item) in ['jpg', 'png', 'JPEG', 'jpeg', 'JPG', 'gif']:
             image = cv2.imread(item)
-            process_frame_or_image(image)
+            plate_from_file_name = get_license_plate_from_file_name(item)
+            process_frame_or_image(image, plate_from_file_name)
         else:
             cap = cv2.VideoCapture(item)
             while True:
@@ -41,7 +42,7 @@ def main():
                     break
 
 
-def process_frame_or_image(image):
+def process_frame_or_image(image, plate_from_file_name):
     number_model = train_number_model()
     letter_model = train_letter_model()
     plate_extractor = PlateExtractor()
@@ -52,7 +53,16 @@ def process_frame_or_image(image):
         prepared_plate = plate_cleaner.clean_plate(candidate, index)
         characters = character_extractor.extract_characters(prepared_plate, index)
         character_reader = CharacterReader(number_model, letter_model)
-        print character_reader.read_characters(characters)
+        plate_read = character_reader.read_characters(characters)
+        if plate_read != plate_read:
+            print "Nothing to see here"
+        else:
+            print "License plate from file: ", plate_from_file_name
+            print "License plate found: ", character_reader.read_characters(characters)
+            print "Read correctly? ", plate_read == plate_from_file_name
+
+def get_license_plate_from_file_name(item):
+    return item.split('.')[0].split('/')[-1]
 
 
 if __name__ == "__main__":
