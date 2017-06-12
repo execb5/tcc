@@ -98,7 +98,9 @@ O método implementado é baseado em Kaur~\cite{kaur2014efficient} e segue o seg
 	\item Aumento de contraste usando equalização de histograma adaptativo
 	\item Binarização da Imagem
 	\item Detecção de borda pelo operador \emph{Sobel}
+    \item Operação de dilatação sobre as bordas
 	\item Detecção de Área de Placa Candidata por Operações Morfológicas de Abertura e Fechamento
+    \item Preenchimento de buracos na imagem
 	\item Extração da área da placa real
     \item Aprimoramento da região extraída
 \end{enumerate}
@@ -120,16 +122,9 @@ Fonte: Imagem processada pelo algoritmo
 
 \subsection{Remoção de ruído por filtro bilateral}
 
-O filtro bilateral é um filtro não linear, que preserva as arestas e reduz ruído.
-Ele funciona substituindo o valor de intensidade de cada \emph{pixel} em uma imagem
-por uma média ponderada dos valores de intensidade dos \emph{pixels} próximos.
-O objetivo básico da filtragem é remover ruído e distorção da imagem. O ruído
-pode ocorrer durante a captura pela câmera ou pelas condições do tempo. No
-método que Kaur~\cite{kaur2014efficient} propõe, filtro bilateral iterativo é
-utilizado para remover ruído. Ele é não linear, provê mecanismo para remoção de
-ruído enquanto preserva bordas mais efetivamente que o filtro mediano. O filtro
-mediano funciona substituindo o valor de cada \emph{pixel} pela mediana dos \emph{pixels}
-vizinhos.
+O filtro bilateral é um filtro não linear, que preserva as arestas e reduz ruído. Ele funciona substituindo o valor de intensidade de cada \emph{pixel} em uma imagem por uma média ponderada dos valores de intensidade dos \emph{pixels} próximos. O objetivo básico da filtragem é remover ruído e distorção da imagem. O ruído pode ocorrer durante a captura pela câmera ou pelas condições do tempo. No método que Kaur~\cite{kaur2014efficient} propõe, filtro bilateral iterativo é utilizado para remover ruído. Ele é não linear, provê mecanismo para remoção de ruído enquanto preserva bordas mais efetivamente que o filtro mediano. O filtro mediano funciona substituindo o valor de cada \emph{pixel} pela mediana dos \emph{pixels} vizinhos.
+
+É necessário utilizar um filtro de remoção de ruído que tenha capacidade de preservar as bordas, pois a detecção de bordas é um passo muito importante na extração da placa. A detecção de bordas será abordada na sessão \ref{sec:detec_bordas}
 
 \begin{figure}[H]
 	\centering
@@ -156,13 +151,11 @@ Fonte: Imagem processada pelo algoritmo
 
 \subsection{Binarização da Imagem}
 
-Nesta operação a imagem de escala de cinza subtraída é convertida em imagem
-binária. Em primeiro lugar, o nível de limiar é calculado pelo método de \emph{Otsu}.
-O algoritmo do método de \emph{Otsu} assume que  a imagem contém duas classes de pixels
-seguindo um histograma bi-modal. Ele então calcula o limiar ótimo separando as
-duas classes para que o seu espalhamento combinado seja mínimo.
-Tendo o limiar calculado, a imagem de escala de cinza subtraída é convertida em
-imagem em preto e branco.
+Nesta operação a imagem de escala de cinza pré-processada é convertida em imagem binária. Para isso é utilizada uma técnica de limiarização. Na implementação de Kaur~\cite{kaur2014efficient}, foi escolhida uma técnica de limiarização por limiar global, utilizando o método de \emph{Otsu} para calcular esse limiar. 
+
+O algoritmo do método de \emph{Otsu} assume que  a imagem contém duas classes de \emph{pixels} seguindo um histograma bi-modal. Ele calcula o limiar ótimo separando as duas classes para que o seu espalhamento combinado seja mínimo. Tendo o limiar calculado, a imagem de escala de cinza subtraída é convertida em imagem em preto e branco.
+
+O objetivo final desse passo, é fazer com que, na imagem binarizada, haja uma diferença entre a cor da placa e a cor do resto do carro, deixando a placa sobressalente na imagem. O resultado dessa binarização pode ser visto na imagem \ref{fig:ext_binarized_image}
 
 \begin{figure}[H]
 	\centering
@@ -173,9 +166,11 @@ Fonte: Imagem processada pelo algoritmo
 \end{figure}
 
 \subsection{Detecção de borda pelo operador Sobel}
+\label{sec:detec_bordas}
 
-A borda vertical é detectada pelo operador \emph{Sobel} e o resultado do operador \emph{Sobel}
-ser aplicado à imagem binarizada é mostrado na figura~\ref{fig:ext_edge_detection_sobel}
+Neste passo as bordas da imagem são detectadas pelo operador de \emph{Sobel}. A detecção de bordas em uma imagem diminui significantemente a quantidade de dados a ser processados e remove informações desnecessárias, enquanto preserva importantes propriedades estruturais na imagem.\cite{ha2016license}
+
+Para que esse passo tenha sucesso, é necessário que, na binarização, a placa e o resto do carro tenham obtido valores diferentes. Com isso, a detecção de bordas terá como objetivo desenhar o contorno da placa do carro, incluindo, ou não, outros elementos não relevantes da imagem. O resultado da detecção de bordas aplicada à imagem binarizada é mostrado na figura~\ref{fig:ext_edge_detection_sobel}
 
 \begin{figure}[H]
 	\centering
@@ -185,12 +180,9 @@ Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_edge_detection_sobel}
 \end{figure}
 
-\subsection{Detecção de Áreas de Placa Candidatas por Operações Morfológicas de Abertura e Fechamento}
+\subsection{Operação de dilatação sobre as bordas}
 
-Com as operações morfológicas, os objetos indesejados na imagem são removidos.
-Para a detecção da área da placa, uma operação de dilatação é aplicada na imagem
-e depois os buracos são fechados. Em seguida, operações de abertura morfológica
-e erosão são usadas para a detecção exata da área da placa.
+Tendo as bordas detectadas deve-se aplicar uma operação de dilatação sobre a imagem processada. O motivo deste passo é deixar as bordas detectadas mais fortes. Na operação anterior é possível que hajam pequenos furos nas bordas geradas, segmentando a linha desenhada em diversos pedaços. Aplicando a dilatação sobre essas bordas, as linhas se fecham deixando as bordas mais definidas.
 
 \begin{figure}[H]
 	\centering
@@ -200,6 +192,12 @@ Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_morphological_dilation}
 \end{figure}
 
+As bordas precisam ser bem definidas para garantir que o retângulo gerado pela placa esteja completo. Espaços abertos nessa área podem causar complicações nas etapas seguintes. Na imagem \ref{fig:ext_morphological_dilation} podemos ver as bordas dilatadas e mais definidas.
+
+\subsection{Preenchimento de buracos na imagem}
+
+Com as bordas dilatadas e bem definidas é feito o preenchimento das áreas fechadas na imagem. Se as bordas ao redor da placa estiverem corretamente demarcadas, nesta etapa, sobre a área da placa, teremos um retângulo completo fechado. Essa é a etapa da detecção das áreas de placa onde é possível identificar visualmente os candidatos a placa. Estes são os pontos onde existem grandes conjuntos de \emph{pixels}, as áreas com bordas fechadas que foram preenchidas. Na figura \ref{fig:ext_holes_filled} temos a imagem com os buracos preenchidos.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=88mm]{7filled_image.png}
@@ -207,6 +205,10 @@ Fonte: Imagem processada pelo algoritmo
 Fonte: Imagem processada pelo algoritmo
 	\label{fig:ext_holes_filled}
 \end{figure}
+
+\subsection{Detecção de Áreas de Placa Candidatas por Operações Morfológicas de Abertura e Fechamento}
+
+Com as operações morfológicas, os objetos indesejados na imagem são removidos. As operações de abertura e fechamento são usadas para a detecção exata da área da placa. Essa etapa acaba se tornando um pouco limitada, pois o elemento estruturante deve ser de certa forma proporcional ao tamanho da placa na imagem. Com um elemento estruturante muito pequeno, sobram muitos candidatos falsos, pois eles não são removidos nas operações morfológicas. Com um elemento estruturante muito grande, a área da placa pode ser removida junto com o ruído. As imagem \ref{fig:ext_plate_area_detection} contém as regiões candidatas da placa.
 
 \begin{figure}[H]
 	\centering
@@ -220,7 +222,7 @@ Fonte: Imagem processada pelo algoritmo
 
 Ao localizar as regiões candidatas onde pode-se encontrar uma placa, pode-se encontrar também regiões falsas, onde não existe placa. Para excluir estas regiões, Jia \cite{jia2007region} sugere que características sejam extraídas para diferenciar corretamente as regiões de placa por outras. 
 
-Diversas características podem ser utilizadas com este propósito. Elas incluem o tamanho da região, a altura e largura da região, a orientação dos caracteres posteriormente extraídos, a intensidade das bordas e a posição da região.
+Diversas características podem ser utilizadas com este propósito. Elas incluem o tamanho da região, a altura e largura da região, a orientação dos caracteres posteriormente extraídos, a intensidade das bordas e a posição da região. 
  
 Após a detecção da área da placa, essa área é extraída da imagem. Em primeiro lugar, os índices de linha e coluna da área da placa são encontrados por análise de componentes conectados.
 
