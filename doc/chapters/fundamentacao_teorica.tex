@@ -3,7 +3,17 @@ Diversas técnicas e algoritmos são utilizadas nas aplicações de reconhecimen
 \section{Processamento de Imagens}
 \label{sec:processamentoimagens}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Uma imagem pode ser definida como uma função $f(x, y)$, onde as variáveis $x$ e $y$ representam as coordenadas em um plano e o valor de $f$ em qualquer par de coordenadas $(x, y)$ representa a cor da imagem naquele ponto, se a imagem for colorida, ou a intensidade do cinza, em uma imagem em tons de cinza. Essas imagens digitais são compostas de um número finito de elementos, cada um com uma posição diferente e um valor. Estes elementos são conhecidos como \emph{pixels}.\cite{gonzalez1977digital}
+
+O campo do processamento digital de imagens se refere ao processamento de imagens feito por um computador. Não existe um consenso geral entre os autores, segundo Gonzalez\cite{gonzalez1977digital}, sobre onde o processamento de imagens acaba e onde começam outros campos, como a análise de imagens e a visão computacional. As fronteiras entre estes campos não são muito claras. Mas é possível dividir estes processos em três tipos distintos:
+
+\begin{itemize}
+	\item Processos de baixo nível envolvem operações primitivas, como pré-processamento para redução de ruídos e aumento de contraste.
+    \item Processos de nível médio envolvem tarefas como segmentação, descrição e reconhecimento de objetos. Estes processos são caracterizados pelo fato de que recebem como entrada uma imagem, mas têm como saída atributos extraídos dessa imagem, como contornos, bordas e a identidade de objetos nela existentes.
+    \item Processos de alto nível envolvem obter um significado de um conjunto de objetos reconhecidos, fazendo funções normalmente associadas a visão.
+\end{itemize}
+
+No reconhecimento digital de placas de carro, os três tipos diferentes de processos categorizados por Gonzalez\cite{gonzalez1977digital} estão presentes. Processos de baixo nível, para pré-processar as imagens extraídas que contém os carros. Processos de nível médio, para extrair elementos dessas imagens, como as placas e os caracteres. Processos de alto nível, que buscam, com base nestes elementos extraídos, obter o valor da placa do carro.
 
 \section{Reconhecimento Ótico de Caracteres}
 \label{sec:ocr}
@@ -24,52 +34,144 @@ Neste trabalho, implementaremos um \emph{software} de reconhecimento ótico de c
 \section{Filtro Bilateral}
 \label{sec:bilateralfilter}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Filtros podem ser a operação mais fundamental de processamento de imagens de acordo com Tomasi e Manduchi\cite{tomasi1998bilateral}. Na operação de filtro, o valor da imagem filtrada em uma determinada localização é uma função dos valores da imagem de entrada em um pequeno conjunto da mesma localização. No filtro gaussiano de passa-baixa, por exemplo, é calculada uma média ponderada dos \emph{pixels} da região onde o peso diminui com a distancia do centro da conjunto. A ideia por trás disso é que imagens geralmente variam pouco no espaço, então, o ruído é tirado fora e o sinal é preservado. Essa ideia da baixa variação dos \emph{pixels} próximos não funciona bem nas bordas, fazendo com que acabem ficando borradas na imagem. \cite{tomasi1998bilateral}
+
+Uma solução de filtro que contorna esse problema é o Filtro Bilateral. O Filtro Bilateral é um método não iterativo para suavizar imagens preservando as suas bordas. Ele utiliza uma combinação não linear de valores próximos da imagem., combinando os níveis de cinza ou cores baseado em sua proximidade geométrica e similaridade fotométrica.\cite{tomasi1998bilateral}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=100mm]{bilateralfilter.png}
+	\caption{Uma imagem antes (a) e depois (b) de aplicado o Filtro Bilateral}
+Fonte: Bilateral Filtering for Gray and Color Images~\cite{tomasi1998bilateral}
+	\label{fig:bilateral_filter_example}
+\end{figure}
 
 \section{Detecção de Bordas}
 \label{sec:detecbordas}
 
-Detecção de bordas é um método de processamento de imagem desenvolvido para detectar pixels de borda. os pixels de borda são pixels em que a intensidade da imagem muda abruptamente, e as bordas são conjuntos de pixels de borda conexos.\cite{gonzalez1977digital}
+Detecção de bordas é um método de processamento de imagem desenvolvido para detectar \emph{pixels} de borda. os \emph{pixels} de borda são \emph{pixels} em que a intensidade da imagem muda abruptamente, e as bordas são conjuntos de \emph{pixels} de borda conexos.\cite{gonzalez1977digital}
 
-\subsection{Filtro de Sobel}
+O gradiente de uma imagem é uma troca de intensidade ou cor de uma imagem. Ele é computado pelas variações da imagem nas direções x e y. Pode-se considerar que uma borda acontece quando o gradiente está em seu máximo, ou seja, está havendo uma troca de intensidade. O gradiente pode ser dado pela seguinte fórmula:
+
+\begin{displaymath}
+\nabla f={\begin{bmatrix}g_{x}\\g_{y}\end{bmatrix}}={\begin{bmatrix}{\frac {\partial f}{\partial x}}\\{\frac {\partial f}{\partial y}}\end{bmatrix}}
+\end{displaymath}
+
+Um método para calcular os gradientes de uma imagem é utilizando o Operador de Sobel.
+
+\subsection{Operador de Sobel}
 \label{sec:sobel}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Considerando-se que I é a imagem a ser processada, são calculadas duas derivadas. As mudanças horizontais são computadas fazendo a convolução de I com um filtro $G_{x}$ de tamanho ímpar. Um exemplo com um filtro de tamanho 3 seria assim:
+
+\begin{displaymath}
+G_{x} = \begin{bmatrix}
+-1 & 0 & +1  \\
+-2 & 0 & +2  \\
+-1 & 0 & +1
+\end{bmatrix} * I
+\end{displaymath}
+
+Já as mudanças verticais, utilizando um filtro de tamanho 3, seriam da seguinte maneira:
+
+\begin{displaymath}
+G_{y} = \begin{bmatrix}
+-1 & -2 & -1  \\
+0 & 0 & 0  \\
++1 & +2 & +1
+\end{bmatrix} * I
+\end{displaymath}
+
+Estes filtros estimam os gradientes nas direções horizontal e vertical, e a magnitude do gradiente pode ser calculada somando os dois gradientes. O cálculo da aproximação do gradiente em cada ponto é dado pela seguinte equação:
+
+\begin{displaymath}
+G = \sqrt{ G_{x}^{2} + G_{y}^{2} }
+\end{displaymath}
 
 \section{Limiarização}
 \label{sec:limiarizacao}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Seja uma determinada imagem em tons de cinza composta de objetos claros em um fundo escuro. Uma maneira simples de extrair os objetos seria criar um valor de limiar, separando os \emph{pixels} com intensidade menor que o limiar e classificando-os como objetos dos \emph{pixels} com intensidade maior que o limiar e classificando-os como fundo. Essa é a base da técnica chamada de limiarização.\cite{gonzalez1977digital}
+
+A técnica mais simples de limiarização é utilizando-se de um limiar global T. Com essa técnica, a imagem é escaneada \emph{pixel} a \emph{pixel} classificando cada \emph{pixel} como objeto ou fundo, dependendo se sua intensidade é maior ou menor do que o limiar global T. O sucesso desse método depende inteiramente de o quão bem a imagem pode ser particionada.\cite{gonzalez1977digital}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=100mm]{thresh.png}
+	\caption{Exemplo de limiarização utilizando limiar global}
+Fonte: Image Thresholding~\cite{opencv2014thresh}
+	\label{fig:threshholding}
+\end{figure}
+
+Imagens com iluminação desigual podem fazer com que imagens perfeitamente segmentáveis tenham péssimos resultados utilizando o limiar global. Um exemplo de imagem que não pode ser corretamente segmentada pode ser visto na imagem \ref{fig:threshholding}. Para superar essas dificuldades foi criada a limiarização adaptativa. Com ela as imagens são divididas em imagens menores, tendo um limiar diferente para cada parte da imagem dividida. As dificuldades da limiarização adaptativa são como dividir a imagem e como escolher os limiares das partes da imagem.\cite{gonzalez1977digital}
 
 \subsection{Método de Otsu}
 \label{sec:otsu}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Apesar das desvantagens, em imagens bimodais, imagens em que o histograma tem dois picos, é possível utilizar técnicas de limiarização global. Nessas imagens, pode-se utilizar o ponto médio entre os dois picos como limiar. O objetivo da binarização pelo método de Otsu é calcular o valor do limiar pelo histograma de uma imagem bimodal.\cite{opencv2014thresh}
 
 \section{Operações Morfológicas}
 \label{sec:morfologicas}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Morfologia matemática é uma ferramenta para extrair componentes da imagem que são úteis para representação e descrição. É um método da análise de imagens que utiliza teoria dos conjuntos, podendo prover uma descrição quantitativa de estruturas geométricas. A maior parte das operações morfológicas são baseadas em operações de expansão e encolhimento, e são principalmente utilizadas em imagens binárias. \cite{owens1997morphology}
 
-\subsection{Erosão}
-\label{sec:erosao}
+As principais operações morfológicas são a erosão e a dilatação. Essas operações são fundamentais para o processamento morfológico. Grande parte das operações morfológicas são baseadas nessas duas operações. \cite{gonzalez1977digital}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+Essas transformações envolvem interações entre uma imagem a ser processada, e um conjunto estruturante, chamado de elemento estruturante. Este elemento costuma ser um disco circular no plano, mas pode ter qualquer forma.\cite{owens1997morphology}
+
+Algumas operações são importantes para descrever as operações morfológicas. Sejam A e B subconjuntos de um conjunto \(Z^2\). A translação de B por x, denominada \(B_x\) é definida por
+
+\begin{displaymath}
+B_x = \{c : c = b + x, \mbox{for } b \in B\}. 
+\end{displaymath}
+
+A reflexão de B, denominada $\hat{B}$ é definida por
+\begin{displaymath}
+\hat{B} = \{x : x = -b, \mbox{for } b \in B\}. 
+\end{displaymath}
+
+O complemento de a é denominado $Ac$ e a diferença entre os conjuntos A e B é denominado $A-B.$
 
 \subsection{Dilatação}
 \label{sec:dilatacao}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+A dilatação de uma imagem A pelo elemento estruturante B é dada por
+
+\begin{displaymath}
+A \oplus B = \{x : {\hat{B}}_x \cap A \neq \O \}. 
+\end{displaymath}
+
+\subsection{Erosão}
+\label{sec:erosao}
+
+A erosão de uma imagem A pelo elemento estruturante B é dada por
+
+\begin{displaymath}
+A \ominus B = \{ x : B_x \subseteq A \}. 
+\end{displaymath}
+
 
 \subsection{Abertura}
 \label{sec:abertura}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+A abertura de uma imagem A, dado um elemento estruturante B, simbolizada por $A \circ B$, é feita pela erosão de A por B, seguida da dilatação de A por B, e pode ser representada pela equação
+
+\begin{displaymath}
+A \circ B = (A \ominus B)\oplus B. 
+\end{displaymath}
+
+A operação de abertura suaviza os contornos de um objeto, remove istmos estreitos e elimina protusões.\cite{gonzalez1977digital}
 
 \subsection{Fechamento}
 \label{sec:fechamento}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+O fechamento de uma imagem A, dado um elemento estruturante B, simbolizada por $A \bullet B$, é feito pela dilatação de A por B, seguida da erosão de A por B, e pode ser representada pela equação
+
+\begin{displaymath}
+A \bullet B = (A \oplus B)\ominus B. 
+\end{displaymath}
+
+Assim como a abertura, o fechamento também suaviza os contornos dos objetos, mas, ao contrário da abertura, ele geralmente funde  as protusões, eliminando pequenos buracos e preenchendo espaços no contorno.\cite{gonzalez1977digital}
 
 \section{K-Nearest Neighbors}
 \label{sec:knearest}

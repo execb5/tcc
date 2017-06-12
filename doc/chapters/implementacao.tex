@@ -100,16 +100,8 @@ O método implementado é baseado em Kaur~\cite{kaur2014efficient} e segue o seg
 	\item Detecção de borda pelo operador \emph{Sobel}
 	\item Detecção de Área de Placa Candidata por Operações Morfológicas de Abertura e Fechamento
 	\item Extração da área da placa real
-	\item Aprimoramento da região extraída
+    \item Aprimoramento da região extraída
 \end{enumerate}
-
-\subsection{Pré-processamento}
-
-O objetivo básico do pré-processamento é melhorar o contraste da imagem de
-entrada, para reduzir ruído e, em consequência, a velocidade de
-processamento. O melhoramento do contraste é feito pela equalização do
-histograma, alongamento de contraste etc. Vários filtros são usados para a
-remoção de ruído.
 
 \subsection{Conversão de RGB para escala de tons de cinza}
 
@@ -242,7 +234,7 @@ Fonte: Imagem processada pelo algoritmo
 
 \subsection{Aprimoramento da região extraída}
 
-A placa de número extraída pode consistir em vários ruídos ou furos indesejados.
+A placa extraída deve ser convertida para um formato que seja processável pelo algoritmo. É aplicada sobre a imagem a conversão para tons de cinza seguida pela binarização. Apesar de a placa binarizada conter bastante ruídos não são feitas mais operações sobre a imagem da placa. O método seguinte, de segmentação de caracteres, sessão \ref{sec:segmentacao} vai lidar com os ruídos. O motivo da não utilização de algoritmos de remoção de ruído é para não deformar os caracteres a serem lidos pelo reconhecedor de caracteres na sessão \ref{sec:reconhecimento}.
 
 \begin{figure}[H]
 	\centering
@@ -271,8 +263,6 @@ características combinadas.
 
 O método utilizado une a segmentação utilizando a conectividade de \emph{pixels} com algum conhecimento anterior dos caracteres. É utilizada uma detecção de \emph{pixels} conectados para detectar quais elementos são possíveis caracteres e utilizado o conhecimento sobre a placa para descartar pontos muito pequenos ou muito próximos as bordas da placa.
 
-O primeiro passo é o preenchimento dos espaços em branco da placa previamente tratada. Este passo existe para evitar que, ao detectar os contornos dos caracteres por meio da conexão dos \emph{pixels}, não aconteça uma dupla detecção em caracteres que contém espaços internos abertos. Por exemplo o número 0, que possui um contorno interno e um contorno externo.
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=100mm]{b10filled_characters.png}
@@ -281,9 +271,9 @@ Fonte: Imagem processada pelo algoritmo
 	\label{fig:preenchimento}
 \end{figure}
 
-Neste ponto são detectados os contornos com base na conexão dos \emph{pixels}. Muitos \emph{pixels} conectados não fazem parte de nenhum caractere da placa. Para descartar os \emph{pixels} indesejados é feito um filtro baseado no tamanho dos contornos e na sua posição. A altura dos contornos não pode ser menor do que metade da altura da imagem completa. Isso descarta os conjuntos pequenos de \emph{pixels} indesejados. Outro critério é que o contorno encontrado não pode estar encostado na borda da imagem. Em uma placa corretamente extraída os caracteres nunca vão estar encostando na borda. Este critério exclui sombras ou áreas que sobram na lateral da placa na extração, que poderiam ser erroneamente confundidas com caracteres.
+O primeiro passo é o preenchimento dos espaços em branco da placa previamente tratada. Este passo existe para evitar que, ao detectar os contornos dos caracteres por meio da conexão dos \emph{pixels}, não aconteça uma dupla detecção em caracteres que contém espaços internos abertos. Por exemplo o número 0, que possui um contorno interno e um contorno externo. Na imagem \ref{fig:preenchimento} podemos ver a placa com os caracteres preenchidos por este passo.
 
-Encontrados os contornos dos caracteres corretos, uma máscara é feita a partir deles que será aplicada sobre a imagem da placa extraída original. Esta máscara irá desconsiderar tudo, apenas o conteúdo extraído na etapa anterior. Os caracteres recortados com base nesta máscara serão extraídos, ordenados com base em sua posição x, e enviados para a etapa de reconhecimento de caracteres.
+Neste ponto são detectados os contornos com base na conexão dos \emph{pixels}. Muitos \emph{pixels} conectados não fazem parte de nenhum caractere da placa. Para descartar os \emph{pixels} indesejados é feito um filtro baseado no tamanho dos contornos e na sua posição. A altura dos contornos não pode ser menor do que metade da altura da imagem completa. Isso descarta os conjuntos pequenos de \emph{pixels} indesejados. Outro critério é que o contorno encontrado não pode estar encostado na borda da imagem. Em uma placa corretamente extraída os caracteres nunca vão estar encostando na borda. Este critério exclui sombras ou áreas que sobram na lateral da placa na extração, que poderiam ser erroneamente confundidas com caracteres.
 
 \begin{figure}[H]
 	\centering
@@ -291,6 +281,16 @@ Encontrados os contornos dos caracteres corretos, uma máscara é feita a partir
 	\caption{Máscara gerada}
 Fonte: Imagem processada pelo algoritmo
 	\label{fig:mascara}
+\end{figure}
+
+Encontrados os contornos dos caracteres corretos, uma máscara, mostrada na figura\ref{fig:mascara}, é feita a partir deles que será aplicada sobre a imagem da placa extraída original. Esta máscara irá desconsiderar tudo, apenas o conteúdo extraído na etapa anterior. Os caracteres recortados com base nesta máscara serão extraídos, ordenados com base em sua posição x, e enviados para a etapa de reconhecimento de caracteres.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=100mm]{a08character_borders.png}
+	\caption{Caracteres a serem extraídos}
+Fonte: Imagem processada pelo algoritmo
+	\label{fig:caracteres_extraidos}
 \end{figure}
 
 \section{Reconhecimento dos caracteres} \label{sec:reconhecimento}
