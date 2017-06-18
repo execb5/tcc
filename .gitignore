@@ -102,3 +102,15 @@ ENV/
 /site
 
 # End of https://www.gitignore.io/api/python
+
+
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.lof
+*.toc
+*.pdf
+*.swp
