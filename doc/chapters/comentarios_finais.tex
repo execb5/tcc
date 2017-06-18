@@ -1,6 +1,9 @@
-Com base na revisão dos trabalhos relacionados, descritos no capítulo~\ref{cha:trab},
-e no modelo de implementação definido no capítulo~\ref{cha:implementacao}, o modelo proposto
-do presente trabalho tentará criar uma solução eficiente de reconhecimento de placas de trânsito
-de veículos brasileiros utilizando \emph{software} embarcado. O objetivo do produto final será
-possuir um \emph{software} que tenha a capacidade de detectar as placas com baixa taxa de erro
-e alto desempenho, possibilitando que seja utilizado em aplicações reais.
+O reconhecimento automático de placas de carro mostrou-se ser uma área bastante vasta, com bastante estudo a respeito e variadas técnicas para chegar no seu objetivo. Dos trabalhos relacionados pesquisados não foi encontrado nenhum que tenha sucesso em todas as suas tentativas, e os estudos comparativos levam a crer que não há uma técnica que funcione para todos os casos. 
+
+A solução desenvolvida nesse trabalho obteve baixo desempenho no reconhecimento e na performance em sistema embarcado de propósito geral, podendo ser vista apenas como um protótipo. 
+
+Como trabalhos relacionados fica sugerido a aplicação do software desenvolvido em outros sistemas embarcados com maior poder de processamento que o \emph{Raspberry Pi}. Um computador especializado no processamento de imagens teria resultados melhores que um computador de propósito geral.
+
+Outra maneira de combater o problema de performance que pode vir a ser estudado seria uma maneira de analisar a imagem antes do processamento. Ao processar um vídeo quadro a quadro, muitas imagens que são processadas não vão ter um bom resultado, devido a fatores externos e a posição do carro na imagem. Uma trabalho que pode vir a ser feito seria descobrir como fazer uma análise de alta performance da imagem, para avaliar se ela está boa para ser processada ou não.
+
+Outro tema proposto como trabalho futuro seria a da extração da placa para poder extrair com mais qualidade placas em carros em diferentes distancias. Com essa melhoria é possível analisar mais imagens em um vídeo de um carro que se locomove em direção a câmera, podendo ter mais precisão no reconhecimento.

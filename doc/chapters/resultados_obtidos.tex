@@ -1,0 +1,35 @@
+Para a análise da solução desenvolvida e identificação de problemas foram feitos testes variados. Este capítulo foi dividido em seções que representam as descobertas mais relevantes ao longo da pesquisa e desenvolvimento. A seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos na experimentação com a extração da placa nas imagens, a seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os resultados obtidos no reconhecimento dos caracteres e a seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no computador \emph{Raspberry Pi}.
+
+\section{Extração da placa}
+\label{sec:extracao_da_placa_resultados}
+
+Comecar mostrando os resultados em diversas imagens
+
+O algoritmo de extração da placa é limitado com relação a distância que o carro está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o objetivo de detectar as áreas de placas candidatas, o tamanho do elemento estruturante influencia diretamente a qualidade da extração. Se utilizado um elemento estruturante muito grande, é possível que na etapa de fechamento, a placa seja erodida junto com o ruído. Se utilizado um elemento estruturante muito pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento. 
+
+Colocar aqui imagem de exeplo mostrando a placa sendo destruida
+
+\section{Reconhecimento dos caracteres}
+\label{sec:reconhecimento_dos_caracteres_resultados}
+
+Inicialmente foi utilizado o \emph{software Tesseract} para fazer o reconhecimento dos caracteres, mas os resultados utilizando a ferramenta pura não foram bons. Mesmo limitando os caracteres possíveis, informando ao \emph{software} se o caractere seria um número ou uma letra, ainda havia dificuldade no reconhecimento. Mesmo em caracteres que não são tão semelhantes, como o 5 e o 6, havia dificuldade no reconhecimento.
+
+Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o implementado com o algoritmo \emph{K-Nearest Neighbors} os resultados foram bem melhores. Até mesmo em imagens de placas inclinadas, como é o caso da Figura~\ref{fig:plate_torta_result}, foi possível identificar os caracteres.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{a42fill_binary_results.jpg}
+	\caption{Placa inclinada que o sistema foi capaz de identificar}
+	\label{fig:plate_torta_result}
+\end{figure}
+
+Colocar aqui os resultados e quais caracteres foram confundidos e em quais condicoes
+
+\section{Performance em sistema embarcado}
+\label{sec:performance_resultados}
+
+A primeira implementação do algoritmo teve maus resultados com relação a performance. 
+
+Falar sobre os resultados aqui. 
+
+Para tentar aprimorar a velocidade do processamento em imagens consecutivas foi aplicado o uso de múltiplos processos, com o objetivo de utilizar todos os núcleos do processador do \emph{Raspberry Pi}.
