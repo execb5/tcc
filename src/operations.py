@@ -14,7 +14,6 @@ def convert_grayscale(image):
 def apply_bilateral_filter(image):
     return cv2.bilateralFilter(image, 9, 75, 75)
 
-
 def apply_histogram_equalization(image):
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     return clahe.apply(image)

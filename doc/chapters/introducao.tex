@@ -2,76 +2,48 @@ O controle e identificação de veículos é usado nas mais diversas áreas, ind
 desde serviços de pagamentos automatizados, como pedágios, até aplicações mais
 críticas, como segurança de fronteiras, sistemas de vigilância de
 tráfego~\cite{ahmad2015automatic} e sistema de busca por carros roubados.
-Uma solução para identificar é, inclusive,  parte do plano de governo do atual prefeito eleito de Porto Alegre
+Uma solução para a identificação de placas é, inclusive,  parte do Plano de Governo do atual prefeito eleito de Porto Alegre,
 Nelson Marchezan. Ele pretende utilizar os sistemas de controle de velocidade da cidade para também
 monitorar as placas de carros com o objetivo de identificar carros roubados~\cite{psdb2016marchezan}.
 
 Com o crescimento constante da frota de carros no Brasil, aplicações para
 auxiliar neste trabalho tornam-se cada vez
-mais necessárias. Com isso em mente, propõe-se neste trabalho uma solução de
-aplicação embarcada de reconhecimento de placas, visando a
-crescente necessidade de controle na área e as peculiaridades das placas
-automotivas brasileiras, que impossibilitam a utilização de ferramentas
-configuradas para placas estrangeiras, necessitando pesquisas locais neste
-tema.
+mais necessárias. Com isso em mente, propõe-se neste trabalho uma
+solução de aplicação embarcada de reconhecimento de placas, visando
+à crescente necessidade de controle na área. O fato de que há
+peculiaridades nas placas automotivas
+brasileiras, que impossibilitam a utilização de ferramentas configuradas
+para placas estrangeiras, também evidencia a necessidade de soluções
+locais para este problema.
 
 O reconhecimento automático de placas de carros (\emph{Automatic License-Plate
-Recognition}, ALPR) é a extração das informações das placas de veículos a partir
+Recognition}, ALPR) corresponde à extração
+das informações das placas de veículos a partir
 de uma imagem ou de uma sequência de imagens. A sua utilização na vida real
 precisa de um processamento rápido e bem sucedido de placas sob diferentes
-condições ambientais. Deve-se considerar as diferenças entre as placas de
+condições ambientais. Deve-se considerar as variações entre as placas de
 diferentes nações, que terão cores, fontes, símbolos, padrões e línguas
-diferentes. Também é preciso superar casos onde as placas possam estar
+diferentes. Também é preciso superar casos nos quais as placas possam estar
 parcialmente cobertas com sujeira, luzes e acessórios dos
 carros, e também a iluminação do ambiente e qualidade
-da imagem adquirida.~\cite{s2013automatic}
+da imagem adquirida~\cite{s2013automatic}.
 
-O objetivo deste trabalho é desenvolver um software embarcado em um \emph{Raspberry Pi}
-(um computador de tamanho muito pequeno) equipado com módulo de câmera que seja
+O objetivo deste trabalho é desenvolver um \emph{software} embarcado em um \emph{Raspberry Pi}
+(um computador de tamanho reduzido) equipado com módulo de câmera que seja
 capaz de reconhecer veículos e identificá-los baseando-se em sua
-placa. Todo o processamento deve acontecer em tempo real com base nas imagens da
-câmera captadas no momento. A informação coletada e processada deve ser enviada
-para um servidor que possa utilizar estes dados em tempo real.
+placa. A solução proposta tem como diferencial o fato de permitir a
+análise e processamento das imagens em tempo real. Isso é realizado utilizando um software embarcado, que coleta as imagens ao mesmo tempo
+que as analisa. Essa abordagem evitaria ter que enviar a imagem inteira para ser processada em um servidor, ocupando menos largura de banda na transmissão. Dessa maneira é possível que esses dados sejam úteis para uma tomada de decisão imediata das "autoridades"~de controle de tráfego ou policiamento.
 
-A solução proposta tem como diferencial o fato de permitir uma
-análise e processamento das imagens em tempo real. Isso será realizado
-utilizando um software embarcado, que estará coletando as imagens ao mesmo tempo
-que as analisa, enviando o dado já processado para um servidor, ocupando menos
-largura de banda na transmissão. Com essa abordagem, será possível que esses
-dados sejam úteis para uma tomada de decisão imediata das "autoridades"  de
-controle de tráfego ou policiamento.
+Um exemplo de uma aplicação, na qual a velocidade e a disponibilidade imediata das informações é crucial para a viabilidade do produto, seria em um \emph{software} de identificação de carros roubados. O sistema analisaria as placas dos carros que trafegam em uma rodovia e identificaria quais daqueles carros têm placas que correspondem a placas de carros roubados. Para que o \emph{software} seja eficiente é necessário que o processamento seja feito em tempo real. Qualquer atraso na identificação do veículo permite que ele se distancie muito, impedindo que as autoridades reajam a tempo.
 
-Um exemplo de uma aplicação, onde a velocidade e a disponibilidade imediata das
-informações é crucial para a viabilidade do produto, seria em um \emph{software}
-de identificação de carros roubados. O sistema analisaria as placas dos carros
-que trafegam em uma rodovia e identificaria quais daqueles carros têm placas que
-correspondem a placas de carros roubados. Para que o \emph{software} seja
-eficiente é necessário que o processamento seja feito em tempo real, qualquer
-atraso na identificação do veículo permite que ele se distancie muito, impedindo
-que as autoridades reajam a tempo.
+Uma abordagem alternativa ao processamento em tempo real, seria fazer a captura das imagens em um momento, e o processamento em outro. Entretanto, desta maneira, a utilidade do \emph{software} é limitada, pois nas aplicações citadas, estes dados precisam estar disponíveis imediatamente.
 
-Uma abordagem alternativa seria fazer a gravação das imagens em um momento, e o
-processamento em outro. Entretanto, desta maneira, a utilidade do
-\emph{software} seria limitada, pois na maioria das aplicações reais estes dados
-precisam estar disponíveis imediatamente.
+A solução desenvolvida foi testada e analisada em duas partes: A primeira parte foi o teste de funcionamento, que tem como objetivo avaliar se o programa consegue identificar as placas, com qual frequência e em quais condições. A segunda foi o teste de performance, que tem como objetivo avaliar se o programa consegue identificar as placas em tempo aceitável para ser utilizado em situações reais. Assim foi possível aprimorar a solução para garantir melhor funcionamento.
 
-Com o resultado da implementação proposta será feita uma prova de conceito
-utilizando o estacionamento da PUCRS, se for possível adquirir permissão, ou outro estabelecimento.
-Posicionando o computador com a câmera em um ponto estratégico do
-estacionamento, serão analisados os carros que passarem. O programa então
-coletará informações referentes ao número de carros que passaram por aquele ponto
-e suas respectivas placas.
+Para o teste do funcionamento da detecção foram geradas múltiplas imagens, em condições e ângulos levemente diferentes. Com essas imagens foi possível analisar casos em que a detecção funciona e casos em que a detecção não funciona, para poder avaliar os motivos e fazer melhorias.
 
-O fluxo esperado do software é o seguinte. O computador \emph{Raspberry pi} ficará
-postado em uma rota de fluxo frequente de carros. Ele ficará posicionado de
-maneira que consiga capturar imagens das placas em boa qualidade com sua câmera.
-Será necessário o módulo de câmera e de bateria, ou haver uma fonte de energia
-por perto. Ao capturar as imagens, o computador irá processá-las localmente,
-seguindo os passos do reconhecimento de placas e contagem de carros.  Após
-obtida, a informação será enviada para um servidor simples que irá armazená-la.
-Para o envio das informações, o computador também precisará estar equipado com
-algum módulo de Internet.
+Para o teste da performance, foi posicionado o computador com a câmera em um ponto estratégico de um estacionamento para analisar os carros que passavam. O programa pode, assim, coletar informações referentes ao valor da placa dos carros que passavam por aquele ponto. Dessa maneira foi possível medir o desempenho do programa tanto na velocidade da execução quanto na quantidade de acertos obtidos, podendo assim, descobrir qual a viabilidade da implementação em casos reais.
 
-Este trabalho está organizado da seguinte maneira: no capítulo ~\ref{cha:fundamentacao}, serão mostrados e explicados os algoritmos e os termos técnicos utilizados no trabalho. No capítulo~\ref{cha:trab},
-serão apresentados trabalhos relacionados aos temas de reconhecimento de placas
-e contagem de carros. No capítulo~\ref{cha:componentes}, serão apresentadas as tecnologias utilizadas e o ambiente de desenvolvimento. No capítulo~\ref{cha:implementacao}, serão especificados os passos seguidos no desenvolvimento da aplicação, explicando cada etapa do projeto. No capítulo~\ref{cha:resultados} serão dispostos os resultados encontrados na aplicação deste projeto em prática. No capítulo~\ref{cha:dificuldades} serão mostradas as dificuldades encontradas no desenvolvimento do projeto e na identificação das placas. No capítulo~\ref{cha:conclusao} será feita uma conclusão sobre o resultado do trabalho e serão sugeridos futuros trabalhos que podem surgir com base neste.
+Este trabalho foi organizado da seguinte maneira: no Capítulo~\ref{cha:fundamentacao}, serão mostrados e explicados os algoritmos e os termos técnicos utilizados no trabalho. No Capítulo~\ref{cha:trab},
+serão apresentados trabalhos relacionados aos temas de reconhecimento de placas de carros. No Capítulo~\ref{cha:componentes}, serão apresentadas as tecnologias utilizadas e o ambiente de desenvolvimento. No Capítulo~\ref{cha:implementacao}, serão especificados os passos seguidos no desenvolvimento da aplicação, explicando cada etapa do projeto. No Capítulo~\ref{cha:resultados} serão apresentados os resultados práticos obtidos com este projeto. No Capítulo~\ref{cha:conclusao} será feita uma conclusão sobre o resultado do trabalho e serão sugeridos futuros trabalhos que podem surgir com base na pesquisa feita.

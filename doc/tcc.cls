@@ -245,7 +245,7 @@ e-mails <rfbpiccoli at gmail dot com> e <marcelo dot cohen at pucrs dot br>^^J
     \newcommand*{\bacharel}{Bacharel}
     \newcommand*{\PP@orientadorname}{Orientador}
     \newcommand*{\PP@descricao}{%
-        \PP@tipo{} apresentad\ifx\PP@tipo\tcii a\else o\fi{} como requisito parcial \`{a}
+        \PP@tipo{} apresentad\ifx\PP@tipo\tcii o\else o\fi{} como requisito parcial \`{a}
         obten\c{c}\~{a}o do grau de Bacharel em \PP@curso{} na \PP@Uni{}.%
     }
     \newcommand*{\PP@fichaname}{Substitua esta p\'{a}gina pela Ficha Catalogr\'{a}fica}
