@@ -1,11 +1,25 @@
 Para a análise da solução desenvolvida e identificação de problemas foram feitos testes variados. Este capítulo foi dividido em seções que representam as descobertas mais relevantes ao longo da pesquisa e desenvolvimento. A seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos na experimentação com a extração da placa nas imagens, a seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os resultados obtidos no reconhecimento dos caracteres e a seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no computador \emph{Raspberry Pi}.
 
+Foram coletadas imagens de N veículos distintos para analisar a capacidade de reconhecimento do sistema. A tabela~\ref{tab:resultados} mostra o número de imagens processadas, o número de imagens onde a placa foi encontrada com sucesso e o número de imagens onde foi possível reconhecer o valor da placa.
+
+\begin{table}[]
+\centering
+\caption{Resultados obtidos}
+\label{tab:resultados}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Placas                               & \multicolumn{1}{l}{Resultado} \\ \midrule
+Total de Imagens                     & 100                           \\
+Imagens onde a placa foi encontrada  & 10                            \\
+Imagens onde a placa foi reconhecida & 1                            
+\end{tabular}
+\end{table}
+
 \section{Extração da placa}
 \label{sec:extracao_da_placa_resultados}
 
-Comecar mostrando os resultados em diversas imagens
 
-O algoritmo de extração da placa é limitado com relação a distância que o carro está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o objetivo de detectar as áreas de placas candidatas, o tamanho do elemento estruturante influencia diretamente a qualidade da extração. Se utilizado um elemento estruturante muito grande, é possível que na etapa de fechamento, a placa seja erodida junto com o ruído. Se utilizado um elemento estruturante muito pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento. 
+O algoritmo de extração da placa é limitado com relação a distância que o carro está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o objetivo de detectar as áreas de placas candidatas, o tamanho do elemento estruturante influencia diretamente a qualidade da extração. Se utilizado um elemento estruturante muito grande, é possível que na etapa de abertura, a placa seja erodida junto com o ruído. Se utilizado um elemento estruturante muito pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento. 
 
 Colocar aqui imagem de exeplo mostrando a placa sendo destruida
 
@@ -23,10 +37,34 @@ Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o imple
 	\label{fig:plate_torta_result}
 \end{figure}
 
-Colocar aqui os resultados e quais caracteres foram confundidos e em quais condicoes
+Colocar aqui os resultados e quais caracteres foram confundidos e em quais condições
 
 \section{Performance em sistema embarcado}
 \label{sec:performance_resultados}
+
+Dado o fato de a solução desenvolvida ser dividida em etapas, é possível avaliar quais os passos levam mais tempo para serem executados, que podem ser considerados os gargalos da aplicação. Em uma visão mais ampla, fica claro que a etapa de extração da placa é a que necessita de mais recursos computacionais. Isso se dá principalmente por ter que processar uma imagem maior que a imagem da placa. O tempo utilizado para processar a placa extraída é, relativamente, bem menor.
+
+Para melhor analisar os resultados comparativos, foram calculadas as médias de tempo de execução de cada etapa em múltiplas imagens e calculados seus valores percentuais em relação ao tempo total de processamento de uma placa. Esses valores independem do \emph{hardware} utilizado e do tamanho de imagem utilizado, permitindo uma visão diferente dos resultados. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}.
+
+\begin{table}[H]
+\centering
+\caption{Resultados relativos da fase de extração}
+\label{tab:resultados_relativos}
+\begin{tabular}{@{}lr@{}}
+\toprule
+Etapa                        & Tempo Percentual \\ \midrule
+Conversão para tons de cinza & 10\%             \\
+Filtro Bilateral             & 10\%             \\
+Equalização do Histograma    & 10\%             \\
+Limiarização                 & 10\%             \\
+Detecção de Bordas           & 10\%             \\
+Dilatação                    & 10\%             \\
+Preenchimento de espaços     & 10\%             \\
+Abertura                     & 10\%             \\
+Fechamento                   & 10\%             \\
+Extração das Regiões         & 10\%             \\ \bottomrule
+\end{tabular}
+\end{table}
 
 A primeira implementação do algoritmo teve maus resultados com relação a performance. 
 
