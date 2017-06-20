@@ -34,6 +34,12 @@ def binarize_image(image):
 
 
 def apply_sobel_edge_detection(image):
+    # canny:
+    # highthresh = 250
+    # lowthresh = 100
+    # return cv2.Canny(image, lowthresh, highthresh)
+    
+    # sobel:
     scale = 1
     delta = 0
     ddepth = cv2.CV_16S
