@@ -25,6 +25,10 @@ def apply_morphological_opening(image):
 
 
 def binarize_image(image):
+    # adaptative thresholding:
+    # return cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 111, 3)
+
+    # otsu:
     (thresh, binarized_image) = cv2.threshold(image, 128, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
     return binarized_image
 
