@@ -67,10 +67,11 @@ def extract_region_of_interest(fill_dilated, original_image):
         if h > w:
             continue
         cv2.boundingRect(contour)
-        name = settings.output_path + str(i) + "roi.jpg"
-        cv2.imwrite(name, original_image[y:y + h, x:x + w])
+        if __debug__:
+            name = settings.output_path + str(i) + "roi.jpg"
+            cv2.imwrite(name, original_image[y:y + h, x:x + w])
         i = i + 1
-        rois.append(name)
+        rois.append(original_image[y:y + h, x:x + w])
     return rois
 
 

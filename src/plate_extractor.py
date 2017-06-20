@@ -83,11 +83,8 @@ class PlateExtractor:
 
         if __debug__:
             start_time = time.time()
-        names = extract_region_of_interest(fill_dilated, image)
+        rois = extract_region_of_interest(fill_dilated, image)
         if __debug__:
             end_time = time.time() - start_time
             print "rois " + str(end_time) + " seconds"
-        rois = []
-        for name in names:
-            rois.append(cv2.imread(name))
         return rois
