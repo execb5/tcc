@@ -15,36 +15,32 @@ letter_model = 0
 plate_extractor = 0
 plate_cleaner = 0
 character_extractor = 0
+character_reader = 0
 
 def main():
     settings.init()
-
     global number_model
     global letter_model
     global plate_extractor
     global plate_cleaner
     global character_extractor
+    global character_reader
     number_model = train_number_model()
     letter_model = train_letter_model()
     plate_extractor = PlateExtractor()
     plate_cleaner = PlateCleaner()
     character_extractor = CharacterExtractor()
-
+    character_reader = CharacterReader(number_model, letter_model)
     photo_counter = len(sys.argv) - 1
-
     q1 = Queue()
     Process(target=bla1, args=(q1, photo_counter)).start()
-
     for index, item in enumerate(sys.argv):
         if index == 0:
             continue
         if imghdr.what(item) in ['jpg', 'png', 'JPEG', 'jpeg', 'JPG', 'gif']:
-
             plate_from_file_name = get_license_plate_from_file_name(item)
-
             image = cv2.imread(item)
             q1.put(image)
-
         else:
             process_video(item)
 
@@ -62,9 +58,24 @@ def bla2(q2, photo_counter):
         for index, candidate in enumerate(q2.get()):
             prepared_plate = plate_cleaner.clean_plate(candidate, index)
             characters = character_extractor.extract_characters(prepared_plate, index)
-            character_reader = CharacterReader(number_model, letter_model)
             plate_read = character_reader.read_characters(characters)
             print plate_read
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def process_frame_or_image(image, plate_from_file_name):
