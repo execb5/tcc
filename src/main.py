@@ -3,65 +3,89 @@ import sys
 import imghdr
 import settings
 
+from multiprocessing import Process, Semaphore, Queue
 from plate_extractor import *
 from plate_cleaner import *
 from character_extractor import *
 from character_reader import *
 from model_factory import *
 
-photo_counter = 0
-plates_read = 0
-plates_read_correctly = 0
+number_model = 0
+letter_model = 0
+plate_extractor = 0
+plate_cleaner = 0
+character_extractor = 0
 
 def main():
     settings.init()
-    # photo_counter = len(sys.argv) - 1
-    for index, item in enumerate(sys.argv):
-        if index == 0:
-            continue
-        if imghdr.what(item) in ['jpg', 'png', 'JPEG', 'jpeg', 'JPG', 'gif']:
-            image = cv2.imread(item)
-            plate_from_file_name = get_license_plate_from_file_name(item)
-            process_frame_or_image(image, plate_from_file_name)
-        else:
-            process_video(item)
-    print 'Received %s image(s)' % photo_counter
-    print 'Read %s license plates' % plates_read
-    print 'Read %s license plates correctly' % plates_read_correctly
-    print "%s%% of license plates were read" % ((plates_read * 100) / photo_counter)
-    if plates_read > 0:
-        print "%s%% of license plates were read correctly" % ((plates_read_correctly * 100) / plates_read)
-    else:
-        print "0% of license plates were read correctly"
 
-
-def process_frame_or_image(image, plate_from_file_name):
-    global photo_counter
-    global plates_read
-    global plates_read_correctly
+    global number_model
+    global letter_model
+    global plate_extractor
+    global plate_cleaner
+    global character_extractor
     number_model = train_number_model()
     letter_model = train_letter_model()
     plate_extractor = PlateExtractor()
     plate_cleaner = PlateCleaner()
     character_extractor = CharacterExtractor()
+
+    photo_counter = len(sys.argv) - 1
+
+    q1 = Queue()
+    Process(target=bla1, args=(q1, photo_counter)).start()
+
+    for index, item in enumerate(sys.argv):
+        if index == 0:
+            continue
+        if imghdr.what(item) in ['jpg', 'png', 'JPEG', 'jpeg', 'JPG', 'gif']:
+
+            plate_from_file_name = get_license_plate_from_file_name(item)
+
+            image = cv2.imread(item)
+            q1.put(image)
+
+        else:
+            process_video(item)
+
+
+def bla1(q1, photo_counter):
+    q2 = Queue()
+    Process(target=bla2, args=(q2, photo_counter)).start()
+    for i in range(photo_counter):
+        candidates = plate_extractor.extract_plate_candidates(q1.get())
+        q2.put(candidates)
+
+
+def bla2(q2, photo_counter):
+    for i in range(photo_counter):
+        for index, candidate in enumerate(q2.get()):
+            prepared_plate = plate_cleaner.clean_plate(candidate, index)
+            characters = character_extractor.extract_characters(prepared_plate, index)
+            character_reader = CharacterReader(number_model, letter_model)
+            plate_read = character_reader.read_characters(characters)
+            print plate_read
+
+
+def process_frame_or_image(image, plate_from_file_name):
+    number_model = train_number_model()
+    letter_model = train_letter_model()
+    plate_extractor = PlateExtractor()
+    plate_cleaner = PlateCleaner()
+    character_extractor = CharacterExtractor()
+
     candidates = plate_extractor.extract_plate_candidates(image)
+
     for index, candidate in enumerate(candidates):
+
         prepared_plate = plate_cleaner.clean_plate(candidate, index)
+
         characters = character_extractor.extract_characters(prepared_plate, index)
+
         character_reader = CharacterReader(number_model, letter_model)
+
         plate_read = character_reader.read_characters(characters)
-        if plate_read is not None:
-            is_correct = plate_read == plate_from_file_name
-            print '%s == %s ? %s' % (plate_from_file_name, plate_read, is_correct)
-            if is_correct:
-                plates_read_correctly += 1
-            plates_read += 1
-            photo_counter += 1
-            if not __debug__:
-                return
-    photo_counter += 1
-    print "Didn't find anything in photo of plate %s :(" % plate_from_file_name
-    return
+
 
 
 def process_video(item):
