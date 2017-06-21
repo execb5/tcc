@@ -33,7 +33,7 @@ def main():
     character_reader = CharacterReader(number_model, letter_model)
     photo_counter = len(sys.argv) - 1
     q1 = Queue()
-    Process(target=bla1, args=(q1, photo_counter)).start()
+    Process(target=candidates_extractor_process, args=(q1, photo_counter)).start()
     for index, item in enumerate(sys.argv):
         if index == 0:
             continue
@@ -45,22 +45,32 @@ def main():
             process_video(item)
 
 
-def bla1(q1, photo_counter):
+def candidates_extractor_process(q1, photo_counter):
     q2 = Queue()
-    Process(target=bla2, args=(q2, photo_counter)).start()
+    Process(target=character_segmentator_process, args=(q2, photo_counter)).start()
     for i in range(photo_counter):
         candidates = plate_extractor.extract_plate_candidates(q1.get())
         q2.put(candidates)
 
 
-def bla2(q2, photo_counter):
+def character_segmentator_process(q2, photo_counter):
+    q3 = Queue()
+    Process(target=character_reader_process, args=(q3, photo_counter)).start()
     for i in range(photo_counter):
-        for index, candidate in enumerate(q2.get()):
+        candidates = q2.get()
+        q3.put(candidates)
+        for index, candidate in enumerate(candidates):
             prepared_plate = plate_cleaner.clean_plate(candidate, index)
             characters = character_extractor.extract_characters(prepared_plate, index)
-            plate_read = character_reader.read_characters(characters)
-            print plate_read
+            q3.put(characters)
 
+
+def character_reader_process(q3, photo_counter):
+    for i in range(photo_counter):
+        for i in range(len(q3.get())):
+            plate_read = character_reader.read_characters(q3.get())
+            if plate_read is not None:
+                print plate_read
 
 
 
