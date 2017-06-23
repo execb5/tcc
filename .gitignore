@@ -111,6 +111,7 @@ ENV/
 *.fls
 *.log
 *.lof
+*.lot
 *.toc
 *.pdf
 *.swp
