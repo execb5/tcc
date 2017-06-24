@@ -8,7 +8,7 @@ class PlateExtractor:
     def __init__(self):
         pass
 
-    def extract_plate_candidates(self, image):
+    def get_bilateral(self, image):
         if __debug__:
             start_time = time.time()
         gray_image = convert_grayscale(image)
@@ -25,6 +25,9 @@ class PlateExtractor:
             end_time = time.time() - start_time
             print "bilateral filter " + str(end_time) + " seconds"
 
+        return bilateral_image
+
+    def get_imfill(self, bilateral_image):
         if __debug__:
             start_time = time.time()
         equalized_image = apply_histogram_equalization(bilateral_image)
@@ -65,6 +68,9 @@ class PlateExtractor:
             end_time = time.time() - start_time
             print "imfill " + str(end_time) + " seconds"
 
+        return filled_image
+
+    def erode_image(self, filled_image):
         if __debug__:
             start_time = time.time()
         fill_eroded = apply_erosion(filled_image, 110)
@@ -72,7 +78,10 @@ class PlateExtractor:
             cv2.imwrite(settings.output_path + '8fill_eroded.jpg', fill_eroded)
             end_time = time.time() - start_time
             print "erosion " + str(end_time) + " seconds"
+        return fill_eroded
 
+    def get_rois(self, fill_eroded, full_image):
+        print "get rois comecou"
         if __debug__:
             start_time = time.time()
         fill_dilated = apply_dilation(fill_eroded, 110)
@@ -83,7 +92,7 @@ class PlateExtractor:
 
         if __debug__:
             start_time = time.time()
-        rois = extract_region_of_interest(fill_dilated, image)
+        rois = extract_region_of_interest(fill_dilated, full_image)
         if __debug__:
             end_time = time.time() - start_time
             print "rois " + str(end_time) + " seconds"

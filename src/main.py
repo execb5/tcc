@@ -17,6 +17,7 @@ plate_cleaner = 0
 character_extractor = 0
 character_reader = 0
 
+
 def main():
     settings.init()
     global number_model
@@ -38,9 +39,9 @@ def main():
         if index == 0:
             continue
         if imghdr.what(item) in ['jpg', 'png', 'JPEG', 'jpeg', 'JPG', 'gif']:
-            plate_from_file_name = get_license_plate_from_file_name(item)
             image = cv2.imread(item)
-            q1.put(image)
+            bilateral = plate_extractor.get_bilateral(image)
+            q1.put((image, bilateral))
         else:
             process_video(item)
 
@@ -49,8 +50,13 @@ def candidates_extractor_process(q1, photo_counter):
     q2 = Queue()
     Process(target=character_segmentator_process, args=(q2, photo_counter)).start()
     for i in range(photo_counter):
-        candidates = plate_extractor.extract_plate_candidates(q1.get())
-        q2.put(candidates)
+        image, bilateral = q1.get()
+        filled_image = plate_extractor.get_imfill(bilateral)
+        # new process:
+        fill_eroded = plate_extractor.erode_image(filled_image)
+        # new process:
+        rois = plate_extractor.get_rois(fill_eroded, image)
+        q2.put(rois)
 
 
 def character_segmentator_process(q2, photo_counter):
@@ -73,21 +79,6 @@ def character_reader_process(q3, photo_counter):
                 print plate_read
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def process_frame_or_image(image, plate_from_file_name):
     number_model = train_number_model()
     letter_model = train_letter_model()
@@ -98,7 +89,6 @@ def process_frame_or_image(image, plate_from_file_name):
     candidates = plate_extractor.extract_plate_candidates(image)
 
     for index, candidate in enumerate(candidates):
-
         prepared_plate = plate_cleaner.clean_plate(candidate, index)
 
         characters = character_extractor.extract_characters(prepared_plate, index)
@@ -106,7 +96,6 @@ def process_frame_or_image(image, plate_from_file_name):
         character_reader = CharacterReader(number_model, letter_model)
 
         plate_read = character_reader.read_characters(characters)
-
 
 
 def process_video(item):
