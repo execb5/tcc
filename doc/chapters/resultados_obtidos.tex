@@ -81,13 +81,22 @@ observar uma placa que o reflexo impediu o reconhecimento correto.
 	\label{fig:cagado_reflexo}
 \end{figure}
 
-Placas desgastadas, pelo tempo ou pelo carro ter passado por condições climáticas que o degradaram, também não foi possível reconhecer corretamente. Imagem de placa de carro adquirida onde a placa estava desgastada dificultando o reconhecimento pode ser vista na Figura~\ref{fig:placa_desgastada}.
+Placas desgastadas, pelo tempo ou pelo carro ter passado por condições climáticas que o degradaram, também não foram possível reconhecer corretamente. Assim como no caso anterior, os caracteres ficaram desfigurados na fase da limiarização, por terem uma variação muito grande nos tons de cinza. Isso faz com que parte do caractere seja confundido com o fundo. Imagem de placa de carro adquirida onde a placa estava desgastada dificultando o reconhecimento pode ser vista na Figura~\ref{fig:placa_desgastada}.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=88mm]{plca_desgastada.jpg}
 	\caption{Placa desgastada}
 	\label{fig:placa_desgastada}
+\end{figure}
+
+Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de reconhecimento de caractere por motivos não causados pelo ambiente ou qualidade da placa. Em uma imagem adquirida com a placa levemente inclinada, houve confusão, por parte do algoritmo, entre os caracteres "O" e "Q". Estes caracteres já são bastante semelhantes por si só, mas é possível, também, que o fato de a placa estar inclinada tenha amplificado o erro. A imagem que não foi reconhecida corretamente, ao confundir o "O" e o "Q" pode ser vista na Figura~\ref{fig:q_confundido_com_o}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{q_confundido_com_o.jpg}
+	\caption{Placa que confundiu os caracteres O e Q}
+	\label{fig:q_confundido_com_o}
 \end{figure}
 
 \section{Performance em sistema embarcado}
