@@ -1,17 +1,22 @@
 Para a análise da solução desenvolvida e identificação de problemas foram feitos
 testes variados. Este capítulo foi dividido em seções que representam as
 descobertas mais relevantes ao longo da pesquisa e desenvolvimento. A
-seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos
-na experimentação com a extração da placa nas imagens, a
-seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os
-resultados obtidos no reconhecimento dos caracteres e a
-seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no
-computador \emph{Raspberry Pi}.
+Seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos
+na experimentação com a extração da placa e dos caracteres nas imagens. São os casos
+onde o algoritmo detectou a presença de um carro e leu sua placa. A
+Seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os
+resultados obtidos no reconhecimento dos caracteres, avaliar se a placa e caracteres
+extraídos são lidos corretamente. Por fim, a
+Seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no
+sistema embarcado no computador \emph{Raspberry Pi}.
 
 Foram coletadas imagens de 48 veículos distintos para analisar a capacidade de
 reconhecimento do sistema. A tabela~\ref{tab:resultados} mostra o número de
 imagens processadas, o número de imagens onde a placa foi encontrada com sucesso
-e o número de imagens onde foi possível reconhecer o valor da placa.
+e o número de imagens onde foi possível reconhecer o valor da placa corretamente.
+Existe uma diferença entre os casos onde não foi possível detectar uma placa e os
+casos onde foi possível mas ela foi detectada erroneamente. No segundo há um falso
+positivo, identificando um veículo que não estava no local.
 
 \begin{table}[]
 \centering
@@ -22,14 +27,14 @@ e o número de imagens onde foi possível reconhecer o valor da placa.
 Placas                               & \multicolumn{1}{l}{Resultado} \\ \midrule
 Total de Imagens                     & 48                           \\
 Imagens onde a placa foi encontrada  & 22                            \\
-Imagens onde a placa foi reconhecida & 19
+Imagens onde a placa foi reconhecida corretamente & 19
 \end{tabular}
 \end{table}
 
-\section{Extração da placa}
+\section{Extração da placa e caracteres}
 \label{sec:extracao_da_placa_resultados}
 
-Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa diferença foi possível analisar o sistema nos dois tipos diferentes de ambientes. Nas imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto, enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar conclusões, mas indicam que existe mais dificuldade para reconhecer placas em imagens mais escuras.
+Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa e os caracteres. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa diferença foi possível analisar o sistema nos dois tipos de ambientes. Nas imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto, enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar conclusões, mas indicam que pode existir mais dificuldade para reconhecer placas em imagens mais escuras.
 
 \begin{table}[]
 \centering
@@ -55,7 +60,21 @@ elemento estruturante muito grande, é possível que na etapa de abertura, a pla
 seja erodida junto com o ruído. Se utilizado um elemento estruturante muito
 pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento.
 
-Colocar aqui imagem de exemplo mostrando a placa sendo destruída
+Outro problema foi observado na extração de placas de carros cuja cor da lataria
+é muito semelhante à cor da placa. Carros de cor prata ou branco são maioria nos casos
+em que a placa não foi encontrada. Isso ocorre pois, na fase de limiarização, não foi 
+possível classificar o tom da lataria e da placa em grupos diferentes. Foram feitos testes
+utilizando limiarização adaptativa para comparar os resultados, mas ela obteve menos sucesso
+que utilizando limiar global no geral. Detalhes significativos de cores diferentes também dificultam
+a extração. Na Figura~\ref{fig:peugeot_gay} há um exemplo de veículo que o sistema teve dificuldade
+de reconhecer por estes motivos.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=88mm]{peugeotgay.jpg}
+	\caption{Veículo que o algoritmo tem dificuldade de reconhecer}
+	\label{fig:peugeot_gay}
+\end{figure}
 
 \section{Reconhecimento dos caracteres}
 \label{sec:reconhecimento_dos_caracteres_resultados}
