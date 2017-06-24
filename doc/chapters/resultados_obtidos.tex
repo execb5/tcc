@@ -1,6 +1,17 @@
-Para a análise da solução desenvolvida e identificação de problemas foram feitos testes variados. Este capítulo foi dividido em seções que representam as descobertas mais relevantes ao longo da pesquisa e desenvolvimento. A seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos na experimentação com a extração da placa nas imagens, a seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os resultados obtidos no reconhecimento dos caracteres e a seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no computador \emph{Raspberry Pi}.
+Para a análise da solução desenvolvida e identificação de problemas foram feitos
+testes variados. Este capítulo foi dividido em seções que representam as
+descobertas mais relevantes ao longo da pesquisa e desenvolvimento. A
+seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos
+na experimentação com a extração da placa nas imagens, a
+seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os
+resultados obtidos no reconhecimento dos caracteres e a
+seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no
+computador \emph{Raspberry Pi}.
 
-Foram coletadas imagens de 48 veículos distintos para analisar a capacidade de reconhecimento do sistema. A tabela~\ref{tab:resultados} mostra o número de imagens processadas, o número de imagens onde a placa foi encontrada com sucesso e o número de imagens onde foi possível reconhecer o valor da placa.
+Foram coletadas imagens de 48 veículos distintos para analisar a capacidade de
+reconhecimento do sistema. A tabela~\ref{tab:resultados} mostra o número de
+imagens processadas, o número de imagens onde a placa foi encontrada com sucesso
+e o número de imagens onde foi possível reconhecer o valor da placa.
 
 \begin{table}[]
 \centering
@@ -11,7 +22,7 @@ Foram coletadas imagens de 48 veículos distintos para analisar a capacidade de 
 Placas                               & \multicolumn{1}{l}{Resultado} \\ \midrule
 Total de Imagens                     & 48                           \\
 Imagens onde a placa foi encontrada  & 22                            \\
-Imagens onde a placa foi reconhecida & 19                            
+Imagens onde a placa foi reconhecida & 19
 \end{tabular}
 \end{table}
 
@@ -19,16 +30,31 @@ Imagens onde a placa foi reconhecida & 19
 \label{sec:extracao_da_placa_resultados}
 
 
-O algoritmo de extração da placa é limitado com relação a distância que o carro está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o objetivo de detectar as áreas de placas candidatas, o tamanho do elemento estruturante influencia diretamente a qualidade da extração. Se utilizado um elemento estruturante muito grande, é possível que na etapa de abertura, a placa seja erodida junto com o ruído. Se utilizado um elemento estruturante muito pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento. 
+O algoritmo de extração da placa é limitado com relação a distância que o carro
+está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o
+objetivo de detectar as áreas de placas candidatas, o tamanho do elemento
+estruturante influencia diretamente a qualidade da extração. Se utilizado um
+elemento estruturante muito grande, é possível que na etapa de abertura, a placa
+seja erodida junto com o ruído. Se utilizado um elemento estruturante muito
+pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento.
 
 Colocar aqui imagem de exeplo mostrando a placa sendo destruida
 
 \section{Reconhecimento dos caracteres}
 \label{sec:reconhecimento_dos_caracteres_resultados}
 
-Inicialmente foi utilizado o \emph{software Tesseract} para fazer o reconhecimento dos caracteres, mas os resultados utilizando a ferramenta pura não foram bons. Mesmo limitando os caracteres possíveis, informando ao \emph{software} se o caractere seria um número ou uma letra, ainda havia dificuldade no reconhecimento. Mesmo caracteres que não são tão semelhantes, como o 5 e o 6, o \emph{software} não conseguiu distinguir.
+Inicialmente foi utilizado o \emph{software Tesseract} para fazer o
+reconhecimento dos caracteres, mas os resultados utilizando a ferramenta pura
+não foram bons. Mesmo limitando os caracteres possíveis, informando ao
+\emph{software} se o caractere seria um número ou uma letra, ainda havia
+dificuldade no reconhecimento. Mesmo caracteres que não são tão semelhantes,
+como o 5 e o 6, o \emph{software} não conseguiu distinguir.
 
-Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o implementado com o algoritmo \emph{K-Nearest Neighbors} os resultados foram bem melhores, obtendo sucesso no reconhecimento de 86\% das placas extraídas. Até mesmo em imagens de placas inclinadas, como é o caso da Figura~\ref{fig:plate_torta_result}, foi possível identificar os caracteres.
+Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o
+implementado com o algoritmo \emph{K-Nearest Neighbors} os resultados foram bem
+melhores, obtendo sucesso no reconhecimento de 86\% das placas extraídas. Até
+mesmo em imagens de placas inclinadas, como é o caso da
+Figura~\ref{fig:plate_torta_result}, foi possível identificar os caracteres.
 
 \begin{figure}[H]
 	\centering
@@ -37,13 +63,20 @@ Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o imple
 	\label{fig:plate_torta_result}
 \end{figure}
 
-Das 22 placas extraídas, em três casos o reconhecedor de caracteres não teve capacidade de ler. Dois destes foram causados por problemas na imagem e o outro foi causado por semelhança de caracteres. 
+Das 22 placas extraídas, em três casos o reconhecedor de caracteres não teve
+capacidade de ler. Dois destes foram causados por problemas na imagem e o outro
+foi causado por semelhança de caracteres.
 
-Placas com reflexo causado pelo ambiente, como a luz solar, podem impactar no reconhecimento. O sol refletido no caractere da imagem pode dificultar o processo de limiarização. Neste processo, ao diferenciar os caracteres escuros do fundo cinza, a cor do caractere na imagem fica mais clara, sendo ele parcialmente confundido com fundo. Na figura \ref{fig:cagado_reflexo} é possível observar uma placa que o reflexo impediu o reconhecimento correto.
+Placas com reflexo causado pelo ambiente, como a luz solar, podem impactar no
+reconhecimento. O sol refletido no caractere da imagem pode dificultar o
+processo de limiarização. Neste processo, ao diferenciar os caracteres escuros
+do fundo cinza, a cor do caractere na imagem fica mais clara, sendo ele
+parcialmente confundido com fundo. Na figura~\ref{fig:cagado_reflexo} é possível
+observar uma placa que o reflexo impediu o reconhecimento correto.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=50mm]{3cagado.jpg}
+	\includegraphics[width=88mm]{3cagado.jpg}
 	\caption{Placa com caractere mal reconhcedido por causa de reflexo}
 	\label{fig:cagado_reflexo}
 \end{figure}
@@ -51,9 +84,20 @@ Placas com reflexo causado pelo ambiente, como a luz solar, podem impactar no re
 \section{Performance em sistema embarcado}
 \label{sec:performance_resultados}
 
-Dado o fato de a solução desenvolvida ser dividida em etapas, é possível avaliar quais os passos levam mais tempo para serem executados, que podem ser considerados os gargalos da aplicação. Em uma visão mais ampla, fica claro que a etapa de extração da placa é a que necessita de mais recursos computacionais. Isso se dá principalmente por ter que processar uma imagem maior que a imagem da placa. O tempo utilizado para processar a placa extraída é, relativamente, bem menor.
+Dado o fato de a solução desenvolvida ser dividida em etapas, é possível avaliar
+quais os passos levam mais tempo para serem executados, que podem ser
+considerados os gargalos da aplicação. Em uma visão mais ampla, fica claro que a
+etapa de extração da placa é a que necessita de mais recursos computacionais.
+Isso se dá principalmente por ter que processar uma imagem maior que a imagem da
+placa. O tempo utilizado para processar a placa extraída é, relativamente, bem
+menor.
 
-Para melhor analisar os resultados comparativos, foram calculadas as médias de tempo de execução de cada etapa em múltiplas imagens e calculados seus valores percentuais em relação ao tempo total de processamento de uma placa. Esses valores independem do \emph{hardware} utilizado e do tamanho de imagem utilizado, permitindo uma visão diferente dos resultados. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}.
+Para melhor analisar os resultados comparativos, foram calculadas as médias de
+tempo de execução de cada etapa em múltiplas imagens e calculados seus valores
+percentuais em relação ao tempo total de processamento de uma placa. Esses
+valores independem do \emph{hardware} utilizado e do tamanho de imagem
+utilizado, permitindo uma visão diferente dos resultados. Os resultados
+comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}.
 
 \begin{table}[H]
 \centering
@@ -75,8 +119,11 @@ Extração das Regiões         & 10\%             \\ \bottomrule
 \end{tabular}
 \end{table}
 
-A primeira implementação do algoritmo teve maus resultados com relação a performance. 
+A primeira implementação do algoritmo teve maus resultados com relação a
+performance.
 
-Falar sobre os resultados aqui. 
+Falar sobre os resultados aqui.
 
-Para tentar aprimorar a velocidade do processamento em imagens consecutivas foi aplicado o uso de múltiplos processos, com o objetivo de utilizar todos os núcleos do processador do \emph{Raspberry Pi}.
+Para tentar aprimorar a velocidade do processamento em imagens consecutivas foi
+aplicado o uso de múltiplos processos, com o objetivo de utilizar todos os
+núcleos do processador do \emph{Raspberry Pi}.
