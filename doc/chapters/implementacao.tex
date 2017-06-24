@@ -275,14 +275,24 @@ Na Figura~\ref{fig:classificacao} são mostrados os três vizinhos mais próximo
 
 \section{Otimização com Multiprocessamento em Pipeline} \label{sec:otimizacao}
 
-O processador do computador \emph{Raspberry Pi} é bastante limitado, então, para maximizar o ganho, foi nescessário utilizar técnicas de otimização de desempenho. Dado o fato de ele possuir um \emph{Quad Core}, contendo quatro núcleos, é possível executar quatro processos em pararelo sem perder desempenho. 
+Ao se processar imagens em um sistema embarcado, é preciso analisar e se adaptar às limitações do sistema. O computador \emph{Raspberry Pi} é bastante limitado, possuindo um processador \emph{Quad Core 1.2GHz Broadcom BCM2837 64bit CPU}. Por essa razão, para maximizar o ganho, foi nescessário utilizar técnicas de otimização. Dado o fato de ele possuir um \emph{Quad Core}, contendo quatro núcleos, é possível executar quatro processos em pararelo sem perder desempenho. 
 
-A técnica utilizada na extração da placa e reconhecimento dos caracteres é uma técnica sequencial, que segue uma série de passos. Sabendo disso é possível implementar um \emph{Pipeline} de execução. Um \emph{Pipeline} é um conjunto de elementos de processamento de dados conectados em série, onde a saída de um elemento é a entrada do próximo. \emph{Pipelines} podem ser executados em paralelo, pois o processamento de um não depende do outro.
+A técnica utilizada na extração da placa e reconhecimento dos caracteres é uma técnica sequencial, que segue uma série de passos. Sabendo disso, é possível implementar um \emph{Pipeline} de execução. Um \emph{Pipeline} é um conjunto de elementos de processamento de dados conectados em série, onde a saída de um elemento é a entrada do próximo. \emph{Pipelines} podem ser executados em paralelo, pois o processamento de um não depende do outro.
 
+As etapas de processamento de uma imagem foram divididas em quatro partes com tempo de processamento semelhante. Essas quatro etapas vão ser processadas cada uma em um núcleo diferente do processador do \emph{Raspberry Pi}, otimizando o seu tempo. O \emph{Pipeline} pode ser visto na maravilhosa tabela feita pelo matth abaixo:
 
-As etapas de processamento de uma imagem foram divididas em quatro partes de tempo de processamento semelhante. Essas quatro etapas vão ser processadas cada uma em um núcleo diferente do processador do \emph{Raspberry Pi}, otimizando o seu tempo. O \emph{Pipeline} pode ser visto na maravilhosa tabela feita pelo matth abaixo:
+Com a utilização do \emph{Pipeline}, o tempo de processamento da primeira imagem vai continuar o mesmo, mas para as próximas imagens, o tempo de processamento de cada uma será o tempo do etapa mais lenta entre as quatro, desconsiderando o tempo da comunicação entre os processos.
 
+Os quatro processos foram divididos como se segue:
 
+\begin{enumerate}
+	\item O primeiro processo compreende desde a aquisição da imagem até a aplicação do filtro bilateral.
+	\item O segundo processo compreende desde a equalização do histograma até o preenchimento dos espaços.
+	\item O terceiro processo apenas executa a abertura morfológica.
+	\item O quarto processo compreende desde o fechamento morfológico até o reconhecimento dos caracteres.
+\end{enumerate}
+
+Os procedimentos mais lentos são a aplicação do filtro bilateral e as operações de abertura e fechamento, por isso foram divididos em processos diferentes. Os demais procedimentos foram também divididos de forma que os processos tenham tempo de processamento semelhante.
 
 
 
