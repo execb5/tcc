@@ -29,6 +29,23 @@ Imagens onde a placa foi reconhecida & 19
 \section{Extração da placa}
 \label{sec:extracao_da_placa_resultados}
 
+Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa diferença foi possível analisar o sistema nos dois tipos diferentes de ambientes. Nas imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto, enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar conclusões, mas indicam que existe mais dificuldade para reconhecer placas em imagens mais escuras.
+
+\begin{table}[]
+\centering
+\caption{Resultados obtidos em diferentes ambientes}
+\label{tab:resultados_ambientes}
+\begin{tabular}{@{}lr@{}}
+\toprule
+placas                                      		& \multicolumn{1}{l}{Resultado} \\ \midrule
+Imagens ao ar livre com boa iluminação     			& 27                            \\
+Total de acertos com boa iluminação    			 	& 15                            \\
+Percentual de acertos com boa iluminação    		 & 55\%                            \\
+Imagens em ambiente fechado com baixa iluminação     & 21                            \\
+Total de acertos com baixa iluminação    			 & 7                            \\
+Percentual de acertos com baixa iluminação 			& 33\%
+\end{tabular}
+\end{table}
 
 O algoritmo de extração da placa é limitado com relação a distância que o carro
 está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o
