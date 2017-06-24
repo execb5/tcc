@@ -81,7 +81,6 @@ class PlateExtractor:
         return fill_eroded
 
     def get_rois(self, fill_eroded, full_image):
-        print "get rois comecou"
         if __debug__:
             start_time = time.time()
         fill_dilated = apply_dilation(fill_eroded, 110)

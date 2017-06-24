@@ -52,29 +52,36 @@ def candidates_extractor_process(q1, photo_counter):
     for i in range(photo_counter):
         image, bilateral = q1.get()
         filled_image = plate_extractor.get_imfill(bilateral)
+        q2.put((image, filled_image))
         # new process:
-        fill_eroded = plate_extractor.erode_image(filled_image)
+        # fill_eroded = plate_extractor.erode_image(filled_image)
         # new process:
-        rois = plate_extractor.get_rois(fill_eroded, image)
-        q2.put(rois)
+        # rois = plate_extractor.get_rois(fill_eroded, image)
+        # for index, candidate in enumerate(rois):
+            # prepared_plate = plate_cleaner.clean_plate(candidate, index)
+            # characters = character_extractor.extract_characters(prepared_plate, index)
+            # plate_read = character_reader.read_characters(characters)
+            # if plate_read is not None:
+                # print plate_read
 
 
 def character_segmentator_process(q2, photo_counter):
     q3 = Queue()
     Process(target=character_reader_process, args=(q3, photo_counter)).start()
     for i in range(photo_counter):
-        candidates = q2.get()
-        q3.put(candidates)
-        for index, candidate in enumerate(candidates):
-            prepared_plate = plate_cleaner.clean_plate(candidate, index)
-            characters = character_extractor.extract_characters(prepared_plate, index)
-            q3.put(characters)
+        image, filled_image = q2.get()
+        fill_eroded = plate_extractor.erode_image(filled_image)
+        q3.put((image, fill_eroded))
 
 
 def character_reader_process(q3, photo_counter):
     for i in range(photo_counter):
-        for i in range(len(q3.get())):
-            plate_read = character_reader.read_characters(q3.get())
+        image, fill_eroded = q3.get()
+        rois = plate_extractor.get_rois(fill_eroded, image)
+        for index, candidate in enumerate(rois):
+            prepared_plate = plate_cleaner.clean_plate(candidate, index)
+            characters = character_extractor.extract_characters(prepared_plate, index)
+            plate_read = character_reader.read_characters(characters)
             if plate_read is not None:
                 print plate_read
 
