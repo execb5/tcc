@@ -53,16 +53,6 @@ def candidates_extractor_process(q1, photo_counter):
         image, bilateral = q1.get()
         filled_image = plate_extractor.get_imfill(bilateral)
         q2.put((image, filled_image))
-        # new process:
-        # fill_eroded = plate_extractor.erode_image(filled_image)
-        # new process:
-        # rois = plate_extractor.get_rois(fill_eroded, image)
-        # for index, candidate in enumerate(rois):
-            # prepared_plate = plate_cleaner.clean_plate(candidate, index)
-            # characters = character_extractor.extract_characters(prepared_plate, index)
-            # plate_read = character_reader.read_characters(characters)
-            # if plate_read is not None:
-                # print plate_read
 
 
 def character_segmentator_process(q2, photo_counter):
