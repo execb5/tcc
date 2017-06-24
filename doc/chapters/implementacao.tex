@@ -450,12 +450,19 @@ paralelo, pois o processamento de um não depende do outro.
 As etapas de processamento de uma imagem foram divididas em quatro partes com
 tempo de processamento semelhante. Essas quatro etapas vão ser processadas cada
 uma em um núcleo diferente do processador do \emph{Raspberry Pi}, otimizando o
-seu tempo. O \emph{Pipeline} pode ser visto na maravilhosa tabela feita pelo
-matth abaixo:
+seu tempo. O \emph{Pipeline} pode ser visto na Figura~\ref{fig:pipeline}
+encontrada abaixo:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=150mm]{pipeline.png}
+	\caption{Pipeline implementado para otimização}
+	\label{fig:pipeline}
+\end{figure}
 
 Com a utilização do \emph{Pipeline}, o tempo de processamento da primeira imagem
 vai continuar o mesmo, mas para as próximas imagens, o tempo de processamento de
-cada uma será o tempo do etapa mais lenta entre as quatro, desconsiderando o
+cada uma será o tempo da etapa mais lenta entre as quatro, desconsiderando o
 tempo da comunicação entre os processos.
 
 Os quatro processos foram divididos como se segue:
