@@ -272,3 +272,32 @@ Para que a classificação tenha sucesso, tanto as imagens de teste quanto as im
 \end{figure}
 
 Na Figura~\ref{fig:classificacao} são mostrados os três vizinhos mais próximos de um determinado caractere retirado do processamento de uma imagem. A sua projeção visual é hipotética e foi criada para representar de uma forma mais didática a seleção dos vizinhos. Pode-se reparar a semelhança entre os caracteres e entender porque eles foram selecionados pelo algoritmo ao visualizar a imagem.
+
+\section{Otimização com Multiprocessamento em Pipeline} \label{sec:otimizacao}
+
+O processador do computador \emph{Raspberry Pi} é bastante limitado, então, para maximizar o ganho, foi nescessário utilizar técnicas de otimização de desempenho. Dado o fato de ele possuir um \emph{Quad Core}, contendo quatro núcleos, é possível executar quatro processos em pararelo sem perder desempenho. 
+
+A técnica utilizada na extração da placa e reconhecimento dos caracteres é uma técnica sequencial, que segue uma série de passos. Sabendo disso é possível implementar um \emph{Pipeline} de execução. Um \emph{Pipeline} é um conjunto de elementos de processamento de dados conectados em série, onde a saída de um elemento é a entrada do próximo. \emph{Pipelines} podem ser executados em paralelo, pois o processamento de um não depende do outro.
+
+
+As etapas de processamento de uma imagem foram divididas em quatro partes de tempo de processamento semelhante. Essas quatro etapas vão ser processadas cada uma em um núcleo diferente do processador do \emph{Raspberry Pi}, otimizando o seu tempo. O \emph{Pipeline} pode ser visto na maravilhosa tabela feita pelo matth abaixo:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
