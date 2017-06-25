@@ -141,8 +141,8 @@ Apesar dos casos em que houve erro, o resultado do reconhecedor de caracteres fo
 
 A implementação do algoritmo obteve maus resultados com relação a
 performance quando executada como sistema embarcado no \emph{Raspberry Pi}. 
-O seu tempo de execução foi muito alto, tornando o \emph{software} inviável para 
-o uso em casos reais.
+O seu tempo de execução para processar cada imagem foi muito alto, tornando o \emph{software} 
+inviável para o uso em casos reais.
 
 Dado o fato de a solução desenvolvida ser dividida em etapas, é possível avaliar
 quais os passos levam mais tempo para serem executados, que podem ser
@@ -156,7 +156,8 @@ Para melhor analisar os resultados comparativos, foram calculadas as médias de
 tempo de execução de cada etapa em múltiplas imagens e calculados seus valores
 percentuais em relação ao tempo total de processamento de uma placa. Esses
 valores independem do \emph{hardware} utilizado, permitindo uma visão diferente dos resultados. 
-Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}. A divisão
+Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}, as etapas 
+estão dispostas na ordem em que são executados pela aplicação. A divisão
 das etapas em processos para fazer o \emph{Pipeline} foi feita com base nestes dados.
 
 \begin{table}[H]
@@ -180,11 +181,11 @@ Extração das Regiões         & 2\%             \\ \bottomrule
 \end{table}
 
 Ao aplicar o \emph{Pipeline} em múltiplos processos, com o objetivo de
-utilizar mais do processador do \emph{Raspberry Pi}, houve melhora, mas
+utilizar mais núcleos do processador do \emph{Raspberry Pi}, houve melhora, mas
 não muito significativa, no tempo. Por motivos de comparação, foi feito
 uma série de testes no \emph{Raspberry Pi} e em um 
 \emph{Macbook Pro}, com processador \emph{}. Foi avaliado o tempo de processamento
-sequencial de uma imagem, o tempo de processamento, sem utilizar múltiplos processos
+sequencial de uma imagem, o tempo de processamento sequencial, sem utilizar múltiplos processos
 de 10 imagens, e o tempo de processamento, utilizando o \emph{Pipeline} de processos
 em 10 imagens. Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.
 Os resultados podem ser vistos na Tabela XXX.
@@ -192,5 +193,5 @@ Os resultados podem ser vistos na Tabela XXX.
 Em teste com a utilização do módulo de câmera em simulação próxima do real, não foi possível
 identificar placas de veículos por causa da performance. As imagens adquiridas ficam muito espaçadas, 
 entre um processamento e o outro, e muito raramente consegue-se uma imagem que contenha um carro, deixando
-muitos passaram sem identificação.
+muitos passarem sem identificação.
 
