@@ -38,10 +38,10 @@ caracteres.
 
 Nas subseções seguintes serão listadas algumas técnicas de processamento de
 imagens que foram utilizadas na solução criada. Na
-Subseção~\ref{sec:bilateralfilter} é fundamentada a aplicação do Filtro
-Bilateral, na Subseção~\ref{sec:detecbordas} será fundamentada a detecção de
-bordas em uma imagem, na Subseção~\ref{sec:limiarizacao} será fundamentada a
-Limiarização e na Subseção~\ref{sec:morfologicas} serão fundamentadas as
+Subseção~\ref{sec:bilateralfilter}, é fundamentada a aplicação do Filtro
+Bilateral, na Subseção~\ref{sec:detecbordas}, será fundamentada a detecção de
+bordas em uma imagem, na Subseção~\ref{sec:limiarizacao}, será fundamentada a
+Limiarização e na Subseção~\ref{sec:morfologicas}, serão fundamentadas as
 operações morfológicas em imagens.
 
 \subsection{Filtro Bilateral}
@@ -54,11 +54,11 @@ valores da imagem de entrada em um pequeno conjunto da mesma localização. No
 filtro gaussiano de passa-baixa, por exemplo, é calculada uma média ponderada
 dos \emph{pixels} da região onde o peso diminui com a distância do centro do
 conjunto. A ideia por trás disso é que imagens geralmente variam pouco no
-espaço, por isso, o ruído é atenuado o sinal é preservado. Essa ideia da baixa
+espaço, por isso, o ruído é atenuado e o sinal é preservado. Essa ideia da baixa
 variação dos \emph{pixels} próximos não funciona bem nas bordas, fazendo com que
 acabem ficando borradas na imagem~\cite{tomasi1998bilateral}.
 
-Uma solução de filtro que contorna esse problema é o Filtro Bilateral. O Filtro Bilateral é um método não iterativo para suavizar imagens preservando as suas bordas. Ele utiliza uma combinação não linear de valores próximos da imagem, combinando os níveis de cinza ou cores baseado em sua proximidade geométrica e similaridade fotométrica~\cite{tomasi1998bilateral}.
+Uma solução de filtro que contorna esse problema é o Filtro Bilateral. O Filtro Bilateral é um método não iterativo para suavizar imagens preservando as suas bordas. Ele utiliza uma combinação não linear de valores próximos da imagem, combinando os níveis de cinza ou cores baseando-se em sua proximidade geométrica e similaridade fotométrica~\cite{tomasi1998bilateral}.
 
 \subsection{Detecção de Bordas}
 \label{sec:detecbordas}
@@ -71,9 +71,9 @@ O gradiente de uma imagem é uma troca de intensidade ou cor de uma imagem. Ele 
 \nabla f={\begin{bmatrix}g_{x}\\g_{y}\end{bmatrix}}={\begin{bmatrix}{\frac {\partial f}{\partial x}}\\{\frac {\partial f}{\partial y}}\end{bmatrix}}
 \end{displaymath}
 
-Um método utilizado para calcular os gradientes de uma imagem é utilizando o
+Um método que pode ser utilizado para calcular os gradientes de uma imagem é o
 Operador de \emph{Sobel}. Essa é a técnica utilizada na implementação do
-reconhecedor de placas deste trabalho, e ela funciona da seguinte maneira:
+reconhecedor de placas deste trabalho.
 
 Considerando-se que I é a imagem a ser processada, são calculadas duas
 derivadas. As mudanças horizontais são computadas fazendo a convolução de I com
@@ -173,7 +173,7 @@ ser um disco circular no plano, mas pode ter qualquer
 forma~\cite{owens1997morphology}.
 
 Algumas operações são importantes para descrever as operações morfológicas, elas
-são: A translação, a reflexão e o complemento.
+são: a translação, a reflexão e o complemento.
 
 A translação de B por x é denominada \(B_x\). Sejam A e B subconjuntos de um
 conjunto \(Z^2\), ela é definida por:
@@ -206,7 +206,7 @@ percorrer a imagem de entrada com o elemento estruturante, se ao menos um
 \emph{pixel} sob o elemento estruturante tiver seu valor sendo 1, na imagem
 original, todos os \emph{pixels} sob o elemento estruturante vão ser marcados
 como 1 na imagem de saída~\cite{opencv2014morph}. Na
-Figura~\ref{fig:dilation_ex} pode-se ver um exemplo da operação de dilatação em
+Figura~\ref{fig:dilation_ex}, pode-se ver um exemplo da operação de dilatação em
 uma imagem.
 
 \begin{figure}[H]
@@ -293,7 +293,7 @@ pontos não vistos com base nestes dados~\cite{mohri2012foundations}. A ideia do
 algoritmo \emph{K-Nearest Neighbors} é encontrar a combinação mais próxima de um
 determinado dado de teste em um espaço de dados~\cite{opencv2014knearest}.
 
-Em um caso hipotético de aplicação do algoritmo existem duas classes: A classe
+Em um caso hipotético de aplicação do algoritmo existem duas classes: a classe
 dos quadrados azuis e a classe dos triângulos vermelhos. Este exemplo está
 ilustrado na Figura~\ref{fig:knearest_example}:
 
