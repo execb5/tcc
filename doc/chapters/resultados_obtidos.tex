@@ -188,7 +188,31 @@ uma série de testes no \emph{Raspberry Pi} e em um
 sequencial de uma imagem, o tempo de processamento sequencial, sem utilizar múltiplos processos
 de 10 imagens, e o tempo de processamento, utilizando o \emph{Pipeline} de processos
 em 10 imagens. Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.
-Os resultados podem ser vistos na Tabela XXX.
+Os resultados podem ser vistos na Figura~\ref{fig:performance} abaixo.
+
+\begin{figure}[H]
+\centering
+\pgfplotsset{width=13cm,compat=1.15}
+\begin{tikzpicture}
+\begin{axis}[
+ybar,
+enlargelimits=0.15,
+legend style={at={(0.5,-0.15)},
+anchor=north,legend columns=-1},
+ylabel={Tempo(segundos)},
+symbolic x coords={Única,Sequencial,Pipeline},
+xtick=data,
+nodes near coords,
+nodes near coords align={vertical},
+]
+\addplot coordinates {(Única, 3.19) (Sequencial, 27.91) (Pipeline, 14.11)};
+\addplot coordinates {(Única, 38.89) (Sequencial, 342.99) (Pipeline, 63.57)};
+\legend{Macbook Pro, Raspberry Pi}
+\end{axis}
+\end{tikzpicture}
+\caption{Performance da aplicação}
+\label{fig:performance}
+\end{figure}
 
 Em teste com a utilização do módulo de câmera em simulação próxima do real, não foi possível
 identificar placas de veículos por causa da performance. As imagens adquiridas ficam muito espaçadas, 
