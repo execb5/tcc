@@ -34,7 +34,16 @@ Imagens onde a placa foi reconhecida corretamente & 19
 \section{Extração da placa e caracteres}
 \label{sec:extracao_da_placa_resultados}
 
-Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa e os caracteres. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa diferenças foi possível analisar o sistema nos dois tipos de ambientes. Nas imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto, enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar conclusões, mas indicam que pode existir mais dificuldade para reconhecer placas em imagens mais escuras.
+Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa e
+os caracteres. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia
+e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa
+diferenças foi possível analisar o sistema nos dois tipos de ambientes. Nas
+imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto,
+enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um
+percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na
+Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar
+conclusões, mas indicam que pode existir mais dificuldade para reconhecer placas
+em imagens mais escuras.
 
 \begin{table}[]
 \centering
@@ -61,13 +70,14 @@ seja erodida junto com o ruído. Se utilizado um elemento estruturante muito
 pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento.
 
 Outro problema foi observado na extração de placas de carros cuja cor da lataria
-é muito semelhante à cor da placa. Carros de cor prata ou branco são maioria nos casos
-em que a placa não foi encontrada. Isso ocorre pois, na fase de limiarização, não foi 
-possível dividir o tom da lataria e da placa em grupos diferentes. Foram feitos testes
-utilizando limiarização adaptativa para comparar os resultados, mas ela obteve menos sucesso
-que utilizando limiar global, em geral. Detalhes significativos de cores diferentes também dificultam
-a extração. Na Figura~\ref{fig:peugeot_gay} há um exemplo de veículo que o sistema teve dificuldade
-de reconhecer por estes motivos.
+é muito semelhante à cor da placa. Carros de cor prata ou branco são maioria nos
+casos em que a placa não foi encontrada. Isso ocorre pois, na fase de
+limiarização, não foi possível dividir o tom da lataria e da placa em grupos
+diferentes. Foram feitos testes utilizando limiarização adaptativa para comparar
+os resultados, mas ela obteve menos sucesso que utilizando limiar global, em
+geral. Detalhes significativos de cores diferentes também dificultam a extração.
+Na Figura~\ref{fig:peugeot_gay} há um exemplo de veículo que o sistema teve
+dificuldade de reconhecer por estes motivos.
 
 \begin{figure}[H]
 	\centering
@@ -116,7 +126,13 @@ observar uma placa que o reflexo impediu o reconhecimento correto.
 	\label{fig:cagado_reflexo}
 \end{figure}
 
-Em placas desgastadas, pelo tempo ou pelo carro ter passado por condições climáticas que o degradaram, também houve dificuldade de reconhecimento. Assim como no caso anterior, os caracteres ficaram desfigurados na fase da limiarização, por terem uma variação muito grande nos tons de cinza. Isso faz com que parte do caractere seja confundido com o fundo. Imagem de placa de carro adquirida onde a placa estava desgastada dificultando o reconhecimento pode ser vista na Figura~\ref{fig:placa_desgastada}.
+Em placas desgastadas, pelo tempo ou pelo carro ter passado por condições
+climáticas que o degradaram, também houve dificuldade de reconhecimento. Assim
+como no caso anterior, os caracteres ficaram desfigurados na fase da
+limiarização, por terem uma variação muito grande nos tons de cinza. Isso faz
+com que parte do caractere seja confundido com o fundo. Imagem de placa de carro
+adquirida onde a placa estava desgastada dificultando o reconhecimento pode ser
+vista na Figura~\ref{fig:placa_desgastada}.
 
 \begin{figure}[H]
 	\centering
@@ -125,7 +141,14 @@ Em placas desgastadas, pelo tempo ou pelo carro ter passado por condições clim
 	\label{fig:placa_desgastada}
 \end{figure}
 
-Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de reconhecimento de caractere por motivos não causados pelo ambiente ou qualidade da placa. Em uma imagem adquirida com a placa levemente inclinada, houve confusão, por parte do algoritmo, entre os caracteres "O"~e "Q~. Estes caracteres já são bastante semelhantes por si só, mas é possível, também, que o fato de a placa estar inclinada tenha amplificado o erro. A imagem que não foi reconhecida corretamente, ao confundir o "O"~e o "Q", pode ser vista na Figura~\ref{fig:q_confundido_com_o}.
+Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de
+reconhecimento de caractere por motivos não causados pelo ambiente ou qualidade
+da placa. Em uma imagem adquirida com a placa levemente inclinada, houve
+confusão, por parte do algoritmo, entre os caracteres "O"~e "Q~. Estes
+caracteres já são bastante semelhantes por si só, mas é possível, também, que o
+fato de a placa estar inclinada tenha amplificado o erro. A imagem que não foi
+reconhecida corretamente, ao confundir o "O"~e o "Q", pode ser vista na
+Figura~\ref{fig:q_confundido_com_o}.
 
 \begin{figure}[H]
 	\centering
@@ -134,14 +157,18 @@ Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de reconhec
 	\label{fig:q_confundido_com_o}
 \end{figure}
 
-Apesar dos casos em que houve erro, o resultado do reconhecedor de caracteres foi satisfatório. Mesmo tendo sido sido utilizados apenas um exemplo para cada caractere na fase de treinamento, somente em um caso houve confusão no reconhecimento dos caracteres bem segmentados. Com mais exemplos seria possível um reconhecimento ainda mais preciso.
+Apesar dos casos em que houve erro, o resultado do reconhecedor de caracteres
+foi satisfatório. Mesmo tendo sido utilizados apenas um exemplo para cada
+caractere na fase de treinamento, somente em um caso houve confusão no
+reconhecimento dos caracteres bem segmentados. Com mais exemplos seria possível
+um reconhecimento ainda mais preciso.
 
 \section{Performance em sistema embarcado}
 \label{sec:performance_resultados}
 
 A implementação do algoritmo obteve maus resultados com relação a
-performance quando executada como sistema embarcado no \emph{Raspberry Pi}. 
-O seu tempo de execução para processar cada imagem foi muito alto, tornando o \emph{software} 
+performance quando executada como sistema embarcado no \emph{Raspberry Pi}.
+O seu tempo de execução para processar cada imagem foi muito alto, tornando o \emph{software}
 inviável para o uso em casos reais.
 
 Dado o fato de a solução desenvolvida ser dividida em etapas, é possível avaliar
@@ -155,10 +182,11 @@ menor.
 Para melhor analisar os resultados comparativos, foram calculadas as médias de
 tempo de execução de cada etapa em múltiplas imagens e calculados seus valores
 percentuais em relação ao tempo total de processamento de uma placa. Esses
-valores independem do \emph{hardware} utilizado, permitindo uma visão diferente dos resultados. 
-Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}, as etapas 
-estão dispostas na ordem em que são executados pela aplicação. A divisão
-das etapas em processos para fazer o \emph{Pipeline} foi feita com base nestes dados.
+valores independem do \emph{hardware} utilizado, permitindo uma visão diferente
+dos resultados.  Os resultados comparativos podem ser vistos na
+Tabela~\ref{tab:resultados_relativos}, as etapas estão dispostas na ordem em que
+são executados pela aplicação. A divisão das etapas em processos para fazer o
+\emph{Pipeline} foi feita com base nestes dados.
 
 \begin{table}[H]
 \centering
@@ -183,39 +211,23 @@ Extração das Regiões         & 2\%             \\ \bottomrule
 Ao aplicar o \emph{Pipeline} em múltiplos processos, com o objetivo de
 utilizar mais núcleos do processador do \emph{Raspberry Pi}, houve melhora, mas
 não muito significativa, no tempo. Por motivos de comparação, foi feito
-uma série de testes no \emph{Raspberry Pi} e em um 
-\emph{Macbook Pro}, com processador \emph{Intel i7-4770HQ}. Foi avaliado o tempo de processamento
-sequencial de uma imagem, o tempo de processamento sequencial, sem utilizar múltiplos processos
-de 10 imagens, e o tempo de processamento, utilizando o \emph{Pipeline} de processos
-em 10 imagens. Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.
-Os resultados podem ser vistos na Figura~\ref{fig:performance} abaixo.
+uma série de testes no \emph{Raspberry Pi} e em um
+\emph{Macbook Pro}, com processador \emph{Intel i7-4770HQ}. Foi avaliado o tempo
+de processamento sequencial, sem utilizar múltiplos processos de 10 imagens, e o
+tempo de processamento, utilizando o \emph{Pipeline} de processos em 10 imagens.
+Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.  Os
+resultados podem ser vistos na Figura~\ref{fig:performance} abaixo.
 
 \begin{figure}[H]
-\centering
-\pgfplotsset{width=13cm,compat=1.15}
-\begin{tikzpicture}
-\begin{axis}[
-ybar,
-enlargelimits=0.15,
-legend style={at={(0.5,-0.15)},
-anchor=north,legend columns=-1},
-ylabel={Tempo(segundos)},
-symbolic x coords={Única,Sequencial,Pipeline},
-xtick=data,
-nodes near coords,
-nodes near coords align={vertical},
-]
-\addplot coordinates {(Única, 3.19) (Sequencial, 27.91) (Pipeline, 14.11)};
-\addplot coordinates {(Única, 38.89) (Sequencial, 342.99) (Pipeline, 63.57)};
-\legend{Macbook Pro, Raspberry Pi}
-\end{axis}
-\end{tikzpicture}
-\caption{Performance da aplicação}
-\label{fig:performance}
+	\centering
+	\includegraphics[width=150mm]{performance.png}
+	\caption{Performance da aplicação}
+	\label{fig:performance}
 \end{figure}
 
+
 Em teste com a utilização do módulo de câmera em simulação próxima do real, não foi possível
-identificar placas de veículos por causa da performance. As imagens adquiridas ficam muito espaçadas, 
+identificar placas de veículos por causa da performance. As imagens adquiridas ficam muito espaçadas,
 entre um processamento e o outro, e muito raramente consegue-se uma imagem que contenha um carro, deixando
 muitos passarem sem identificação.
 

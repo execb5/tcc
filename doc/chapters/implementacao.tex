@@ -433,8 +433,8 @@ visualizar a imagem.
 
 \section{Otimização com Multiprocessamento em Pipeline} \label{sec:otimizacao}
 
-Ao se processar imagens em um sistema embarcado, é preciso analisar e se adaptar
-às limitações do sistema. O computador \emph{Raspberry Pi} é bastante limitado,
+Ao processar imagens em um sistema embarcado, é preciso analisar e se adaptar às
+limitações do sistema. O computador \emph{Raspberry Pi} é bastante limitado,
 possuindo um processador \emph{Quad Core 1.2GHz Broadcom BCM2837 64bit CPU}. Por
 essa razão, para maximizar o ganho, foi nescessário utilizar técnicas de
 otimização. Dado o fato de ele possuir um \emph{Quad Core}, contendo quatro
@@ -460,7 +460,11 @@ encontrada abaixo:
 	\label{fig:pipeline}
 \end{figure}
 
-Com a utilização do \emph{Pipeline}, o tempo de processamento da primeira imagem vai continuar o mesmo, mas para as próximas imagens, o tempo vai diminuir. Nessas etapas seguintes, se o tempo de processamento de cada etapa for igual, cada imagem vai terminar de ser processada no tempo de processamento de uma etapa, desconsiderando o tempo da comunicação entre os processos.
+Com a utilização do \emph{Pipeline}, o tempo de processamento da primeira imagem
+vai continuar o mesmo, mas para as próximas imagens, o tempo vai diminuir.
+Nessas etapas seguintes, se o tempo de processamento de cada etapa for igual,
+cada imagem vai terminar de ser processada no tempo de processamento de uma
+etapa, desconsiderando o tempo da comunicação entre os processos.
 
 Os quatro processos foram divididos como se segue:
 
