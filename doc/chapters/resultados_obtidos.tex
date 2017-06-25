@@ -3,10 +3,10 @@ testes variados. Este capítulo foi dividido em seções que representam as
 descobertas mais relevantes ao longo da pesquisa e desenvolvimento. A
 Seção~\ref{sec:extracao_da_placa_resultados} vai descrever os resultados obtidos
 na experimentação com a extração da placa e dos caracteres nas imagens. São os casos
-onde o algoritmo detectou a presença de um carro e leu sua placa. A
+onde o algoritmo detectou a presença de um carro e identificou uma placa. A
 Seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os
 resultados obtidos no reconhecimento dos caracteres, avaliar se a placa e caracteres
-extraídos são lidos corretamente. Por fim, a
+extraídos foram lidos corretamente. Por fim, a
 Seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no
 sistema embarcado no computador \emph{Raspberry Pi}.
 
@@ -34,7 +34,7 @@ Imagens onde a placa foi reconhecida corretamente & 19
 \section{Extração da placa e caracteres}
 \label{sec:extracao_da_placa_resultados}
 
-Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa e os caracteres. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa diferença foi possível analisar o sistema nos dois tipos de ambientes. Nas imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto, enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar conclusões, mas indicam que pode existir mais dificuldade para reconhecer placas em imagens mais escuras.
+Das 48 imagens adquiridas, apenas em 22 imagens foi possível extrair a placa e os caracteres. Dessas 48 imagens, 27 foram adquiridas ao ar livre, durante o dia e 21 foram adquiridas em local fechado, com iluminação baixa. Com essa diferenças foi possível analisar o sistema nos dois tipos de ambientes. Nas imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto, enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar conclusões, mas indicam que pode existir mais dificuldade para reconhecer placas em imagens mais escuras.
 
 \begin{table}[]
 \centering
@@ -63,9 +63,9 @@ pequeno, muitas regiões sobram, diminuindo a performance do reconhecimento.
 Outro problema foi observado na extração de placas de carros cuja cor da lataria
 é muito semelhante à cor da placa. Carros de cor prata ou branco são maioria nos casos
 em que a placa não foi encontrada. Isso ocorre pois, na fase de limiarização, não foi 
-possível classificar o tom da lataria e da placa em grupos diferentes. Foram feitos testes
+possível dividir o tom da lataria e da placa em grupos diferentes. Foram feitos testes
 utilizando limiarização adaptativa para comparar os resultados, mas ela obteve menos sucesso
-que utilizando limiar global no geral. Detalhes significativos de cores diferentes também dificultam
+que utilizando limiar global, em geral. Detalhes significativos de cores diferentes também dificultam
 a extração. Na Figura~\ref{fig:peugeot_gay} há um exemplo de veículo que o sistema teve dificuldade
 de reconhecer por estes motivos.
 
@@ -83,8 +83,7 @@ Inicialmente foi utilizado o \emph{software Tesseract} para fazer o
 reconhecimento dos caracteres, mas os resultados utilizando a ferramenta pura
 não foram bons. Mesmo limitando os caracteres possíveis, informando ao
 \emph{software} se o caractere seria um número ou uma letra, ainda havia
-dificuldade no reconhecimento. Mesmo caracteres que não são tão semelhantes,
-como o 5 e o 6, o \emph{software} não conseguiu distinguir.
+dificuldade no reconhecimento.
 
 Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o
 implementado com o algoritmo \emph{K-Nearest Neighbors} os resultados foram bem
@@ -99,8 +98,8 @@ Figura~\ref{fig:plate_torta_result}, foi possível identificar os caracteres.
 	\label{fig:plate_torta_result}
 \end{figure}
 
-Das 22 placas extraídas, em três casos o reconhecedor de caracteres não teve
-capacidade de ler. Dois destes foram causados por problemas na imagem e o outro
+Das 22 placas extraídas, três delas o reconhecedor de caracteres não teve
+capacidade de ler. Dois destes casos foram causados por problemas na imagem e o outro
 foi causado por semelhança de caracteres.
 
 Placas com reflexo causado pelo ambiente, como a luz solar, podem impactar no
@@ -117,7 +116,7 @@ observar uma placa que o reflexo impediu o reconhecimento correto.
 	\label{fig:cagado_reflexo}
 \end{figure}
 
-Placas desgastadas, pelo tempo ou pelo carro ter passado por condições climáticas que o degradaram, também não foram possível reconhecer corretamente. Assim como no caso anterior, os caracteres ficaram desfigurados na fase da limiarização, por terem uma variação muito grande nos tons de cinza. Isso faz com que parte do caractere seja confundido com o fundo. Imagem de placa de carro adquirida onde a placa estava desgastada dificultando o reconhecimento pode ser vista na Figura~\ref{fig:placa_desgastada}.
+Em placas desgastadas, pelo tempo ou pelo carro ter passado por condições climáticas que o degradaram, também houve dificuldade de reconhecimento. Assim como no caso anterior, os caracteres ficaram desfigurados na fase da limiarização, por terem uma variação muito grande nos tons de cinza. Isso faz com que parte do caractere seja confundido com o fundo. Imagem de placa de carro adquirida onde a placa estava desgastada dificultando o reconhecimento pode ser vista na Figura~\ref{fig:placa_desgastada}.
 
 \begin{figure}[H]
 	\centering
@@ -126,7 +125,7 @@ Placas desgastadas, pelo tempo ou pelo carro ter passado por condições climát
 	\label{fig:placa_desgastada}
 \end{figure}
 
-Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de reconhecimento de caractere por motivos não causados pelo ambiente ou qualidade da placa. Em uma imagem adquirida com a placa levemente inclinada, houve confusão, por parte do algoritmo, entre os caracteres "O" e "Q". Estes caracteres já são bastante semelhantes por si só, mas é possível, também, que o fato de a placa estar inclinada tenha amplificado o erro. A imagem que não foi reconhecida corretamente, ao confundir o "O" e o "Q" pode ser vista na Figura~\ref{fig:q_confundido_com_o}.
+Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de reconhecimento de caractere por motivos não causados pelo ambiente ou qualidade da placa. Em uma imagem adquirida com a placa levemente inclinada, houve confusão, por parte do algoritmo, entre os caracteres "O"~e "Q~. Estes caracteres já são bastante semelhantes por si só, mas é possível, também, que o fato de a placa estar inclinada tenha amplificado o erro. A imagem que não foi reconhecida corretamente, ao confundir o "O"~e o "Q", pode ser vista na Figura~\ref{fig:q_confundido_com_o}.
 
 \begin{figure}[H]
 	\centering
@@ -135,10 +134,15 @@ Somente em um caso, nas imagens de teste adquiridas, ocorreu um erro de reconhec
 	\label{fig:q_confundido_com_o}
 \end{figure}
 
-Apesar dos casos em que houve erro, o resultado do reconhecedor de caracteres foi satisfatório. Mesmo tendo sido sido utilizados apenas um exemplo para cada caractere, somente em um caso houve confusão no reconhecimento dos caracteres bem segmentados. Com mais exemplos seria possível um reconhecimento ainda mais preciso, mas essa etapa não é a etapa com mais problemas do projeto, não sendo prioridade para aperfeiçoar.
+Apesar dos casos em que houve erro, o resultado do reconhecedor de caracteres foi satisfatório. Mesmo tendo sido sido utilizados apenas um exemplo para cada caractere na fase de treinamento, somente em um caso houve confusão no reconhecimento dos caracteres bem segmentados. Com mais exemplos seria possível um reconhecimento ainda mais preciso.
 
 \section{Performance em sistema embarcado}
 \label{sec:performance_resultados}
+
+A primeira implementação do algoritmo obteve maus resultados com relação a
+performance quando executada como sistema embarcado no \emph{Raspberry Pi}. 
+O seu tempo de execução foi muito alto, tornando o \emph{software} inviável para 
+o uso em casos reais.
 
 Dado o fato de a solução desenvolvida ser dividida em etapas, é possível avaliar
 quais os passos levam mais tempo para serem executados, que podem ser
@@ -151,9 +155,9 @@ menor.
 Para melhor analisar os resultados comparativos, foram calculadas as médias de
 tempo de execução de cada etapa em múltiplas imagens e calculados seus valores
 percentuais em relação ao tempo total de processamento de uma placa. Esses
-valores independem do \emph{hardware} utilizado e do tamanho de imagem
-utilizado, permitindo uma visão diferente dos resultados. Os resultados
-comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}.
+valores independem do \emph{hardware} utilizado, permitindo uma visão diferente dos resultados. 
+Os resultados comparativos podem ser vistos na Tabela~\ref{tab:resultados_relativos}. A divisão
+das etapas em processos para fazer o \emph{Pipeline} foi feita com base nestes dados.
 
 \begin{table}[H]
 \centering
@@ -175,11 +179,14 @@ Extração das Regiões         & 10\%             \\ \bottomrule
 \end{tabular}
 \end{table}
 
-A primeira implementação do algoritmo teve maus resultados com relação a
-performance.
+Ao aplicar o \emph{Pipeline} em múltiplos processos, com o objetivo de
+utilizar mais do processador do \emph{Raspberry Pi}, houve melhora, mas
+não muito significativa, no tempo. Por motivos de comparação, foi feito
+uma série de testes no \emph{Raspberry Pi} e em um 
+\emph{Macbook Pro}, com processador \emph{}. Foi avaliado o tempo de processamento
+sequencial de uma imagem, o tempo de processamento, sem utilizar múltiplos processos
+de 10 imagens, e o tempo de processamento, utilizando o \emph{Pipeline} de processos
+em 10 imagens. Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.
+Os resultados podem ser vistos na Tabela XXX.
 
-Falar sobre os resultados aqui.
 
-Para tentar aprimorar a velocidade do processamento em imagens consecutivas foi
-aplicado o uso de múltiplos processos, com o objetivo de utilizar todos os
-núcleos do processador do \emph{Raspberry Pi}.
