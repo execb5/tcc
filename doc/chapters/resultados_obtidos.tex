@@ -139,7 +139,7 @@ Apesar dos casos em que houve erro, o resultado do reconhecedor de caracteres fo
 \section{Performance em sistema embarcado}
 \label{sec:performance_resultados}
 
-A primeira implementação do algoritmo obteve maus resultados com relação a
+A implementação do algoritmo obteve maus resultados com relação a
 performance quando executada como sistema embarcado no \emph{Raspberry Pi}. 
 O seu tempo de execução foi muito alto, tornando o \emph{software} inviável para 
 o uso em casos reais.
@@ -166,16 +166,16 @@ das etapas em processos para fazer o \emph{Pipeline} foi feita com base nestes d
 \begin{tabular}{@{}lr@{}}
 \toprule
 Etapa                        & Tempo Percentual \\ \midrule
-Conversão para tons de cinza & 10\%             \\
-Filtro Bilateral             & 10\%             \\
-Equalização do Histograma    & 10\%             \\
-Limiarização                 & 10\%             \\
+Conversão para tons de cinza & 9\%             \\
+Filtro Bilateral             & 22\%             \\
+Equalização do Histograma    & 9\%             \\
+Limiarização                 & 5\%             \\
 Detecção de Bordas           & 10\%             \\
-Dilatação                    & 10\%             \\
-Preenchimento de espaços     & 10\%             \\
-Abertura                     & 10\%             \\
-Fechamento                   & 10\%             \\
-Extração das Regiões         & 10\%             \\ \bottomrule
+Dilatação                    & 6\%             \\
+Preenchimento de espaços     & 5\%             \\
+Abertura                     & 16\%             \\
+Fechamento                   & 16\%             \\
+Extração das Regiões         & 2\%             \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -189,4 +189,8 @@ de 10 imagens, e o tempo de processamento, utilizando o \emph{Pipeline} de proce
 em 10 imagens. Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.
 Os resultados podem ser vistos na Tabela XXX.
 
+Em teste com a utilização do módulo de câmera em simulação próxima do real, não foi possível
+identificar placas de veículos por causa da performance. As imagens adquiridas ficam muito espaçadas, 
+entre um processamento e o outro, e muito raramente consegue-se uma imagem que contenha um carro, deixando
+muitos passaram sem identificação.
 
