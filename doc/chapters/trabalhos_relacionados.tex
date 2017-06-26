@@ -7,7 +7,7 @@ proposta por Serro~\cite{serro2012deteccao} na PUCRS\@. Uma das motivações des
 torna difícil a adaptação de soluções estrangeiras. Neste trabalho foram
 utilizadas técnicas de segmentação de imagens, histograma, cisalhamento de
 imagens e reconhecimento ótico de caracteres utilizando a ferramenta~\emph{Tesseract}. Este último não foi o foco principal do projeto. A metodologia utilizada consistiu das
-seguintes etapas: Calibração do sistema
+seguintes etapas: calibração do sistema
 para definir a região de interesse e o ângulo de cisalhamento; detecção da
 placa; segmentação dos caracteres; e aplicação do reconhecedor ótico de
 caracteres.
@@ -17,7 +17,7 @@ acerto de aproximadamente 54\%, com tempo médio de execução de 0,062 segundos
 A baixa taxa de acerto pode ter sido por problemas de foco e nitidez, o tamanho da placa em
 \emph{pixels} nas imagens e a existência de outros objetos em cena. Todos esses problemas foram citados no desenvolvimento do projeto.
 
-Devido a falta de padronização das placas ao redor do mundo existe uma alternativa que permite ao usuário moldar a solução para se adaptar a todos os casos.  O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr}
+Devido à falta de padronização das placas ao redor do mundo existe uma alternativa que permite ao usuário moldar a solução para se adaptar a todos os casos.  O \emph{software open source Openalpr}\footnote{https://github.com/openalpr/openalpr}
 é uma ferramenta de reconhecimento de placas que autoriza a comunidade a contribuir no desenvolvimento, treinando o reconhecedor de caracteres a reconhecer as placas de seus países. 
 
 \section{Estudos comparativos}
@@ -78,7 +78,7 @@ Por fim, as técnicas de reconhecimento de caracteres analisadas por S Du et al.
 
 \begin{itemize}
 	\item Reconhecimento por combinação de modelos (\emph{Template Matching}). É uma estratégia que pega os caracteres prontos e compara os caracteres a serem reconhecidos com eles. É um método simples, útil para reconhecer caracteres de uma fonte única e tamanho fixo.
-    \item Reconhecimento utilizando características extraídas. É uma alternativa a combinação de modelos. Esta técnica extrai características da imagem, como, por exemplo, formas do caractere. Isso diminui o tempo de processamento pois nem todos os \emph{pixels} estão mais envolvidos. 
+    \item Reconhecimento utilizando características extraídas. É uma alternativa à combinação de modelos. Esta técnica extrai características da imagem, como, por exemplo, formas do caractere. Isso diminui o tempo de processamento pois nem todos os \emph{pixels} estão mais envolvidos. 
 \end{itemize}
 
 \section{Extração da placa}
