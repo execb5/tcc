@@ -146,7 +146,7 @@ aplicada.
 É necessário utilizar um filtro de remoção de ruído que tenha capacidade de
 preservar as bordas, pois a detecção de bordas é um passo muito importante na
 extração da placa. A detecção de bordas será abordada na
-Seção~\ref{sec:detec_bordas}.
+Subseção~\ref{sec:detec_bordas}.
 
 \subsection{Aumento de contraste usando equalização de histograma adaptativo}
 
@@ -154,7 +154,7 @@ Contraste é definido como a diferença entre o nível mais baixo e alto de
 intensidade. Equalização de histograma é o método para distribuir de forma mais
 efetiva o histograma de \emph{pixels}. Equalização de histograma adaptativo
 mostra melhor contraste em relação a equalização de histograma. Na
-Figura~\ref{fig:ext_contrast_adaptive_histogram} foi aplicado o aumento de
+Figura~\ref{fig:ext_contrast_adaptive_histogram}, foi aplicado o aumento de
 contraste utilizando equalização de histograma adaptativo sobre a imagem
 anterior (Figura~\ref{fig:ext_filter_in_gray_scale}).
 
@@ -216,14 +216,14 @@ Figura~\ref{fig:ext_edge_detection_sobel}.
 
 Tendo as bordas detectadas deve-se aplicar uma operação de dilatação sobre a
 imagem processada. O motivo deste passo é deixar as bordas detectadas mais
-fortes. Na operação anterior é possível que existam pequenos furos nas bordas
+fortes. Na operação anterior, é possível que existam pequenos furos nas bordas
 geradas, segmentando a linha desenhada em diversos pedaços. Aplicando a
 dilatação sobre essas bordas, as linhas se fecham deixando as bordas mais
 definidas.
 
 As bordas precisam ser bem definidas para garantir que o retângulo gerado pela
 placa esteja completo. Espaços abertos nessa área podem causar complicações nas
-etapas seguintes. Na Figura~\ref{fig:ext_morphological_dilation} é possível ver
+etapas seguintes. Na Figura~\ref{fig:ext_morphological_dilation}, é possível ver
 as bordas dilatadas e mais definidas.
 
 \begin{figure}[H]
@@ -241,7 +241,7 @@ demarcadas, nesta etapa, sobre a área da placa, haverá um retângulo completo
 fechado. Essa é a etapa da detecção das áreas de placa onde é possível
 identificar visualmente os candidatos a placa. Estes são os pontos onde existem
 grandes conjuntos de \emph{pixels}, as áreas com bordas fechadas que foram
-preenchidas. Na Figura~\ref{fig:ext_holes_filled} pode-se ver a imagem com os
+preenchidas. Na Figura~\ref{fig:ext_holes_filled}, pode-se ver a imagem com os
 buracos preenchidos.
 
 \begin{figure}[H]
@@ -275,7 +275,7 @@ placa.
 Ao localizar as regiões candidatas, pode-se tanto encontrar uma placa, quanto
 regiões falsas, onde não existe placa. Para excluir estas regiões,
 Jia~\cite{jia2007region} sugere que características sejam extraídas para
-diferenciar corretamente as regiões de placa por outras.
+diferenciar corretamente as regiões de placa de outras.
 
 Diversas características podem ser utilizadas com este propósito. Elas incluem o
 tamanho da região, a altura e largura da região, a orientação dos caracteres
@@ -283,7 +283,7 @@ posteriormente extraídos, a intensidade das bordas e a posição da região.
 
 Após a detecção da área da placa, essa área é extraída da imagem. Então os
 índices de linha e coluna da área da placa são encontrados por análise de
-componentes conectados. Na Figura~\ref{fig:ext_true_number_plate} podemos ver a
+componentes conectados. Na Figura~\ref{fig:ext_true_number_plate}, é possível ver a
 imagem placa extraída da imagem original.
 
 \begin{figure}[H]
@@ -424,7 +424,7 @@ restante com \emph{pixels} brancos.
 	\label{fig:classificacao}
 \end{figure}
 
-Na Figura~\ref{fig:classificacao} são mostrados os três vizinhos mais próximos
+Na Figura~\ref{fig:classificacao}, são mostrados os três vizinhos mais próximos
 de um determinado caractere retirado do processamento de uma imagem. A sua
 projeção visual é hipotética e foi criada para representar de uma forma mais
 didática a seleção dos vizinhos. Pode-se reparar a semelhança entre os
@@ -450,8 +450,7 @@ paralelo, pois o processamento de um não depende do outro.
 As etapas de processamento de uma imagem foram divididas em quatro partes com
 tempo de processamento semelhante. Essas quatro etapas vão ser processadas cada
 uma em um núcleo diferente do processador do \emph{Raspberry Pi}, otimizando o
-seu tempo. O \emph{Pipeline} pode ser visto na Figura~\ref{fig:pipeline}
-encontrada abaixo:
+seu tempo. O \emph{Pipeline} pode ser visto na Figura~\ref{fig:pipeline}.
 
 \begin{figure}[H]
 	\centering

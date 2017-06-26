@@ -7,15 +7,15 @@ onde o algoritmo detectou a presença de um carro e identificou uma placa. A
 Seção~\ref{sec:reconhecimento_dos_caracteres_resultados} vai abordar os
 resultados obtidos no reconhecimento dos caracteres, avaliar se a placa e caracteres
 extraídos foram lidos corretamente. Por fim, a
-Seção~\ref{sec:performance_resultados} vai abordar como performa o algoritmo no
+Seção~\ref{sec:performance_resultados} vai abordar o desempenho do algoritmo no
 sistema embarcado no computador \emph{Raspberry Pi}.
 
 Foram coletadas imagens de 48 veículos distintos para analisar a capacidade de
-reconhecimento do sistema. A tabela~\ref{tab:resultados} mostra o número de
+reconhecimento do sistema. A Tabela~\ref{tab:resultados} mostra o número de
 imagens processadas, o número de imagens onde a placa foi encontrada com sucesso
 e o número de imagens onde foi possível reconhecer o valor da placa corretamente.
 Existe uma diferença entre os casos onde não foi possível detectar uma placa e os
-casos onde foi possível mas ela foi detectada erroneamente. No segundo há um falso
+casos onde foi possível mas ela foi detectada erroneamente. No segundo grupo, há um falso
 positivo, identificando um veículo que não estava no local.
 
 \begin{table}[]
@@ -41,9 +41,8 @@ diferenças foi possível analisar o sistema nos dois tipos de ambientes. Nas
 imagens ao ar livre, com boa iluminação, houve um percentual de 55\% de acerto,
 enquanto nas imagens em ambiente fechado, com baixa iluminação, houve um
 percentual de acerto de 33\%. Os resultados comparativos podem ser vistos na
-Tabela~\ref{tab:resultados_ambientes}. Os exemplos são poucos para tirar
-conclusões, mas indicam que pode existir mais dificuldade para reconhecer placas
-em imagens mais escuras.
+Tabela~\ref{tab:resultados_ambientes}. Estes testes confirmam a expectativa de que é mais
+difícil reconhecer placas em imagens onde há menos iluminação.
 
 \begin{table}[]
 \centering
@@ -61,7 +60,7 @@ Percentual de acertos com baixa iluminação 			& 33\%
 \end{tabular}
 \end{table}
 
-O algoritmo de extração da placa é limitado com relação a distância que o carro
+O algoritmo de extração da placa é limitado com relação à distância que o carro
 está na imagem. Na etapa de abertura e fechamento morfológicos, que tem o
 objetivo de detectar as áreas de placas candidatas, o tamanho do elemento
 estruturante influencia diretamente a qualidade da extração. Se utilizado um
@@ -76,7 +75,7 @@ limiarização, não foi possível dividir o tom da lataria e da placa em grupos
 diferentes. Foram feitos testes utilizando limiarização adaptativa para comparar
 os resultados, mas ela obteve menos sucesso que utilizando limiar global, em
 geral. Detalhes significativos de cores diferentes também dificultam a extração.
-Na Figura~\ref{fig:peugeot_gay} há um exemplo de veículo que o sistema teve
+Na Figura~\ref{fig:peugeot_gay}, há um exemplo de veículo que o sistema teve
 dificuldade de reconhecer por estes motivos.
 
 \begin{figure}[H]
@@ -95,7 +94,7 @@ não foram bons. Mesmo limitando os caracteres possíveis, informando ao
 \emph{software} se o caractere seria um número ou uma letra, ainda havia
 dificuldade no reconhecimento.
 
-Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o
+Com a substituição do reconhecedor de caracteres \emph{Tesseract} para o reconhecedor
 implementado com o algoritmo \emph{K-Nearest Neighbors} os resultados foram bem
 melhores, obtendo sucesso no reconhecimento de 86\% das placas extraídas. Até
 mesmo em imagens de placas inclinadas, como é o caso da
@@ -117,7 +116,7 @@ reconhecimento. O sol refletido no caractere da imagem pode dificultar o
 processo de limiarização. Neste processo, ao diferenciar os caracteres escuros
 do fundo cinza, a cor do caractere na imagem fica mais clara, sendo ele
 parcialmente confundido com fundo. Na Figura~\ref{fig:cagado_reflexo} é possível
-observar uma placa que o reflexo impediu o reconhecimento correto.
+observar uma placa em que o reflexo impediu o reconhecimento correto.
 
 \begin{figure}[H]
 	\centering
@@ -185,7 +184,7 @@ percentuais em relação ao tempo total de processamento de uma placa. Esses
 valores independem do \emph{hardware} utilizado, permitindo uma visão diferente
 dos resultados.  Os resultados comparativos podem ser vistos na
 Tabela~\ref{tab:resultados_relativos}, as etapas estão dispostas na ordem em que
-são executados pela aplicação. A divisão das etapas em processos para fazer o
+são executadas pela aplicação. A divisão das etapas em processos para fazer o
 \emph{Pipeline} foi feita com base nestes dados.
 
 \begin{table}[H]
@@ -216,7 +215,7 @@ uma série de testes no \emph{Raspberry Pi} e em um
 de processamento sequencial, sem utilizar múltiplos processos de 10 imagens, e o
 tempo de processamento, utilizando o \emph{Pipeline} de processos em 10 imagens.
 Cada um desses testes foi feito 10 vezes e o seu tempo médio foi calculado.  Os
-resultados podem ser vistos na Figura~\ref{fig:performance} abaixo.
+resultados podem ser vistos na Figura~\ref{fig:performance}.
 
 \begin{figure}[H]
 	\centering
