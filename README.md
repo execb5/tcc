@@ -6,11 +6,11 @@
 
 Complete:
 
-- [ ] *Review introduction*
-- [ ] *Organize related works and add more stuff if possible*
-- [ ] *Talk about algorithms and stuff*
-- [ ] *Review plate extraction solution*
-- [ ] *Review plate cleaning solution*
-- [ ] *Experiment and write about it*
-- [ ] *Write about problems*
-- [ ] *Review conclusion*
+- [X] *Review introduction*
+- [X] *Organize related works and add more stuff if possible*
+- [X] *Talk about algorithms and stuff*
+- [X] *Review plate extraction solution*
+- [X] *Review plate cleaning solution*
+- [X] *Experiment and write about it*
+- [X] *Write about problems*
+- [X] *Review conclusion*
